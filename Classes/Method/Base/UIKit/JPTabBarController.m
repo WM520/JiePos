@@ -7,9 +7,8 @@
 //
 
 #import "JPTabBarController.h"
-
 #import "JPIndexViewController.h"
-#import "JPNewsViewController.h"
+#import "JPSearchViewController.h"
 #import "JPPersonViewController.h"
 
 @interface JPTabBarController () <UITabBarDelegate,UITabBarControllerDelegate>
@@ -96,7 +95,7 @@
 
 - (void)addChildViewControllers {
     [self appendViewController:[JPIndexViewController new] WithTitle:@"首页" WithImageName:@"jp_home_normal" selectImageName:@"jp_home_selected"];
-    [self appendViewController:[JPNewsViewController new] WithTitle:@"交易查询" WithImageName:@"jp_news_normal" selectImageName:@"jp_news_selected"];
+    [self appendViewController:[JPSearchViewController new] WithTitle:@"交易查询" WithImageName:@"jp_news_normal" selectImageName:@"jp_news_selected"];
     [self appendViewController:[JPPersonViewController new] WithTitle:@"我的" WithImageName:@"jp_person_normal" selectImageName:@"jp_person_selected"];
 }
 
