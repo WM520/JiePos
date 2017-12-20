@@ -338,7 +338,7 @@
 //        self.lineView.frame = (CGRect){JPRealValue(30), self.cashView.frame.origin.y + self.cashView.frame.size.height + JPRealValue(20), kScreenWidth - JPRealValue(60), 230 + JPRealValue(372)};
 //    } else {
         //  折线图
-        self.lineView.frame = (CGRect){JPRealValue(30), self.pieView.frame.origin.y + self.pieView.frame.size.height + JPRealValue(20), kScreenWidth - JPRealValue(60), 230 + JPRealValue(372)};
+        self.lineView.frame = (CGRect){JPRealValue(30), self.pieView.frame.origin.y + self.pieView.frame.size.height + JPRealValue(20), kScreenWidth - JPRealValue(60), 230 + JPRealValue(260)};
 //    }
     self.lineView.dealSearchBlock = ^{
         // !!!: 交易查询
@@ -388,7 +388,7 @@
 //        self.lineView.frame = (CGRect){JPRealValue(30), self.cashView.frame.origin.y + self.cashView.frame.size.height + JPRealValue(20), kScreenWidth - JPRealValue(60), 235 + JPRealValue(372)};
 //    } else {
         //  折线图
-        self.lineView.frame = (CGRect){JPRealValue(30), self.pieView.frame.origin.y + self.pieView.frame.size.height + JPRealValue(20), kScreenWidth - JPRealValue(60), 235 + JPRealValue(372) - JPRealValue(98)};
+        self.lineView.frame = (CGRect){JPRealValue(30), self.pieView.frame.origin.y + self.pieView.frame.size.height + JPRealValue(20), kScreenWidth - JPRealValue(60), 235 + JPRealValue(260) - JPRealValue(98)};
 //    }
     //  根据lineView内容自适应高度
     CGSize actualSize = [self.lineView sizeThatFits:CGSizeZero];

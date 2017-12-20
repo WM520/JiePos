@@ -382,7 +382,7 @@
 //        [self addSubview:self.daysView];
         [self addSubview:self.monthView];
         [self addSubview:self.lineView];
-        [self addSubview:self.dealSearchButton];
+//        [self addSubview:self.dealSearchButton];
     }
     return self;
 }

@@ -282,6 +282,7 @@ static NSString *const footerReuseIdentifier = @"footerReuseIdentifier";
         //  查询交易流水
         JPDealFlowViewController *dealFlowVC = [[JPDealFlowViewController alloc] init];
         dealFlowVC.navigationItem.title = @"交易流水";
+        dealFlowVC.hidesBottomBarWhenPushed = YES;
         dealFlowVC.msgFlag = 0;
         if (self.dealModel.merchantType.integerValue == 2) {
             //  总店
@@ -378,30 +379,22 @@ static NSString *const footerReuseIdentifier = @"footerReuseIdentifier";
     titleLab.textColor = [UIColor whiteColor];
     [_navImageView addSubview:titleLab];
     
-    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    leftButton.frame = CGRectMake(10, 25, JPRealValue(60), JPRealValue(60));
-    leftButton.imageEdgeInsets = UIEdgeInsetsMake(JPRealValue(15), JPRealValue(15), JPRealValue(15), JPRealValue(15));
-    [leftButton setImage:[[UIImage imageNamed:@"jp_goBack1.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
-    [leftButton addTarget:self action:@selector(backButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [_navImageView addSubview:leftButton];
+//    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    leftButton.frame = CGRectMake(10, 25, JPRealValue(60), JPRealValue(60));
+//    leftButton.imageEdgeInsets = UIEdgeInsetsMake(JPRealValue(15), JPRealValue(15), JPRealValue(15), JPRealValue(15));
+//    [leftButton setImage:[[UIImage imageNamed:@"jp_goBack1.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+//    [leftButton addTarget:self action:@selector(backButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+//    [_navImageView addSubview:leftButton];
 }
 
 #pragma mark - Action
-- (void)backButtonClicked:(UIButton *)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
+//- (void)backButtonClicked:(UIButton *)sender {
+//    [self.navigationController popViewControllerAnimated:YES];
+//}
 
 - (BOOL)navigationBarHidden {
     return YES;
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
