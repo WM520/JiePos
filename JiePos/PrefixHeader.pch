@@ -1,0 +1,104 @@
+//
+//  PrefixHeader.pch
+//  JiePos
+//
+//  Created by Jason_LJ on 2017/4/13.
+//  Copyright © 2017年 Jason. All rights reserved.
+//
+
+#ifndef PrefixHeader_h
+#define PrefixHeader_h
+
+//  Macro
+#import "JPMacro_Define.h"
+#import "JPMacro_Color.h"
+#import "JPMacro_Url.h"
+#import "JPMacro_String.h"
+#import "JPConst.h"
+
+//  Category
+#import "UIColor+JPFormHex.h"
+#import "UIView+JPExtention.h"
+#import "NSString+JPExtention.h"
+#import "UIImage+JPExtention.h"
+#import "NSDate+JPExtention.h"
+#import "UITextField+Helper.h"
+
+//  Pod
+#import <IQKeyboardManager/IQKeyboardManager.h>
+#import <IQKeyboardManager/IQTextView.h>
+#import <Masonry/Masonry.h>
+#import <MJRefresh/MJRefresh.h>
+#import <SVProgressHUD/SVProgressHUD.h>
+#import <YYText/YYText.h>
+#import <YYModel/YYModel.h>
+#import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
+#import <UMMobClick/MobClick.h>
+#import <UMessage_NOIDFA/UMessage.h>
+#import <SDCycleScrollView/SDCycleScrollView.h>
+#import <FrameAccessor/FrameAccessor.h>
+
+//  Base
+#import "JPNavigationController.h"
+#import "JPLoginViewController.h"
+#import "JPTabBarController.h"
+#import "JPWebViewController.h"
+//#import "JPTableViewController.h"
+
+//  Model
+#import "JPNewsModel.h"
+#import "JPMerchantsModel.h"
+
+//  View
+#import "JPNoNewsView.h"
+#import "KYSNormalPickerView.h"
+#import "JPUserInfoCell.h"
+#import "XWScanImage.h"
+#import "YYFPSLabel.h"
+#import "IBDatePickerView.h"
+#import "IBWaterWaveView.h"
+#import "IBUserInfoView.h"
+
+//  Controller
+
+//  Request
+#import "IBLoginRequest.h"
+#import "IBVersionRequest.h"
+#import "IBHomeRequest.h"
+#import "IBPersonRequest.h"
+
+//  Tools
+#import "IBUUIDManager.h"
+#import "JPDealType.h"
+#import "JPTransferMJ.h"
+#import "JPNetworking.h"
+#import "JPNetworkUtils.h"
+#import "JPRegisterModel.h"
+#import "JPNetTools1_0_2.h"
+#import "JPTool.h"
+#import "JPPushHelper.h"
+#import "JPUserInfoHelper.h"
+#import "JPModifyInfoHelper.h"
+#import "JPAlbumManager.h"
+#import "GBEncodeTool.h"
+#import "IBAnalysis.h"
+#import "IBProgressHUD.h"
+
+//  singleton
+#import "JPUserEntity.h"
+#import "JPPushManager.h"
+#import "IBSwitchManager.h"
+static inline CGFloat TQFontSizeFit(CGFloat value) {
+    if ([UIScreen mainScreen].bounds.size.width < 375.0f) return value * 0.9;
+    if ([UIScreen mainScreen].bounds.size.width > 375.0f) return value * 1.1;
+    return value;
+}
+
+static inline CGFloat TQSizeFitW(CGFloat value) {
+    return value * ([UIScreen mainScreen].bounds.size.width / 375.0f);
+}
+
+static inline CGFloat TQSizeFitH(CGFloat value) {
+    return value * ([UIScreen mainScreen].bounds.size.height / 667.0f);
+}
+#endif /* PrefixHeader_h */
