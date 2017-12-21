@@ -58,12 +58,17 @@
 #define kScreenHeight CGRectGetHeight([UIScreen mainScreen].bounds)
 
 #define JPRealValue(_f_) (_f_)/750.0f*[UIScreen mainScreen].bounds.size.width
-
 #define JP_DefaultsFont [UIFont systemFontOfSize:JPRealValue(30)]
 
 // !!!: weakSelf声明
 #define weakSelf_declare    __weak typeof(self) weakSelf = self
-
+// !!!: color
+#define RGBA(r,g,b,a) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:(a)]
+#define RGB(r,g,b) RGBA(r,g,b,1.0f)
+#define ThemeColor RGBA(245, 245, 245, 1.0f)
+// rgb颜色转换（16进制->10进制）
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+#define DominantColor [UIColor whiteColor]
 /*****************************/
 #ifndef weakify
 #if DEBUG

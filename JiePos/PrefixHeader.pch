@@ -83,6 +83,7 @@
 #import "GBEncodeTool.h"
 #import "IBAnalysis.h"
 #import "IBProgressHUD.h"
+#import "UIColor+Extensions.h"
 
 //  singleton
 #import "JPUserEntity.h"

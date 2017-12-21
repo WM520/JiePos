@@ -307,56 +307,55 @@
 //    return;
     JPMerchantRegisterViewController * registerVC = [[JPMerchantRegisterViewController alloc] init];
     [self.navigationController pushViewController:registerVC animated:YES];
-    return;
-    if ([JPUserInfoHelper dataSource].count > 0) {
-        [JPUserInfoHelper clearData];
-    }
-    
-    //  跳到二维码扫描界面
-    // 1、 获取摄像设备
-    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    if (device) {
-        AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-        if (status == AVAuthorizationStatusNotDetermined) {
-            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-                if (granted) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [MobClick event:@"login_register"];
-                        QRCodeScanningVC *vc = [[QRCodeScanningVC alloc] init];
-                        [self.navigationController pushViewController:vc animated:YES];
-                    });
-                    JPLog(@"用户第一次同意了访问相机权限");
-                    
-                } else {
-                    
-                    // 用户第一次拒绝了访问相机权限
-                    JPLog(@"用户第一次拒绝了访问相机权限");
-                    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您已关闭相机使用权限，请前往 -> [设置 - 杰宝宝] 打开开关" preferredStyle:(UIAlertControllerStyleAlert)];
-                    UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:nil];
-                    [alertC addAction:alertA];
-                    [self presentViewController:alertC animated:YES completion:nil];
-                }
-            }];
-        } else if (status == AVAuthorizationStatusAuthorized) { // 用户允许当前应用访问相机
-            [MobClick event:@"login_register"];
-            QRCodeScanningVC *vc = [[QRCodeScanningVC alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
-        } else if (status == AVAuthorizationStatusDenied) { // 用户拒绝当前应用访问相机
-            UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您已关闭相机使用权限，请前往 -> [设置 - 隐私 - 相机 - 杰宝宝] 打开开关" preferredStyle:(UIAlertControllerStyleAlert)];
-            UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:nil];
-            [alertC addAction:alertA];
-            [self presentViewController:alertC animated:YES completion:nil];
-            
-        } else if (status == AVAuthorizationStatusRestricted) {
-            JPLog(@"因为系统原因, 无法访问相册");
-        }
-    } else {
-        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"未检测到您的摄像头" preferredStyle:(UIAlertControllerStyleAlert)];
-        UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:nil];
-        
-        [alertC addAction:alertA];
-        [self presentViewController:alertC animated:YES completion:nil];
-    }
+//    if ([JPUserInfoHelper dataSource].count > 0) {
+//        [JPUserInfoHelper clearData];
+//    }
+//
+//    //  跳到二维码扫描界面
+//    // 1、 获取摄像设备
+//    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+//    if (device) {
+//        AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+//        if (status == AVAuthorizationStatusNotDetermined) {
+//            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+//                if (granted) {
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        [MobClick event:@"login_register"];
+//                        QRCodeScanningVC *vc = [[QRCodeScanningVC alloc] init];
+//                        [self.navigationController pushViewController:vc animated:YES];
+//                    });
+//                    JPLog(@"用户第一次同意了访问相机权限");
+//
+//                } else {
+//
+//                    // 用户第一次拒绝了访问相机权限
+//                    JPLog(@"用户第一次拒绝了访问相机权限");
+//                    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您已关闭相机使用权限，请前往 -> [设置 - 杰宝宝] 打开开关" preferredStyle:(UIAlertControllerStyleAlert)];
+//                    UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:nil];
+//                    [alertC addAction:alertA];
+//                    [self presentViewController:alertC animated:YES completion:nil];
+//                }
+//            }];
+//        } else if (status == AVAuthorizationStatusAuthorized) { // 用户允许当前应用访问相机
+//            [MobClick event:@"login_register"];
+//            QRCodeScanningVC *vc = [[QRCodeScanningVC alloc] init];
+//            [self.navigationController pushViewController:vc animated:YES];
+//        } else if (status == AVAuthorizationStatusDenied) { // 用户拒绝当前应用访问相机
+//            UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您已关闭相机使用权限，请前往 -> [设置 - 隐私 - 相机 - 杰宝宝] 打开开关" preferredStyle:(UIAlertControllerStyleAlert)];
+//            UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:nil];
+//            [alertC addAction:alertA];
+//            [self presentViewController:alertC animated:YES completion:nil];
+//
+//        } else if (status == AVAuthorizationStatusRestricted) {
+//            JPLog(@"因为系统原因, 无法访问相册");
+//        }
+//    } else {
+//        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"未检测到您的摄像头" preferredStyle:(UIAlertControllerStyleAlert)];
+//        UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:nil];
+//
+//        [alertC addAction:alertA];
+//        [self presentViewController:alertC animated:YES completion:nil];
+//    }
 }
 //  登录
 - (void)handleLoginRequest:(UIButton *)sender {

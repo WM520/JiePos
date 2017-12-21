@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		810517E91FEB571C007B91E7 /* JPCustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 810517E81FEB571C007B91E7 /* JPCustomButton.m */; };
+		810517EC1FEB60B2007B91E7 /* UIColor+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 810517EA1FEB60B2007B91E7 /* UIColor+Extensions.m */; };
+		810517F01FEB89F4007B91E7 /* JPPhoneRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 810517EE1FEB89F4007B91E7 /* JPPhoneRegisterViewController.m */; };
+		810517F11FEB89F4007B91E7 /* JPPhoneRegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 810517EF1FEB89F4007B91E7 /* JPPhoneRegisterViewController.xib */; };
 		815427FC1FD12447000EB2B9 /* JPMerchantRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 815427FA1FD12447000EB2B9 /* JPMerchantRegisterViewController.m */; };
 		815427FD1FD12447000EB2B9 /* JPMerchantRegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 815427FB1FD12447000EB2B9 /* JPMerchantRegisterViewController.xib */; };
 		815C53D01FE8E26F00DD8A23 /* XBSettingSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 815C53CE1FE8E26F00DD8A23 /* XBSettingSectionModel.m */; };
@@ -221,6 +225,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		810517E71FEB571C007B91E7 /* JPCustomButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPCustomButton.h; sourceTree = "<group>"; };
+		810517E81FEB571C007B91E7 /* JPCustomButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPCustomButton.m; sourceTree = "<group>"; };
+		810517EA1FEB60B2007B91E7 /* UIColor+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Extensions.m"; sourceTree = "<group>"; };
+		810517EB1FEB60B2007B91E7 /* UIColor+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Extensions.h"; sourceTree = "<group>"; };
+		810517ED1FEB89F4007B91E7 /* JPPhoneRegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPPhoneRegisterViewController.h; sourceTree = "<group>"; };
+		810517EE1FEB89F4007B91E7 /* JPPhoneRegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPPhoneRegisterViewController.m; sourceTree = "<group>"; };
+		810517EF1FEB89F4007B91E7 /* JPPhoneRegisterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JPPhoneRegisterViewController.xib; sourceTree = "<group>"; };
 		815427F91FD12447000EB2B9 /* JPMerchantRegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPMerchantRegisterViewController.h; sourceTree = "<group>"; };
 		815427FA1FD12447000EB2B9 /* JPMerchantRegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPMerchantRegisterViewController.m; sourceTree = "<group>"; };
 		815427FB1FD12447000EB2B9 /* JPMerchantRegisterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JPMerchantRegisterViewController.xib; sourceTree = "<group>"; };
@@ -678,6 +689,9 @@
 				815427F91FD12447000EB2B9 /* JPMerchantRegisterViewController.h */,
 				815427FA1FD12447000EB2B9 /* JPMerchantRegisterViewController.m */,
 				815427FB1FD12447000EB2B9 /* JPMerchantRegisterViewController.xib */,
+				810517ED1FEB89F4007B91E7 /* JPPhoneRegisterViewController.h */,
+				810517EE1FEB89F4007B91E7 /* JPPhoneRegisterViewController.m */,
+				810517EF1FEB89F4007B91E7 /* JPPhoneRegisterViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -692,6 +706,8 @@
 		815427F31FD10B38000EB2B9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				810517E71FEB571C007B91E7 /* JPCustomButton.h */,
+				810517E81FEB571C007B91E7 /* JPCustomButton.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1711,6 +1727,8 @@
 		BE7A6EB71F69333800340870 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				810517EB1FEB60B2007B91E7 /* UIColor+Extensions.h */,
+				810517EA1FEB60B2007B91E7 /* UIColor+Extensions.m */,
 				817D06451FEA04E800EBB660 /* CALayer+TQAnimated.h */,
 				817D06461FEA04E900EBB660 /* CALayer+TQAnimated.m */,
 				BE7A6EB81F69339000340870 /* UIImage+JPExtention.h */,
@@ -1866,6 +1884,7 @@
 				815C53E41FE901EE00DD8A23 /* JPBindingSuccessViewController.xib in Resources */,
 				815C53DA1FE8EF5300DD8A23 /* JPBindingPhoneNumberViewController.xib in Resources */,
 				815C53DF1FE8F68A00DD8A23 /* JPVerificationCodeViewController.xib in Resources */,
+				810517F11FEB89F4007B91E7 /* JPPhoneRegisterViewController.xib in Resources */,
 				96F9D1861EB2ECA8002D7A44 /* LaunchScreen.storyboard in Resources */,
 				BE2869E91F6908B20002B0D8 /* jiepos_loading.gif in Resources */,
 				815427FD1FD12447000EB2B9 /* JPMerchantRegisterViewController.xib in Resources */,
@@ -2075,6 +2094,7 @@
 				817D06391FEA043000EBB660 /* TQViewController1.m in Sources */,
 				81B922681FE7B105009B5ABB /* VerButton.m in Sources */,
 				96F723BA1EA753C00082D973 /* JPDealPayWayModel.m in Sources */,
+				810517F01FEB89F4007B91E7 /* JPPhoneRegisterViewController.m in Sources */,
 				BE7A6EB21F69330E00340870 /* YUAudioProperty.m in Sources */,
 				960FB9E61F15C3AF00A737A8 /* JPMenuView.m in Sources */,
 				815C53D11FE8E26F00DD8A23 /* XBSettingItemModel.m in Sources */,
@@ -2105,6 +2125,7 @@
 				BE7A6EA61F69330E00340870 /* GBEncodeTool.m in Sources */,
 				BE7A6E291F69329500340870 /* IBSwitchManager.m in Sources */,
 				815427FC1FD12447000EB2B9 /* JPMerchantRegisterViewController.m in Sources */,
+				810517EC1FEB60B2007B91E7 /* UIColor+Extensions.m in Sources */,
 				960FB9BC1F15C28700A737A8 /* JPRegisterProgressView.m in Sources */,
 				BE7A6E271F69329500340870 /* JPNetTools1_0_2.m in Sources */,
 				96F723B71EA753B00082D973 /* JPDealStateModel.m in Sources */,
@@ -2116,6 +2137,7 @@
 				BE7A6E801F69330700340870 /* YYWeakProxy.m in Sources */,
 				960FB9BD1F15C28700A737A8 /* JPRequestLabel.m in Sources */,
 				BE7A6E771F69330700340870 /* SGQRCodeTool.m in Sources */,
+				810517E91FEB571C007B91E7 /* JPCustomButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
