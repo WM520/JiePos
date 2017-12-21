@@ -114,7 +114,7 @@
     }];
 
     UIButton * questionButton = [[UIButton alloc] init];
-    questionButton.backgroundColor = [UIColor redColor];
+    [questionButton setBackgroundImage:[UIImage imageNamed:@"jp_login_question"] forState:UIControlStateNormal];
     [questionButton addTarget:self action:@selector(questionButtonAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:questionButton];
     [questionButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -176,7 +176,9 @@
     }];
     
     UIButton * secureSwitchButton = [[UIButton alloc] init];
-    secureSwitchButton.backgroundColor = [UIColor redColor];
+    secureSwitchButton.selected = NO;
+    [secureSwitchButton setBackgroundImage:[UIImage imageNamed:@"jp_login_zhengyan"] forState:UIControlStateSelected];
+    [secureSwitchButton setBackgroundImage:[UIImage imageNamed:@"jp_login_biyan"] forState:UIControlStateNormal];
     [secureSwitchButton addTarget:self action:@selector(secureSwitchAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:secureSwitchButton];
     _secureSwitchButton = secureSwitchButton;
@@ -562,8 +564,8 @@
 #pragma mark - Methods
 - (void)secureSwitchAction
 {
+    _secureSwitchButton.selected = !_secureSwitchButton.selected;
     self.passwordTextField.secureTextEntry = !self.passwordTextField.secureTextEntry;
-    
     NSString* text = self.passwordTextField.text;
     self.passwordTextField.text = @" ";
     self.passwordTextField.text = text;
