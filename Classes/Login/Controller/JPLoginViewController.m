@@ -15,6 +15,7 @@
 #import <SDWebImage/UIImage+GIF.h>
 #import "XHToast.h"
 #import "JPMerchantRegisterViewController.h"
+#import "UIButton+JPEnlargeTouchArea.h"
 
 #define originMargin JPRealValue(502)
 
@@ -177,14 +178,15 @@
     
     UIButton * secureSwitchButton = [[UIButton alloc] init];
     secureSwitchButton.selected = NO;
+    [secureSwitchButton setEnlargeEdgeWithTop:10 right:10 bottom:10 left:20];
     [secureSwitchButton setBackgroundImage:[UIImage imageNamed:@"jp_login_zhengyan"] forState:UIControlStateSelected];
     [secureSwitchButton setBackgroundImage:[UIImage imageNamed:@"jp_login_biyan"] forState:UIControlStateNormal];
     [secureSwitchButton addTarget:self action:@selector(secureSwitchAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:secureSwitchButton];
     _secureSwitchButton = secureSwitchButton;
     [secureSwitchButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@20);
-        make.width.equalTo(@20);
+        make.height.equalTo(@11);
+        make.width.equalTo(@22);
         make.centerY.equalTo(weakSelf.passwordTextField.mas_centerY);
         make.right.equalTo(weakSelf.passwordTextField).offset(JPRealValue(10));
     }];

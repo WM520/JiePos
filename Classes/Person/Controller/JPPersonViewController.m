@@ -223,13 +223,13 @@ static NSString *const headerReuseIdentifier = @"headerReuseIdentifier";
     [configs1 addObject:@{ imageName : @"jp_person_notice", configName : @"公告" }];
     [configs1 addObject:@{ imageName : @"jp_person_news", configName : @"消息中心" }];
     NSMutableArray *configs2 = @[].mutableCopy;
-    [configs2 addObject:@{ imageName : @"jp_person_questions", configName : @"常见问题" }];
-    [configs2 addObject:@{ imageName : @"jp_person_serviceTel", configName : @"客服电话" }];
+    [configs2 addObject:@{ imageName : @"jp_person_question", configName : @"常见问题" }];
+    [configs2 addObject:@{ imageName : @"jp_person_serviceTel", configName : @"联系方式" }];
     if ([JPUserEntity sharedUserEntity].applyType == 2) {
         [self.dataSource addObject:@[@{ imageName : @"jp_person_codePay", configName : @"我的收款码" }]];
         [self.dataSource addObject:@[@{ imageName : @"jp_person_helper", configName : @"商户自助查询" }]];
-        [self.dataSource addObject:@[@{ imageName : @"jp_person_helper", configName : @"推荐分享" }]];
     }
+    [self.dataSource addObject:@[@{ imageName : @"jp_person_share", configName : @"推荐分享" }]];
     [self.dataSource addObject:configs1];
     [self.dataSource addObject:configs2];
     [self.dataSource addObject:@[@{ imageName : @"jp_person_setting", configName : @"设置" }]];

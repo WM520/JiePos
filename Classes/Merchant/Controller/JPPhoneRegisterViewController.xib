@@ -40,12 +40,13 @@
                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WbU-AY-dbT">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WbU-AY-dbT">
                     <rect key="frame" x="40" y="142" width="295" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="vmD-vf-pVA"/>
                     </constraints>
                     <state key="normal" title="下一步" backgroundImage="jp_merchants_through_bg1"/>
+                    <state key="highlighted" backgroundImage="jp_button_highlighted"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                             <integer key="value" value="10"/>
@@ -75,13 +76,14 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PUo-Ld-eMe">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PUo-Ld-eMe">
                     <rect key="frame" x="255" y="71" width="100" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="6hY-8K-6Ie"/>
                         <constraint firstAttribute="width" constant="100" id="JdC-ew-42d"/>
                     </constraints>
                     <state key="normal" title="获取验证码" backgroundImage="jp_merchants_through_bg1"/>
+                    <state key="highlighted" backgroundImage="jp_button_highlighted"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -140,6 +142,7 @@
         </view>
     </objects>
     <resources>
+        <image name="jp_button_highlighted" width="310" height="45"/>
         <image name="jp_merchants_through_bg1" width="375" height="228"/>
     </resources>
 </document>

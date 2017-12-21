@@ -83,12 +83,13 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                 </textField>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wCi-4M-JKf">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wCi-4M-JKf">
                     <rect key="frame" x="40" y="250" width="295" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="JAv-k8-Utt"/>
                     </constraints>
                     <state key="normal" title="重新获取" backgroundImage="jp_merchants_through_bg1"/>
+                    <state key="highlighted" backgroundImage="jp_button_highlighted"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                             <integer key="value" value="10"/>
@@ -151,6 +152,7 @@
         </view>
     </objects>
     <resources>
+        <image name="jp_button_highlighted" width="310" height="45"/>
         <image name="jp_merchants_through_bg1" width="375" height="228"/>
     </resources>
 </document>

@@ -63,7 +63,7 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
         [self.navigationController pushViewController:bingingVC animated:YES];
     };
     item1.img = [UIImage imageNamed:@"jp_person_phone"];
-    item1.accessoryType = XBSettingAccessoryTypeNone;
+    item1.accessoryType = XBSettingAccessoryTypeDisclosureIndicator;
     item1.detailText = @"13888888888";
     
     XBSettingSectionModel *section1 = [[XBSettingSectionModel alloc]init];

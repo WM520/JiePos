@@ -11,7 +11,7 @@
 
 @interface JPBindingSuccessViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *resultImage;
-
+@property (nonatomic, strong) UIBarButtonItem *rightButtonItem;
 @end
 
 @implementation JPBindingSuccessViewController
@@ -20,13 +20,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"绑定成功";
+    _rightButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarItemClicked)];
+    self.navigationItem.rightBarButtonItem = self.rightButtonItem;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
+- (void)rightBarItemClicked {
+    NSArray * controllers = self.navigationController.viewControllers;
+    [self.navigationController popToViewController:controllers[1] animated:YES];
+}
 - (IBAction)backAction:(id)sender {
     NSArray * controllers = self.navigationController.viewControllers;
     [self.navigationController popToViewController:controllers[1] animated:YES];

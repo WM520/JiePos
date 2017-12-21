@@ -11,6 +11,7 @@
 		810517EC1FEB60B2007B91E7 /* UIColor+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 810517EA1FEB60B2007B91E7 /* UIColor+Extensions.m */; };
 		810517F01FEB89F4007B91E7 /* JPPhoneRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 810517EE1FEB89F4007B91E7 /* JPPhoneRegisterViewController.m */; };
 		810517F11FEB89F4007B91E7 /* JPPhoneRegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 810517EF1FEB89F4007B91E7 /* JPPhoneRegisterViewController.xib */; };
+		810517F71FEB9C04007B91E7 /* UIButton+JPEnlargeTouchArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 810517F61FEB9C04007B91E7 /* UIButton+JPEnlargeTouchArea.m */; };
 		815427FC1FD12447000EB2B9 /* JPMerchantRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 815427FA1FD12447000EB2B9 /* JPMerchantRegisterViewController.m */; };
 		815427FD1FD12447000EB2B9 /* JPMerchantRegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 815427FB1FD12447000EB2B9 /* JPMerchantRegisterViewController.xib */; };
 		815C53D01FE8E26F00DD8A23 /* XBSettingSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 815C53CE1FE8E26F00DD8A23 /* XBSettingSectionModel.m */; };
@@ -232,6 +233,8 @@
 		810517ED1FEB89F4007B91E7 /* JPPhoneRegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPPhoneRegisterViewController.h; sourceTree = "<group>"; };
 		810517EE1FEB89F4007B91E7 /* JPPhoneRegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPPhoneRegisterViewController.m; sourceTree = "<group>"; };
 		810517EF1FEB89F4007B91E7 /* JPPhoneRegisterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JPPhoneRegisterViewController.xib; sourceTree = "<group>"; };
+		810517F51FEB9C04007B91E7 /* UIButton+JPEnlargeTouchArea.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+JPEnlargeTouchArea.h"; sourceTree = "<group>"; };
+		810517F61FEB9C04007B91E7 /* UIButton+JPEnlargeTouchArea.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+JPEnlargeTouchArea.m"; sourceTree = "<group>"; };
 		815427F91FD12447000EB2B9 /* JPMerchantRegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPMerchantRegisterViewController.h; sourceTree = "<group>"; };
 		815427FA1FD12447000EB2B9 /* JPMerchantRegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPMerchantRegisterViewController.m; sourceTree = "<group>"; };
 		815427FB1FD12447000EB2B9 /* JPMerchantRegisterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JPMerchantRegisterViewController.xib; sourceTree = "<group>"; };
@@ -1737,6 +1740,8 @@
 				BE7A6EBB1F69339000340870 /* UITextField+Helper.m */,
 				BE7A6EBC1F69339000340870 /* UIView+JPExtention.h */,
 				BE7A6EBD1F69339000340870 /* UIView+JPExtention.m */,
+				810517F51FEB9C04007B91E7 /* UIButton+JPEnlargeTouchArea.h */,
+				810517F61FEB9C04007B91E7 /* UIButton+JPEnlargeTouchArea.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -2078,6 +2083,7 @@
 				BE7A6E2D1F69329500340870 /* IBUUIDManager.m in Sources */,
 				BEC387041F419B0900E5305C /* JPDealMoneyView.m in Sources */,
 				815C53DE1FE8F68A00DD8A23 /* JPVerificationCodeViewController.m in Sources */,
+				810517F71FEB9C04007B91E7 /* UIButton+JPEnlargeTouchArea.m in Sources */,
 				BE20399A1F454ADD0073C809 /* JPFogetPayPassViewController.m in Sources */,
 				BE187E141F42818D0027C6AA /* JPHomeView.m in Sources */,
 				BE7A6EAD1F69330E00340870 /* YUAudioDataNT.m in Sources */,
