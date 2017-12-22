@@ -1,19 +1,20 @@
 //
-//  TQViewController1.m
-//  TQGestureLockViewDemo_Example
+//  JPModificationViewController.m
+//  JiePos
 //
-//  Created by TQTeam on 2017/11/3.
-//  Copyright © 2017年 TQTeam. All rights reserved.
+//  Created by wangmiao on 2017/12/22.
+//  Copyright © 2017年 WangMiao. All rights reserved.
 //
 
-#import "TQViewController1.h"
+#import "JPModificationViewController.h"
 #import "TQGestureLockView.h"
 #import "TQGestureLockPreview.h"
 #import "TQGesturesPasswordManager.h"
 #import "TQGestureLockHintLabel.h"
 #import "TQGestureLockToast.h"
+#import "TQViewController1.h"
 
-@interface TQViewController1 () <TQGestureLockViewDelegate>
+@interface JPModificationViewController () <TQGestureLockViewDelegate>
 
 @property (nonatomic, strong) UIBarButtonItem *rightButtonItem;
 @property (nonatomic, strong) TQGestureLockView *lockView;
@@ -21,9 +22,10 @@
 @property (nonatomic, strong) TQGestureLockHintLabel *hintLabel;
 @property (nonatomic, strong) TQGesturesPasswordManager *passwordManager;
 @property (nonatomic, strong) UIButton * repeatSettings;
+@property (nonatomic, assign) NSInteger count;
 @end
 
-@implementation TQViewController1
+@implementation JPModificationViewController
 
 - (UIBarButtonItem *)rightButtonItem
 {
@@ -34,9 +36,6 @@
 }
 
 - (void)setNavRightButtonItem {
-//    if (!self.navigationItem.rightBarButtonItem) {
-//        self.navigationItem.rightBarButtonItem = self.rightButtonItem;
-//    }
     if (!self.repeatSettings) {
         weakSelf_declare;
         _repeatSettings = [[UIButton alloc] init];
@@ -63,7 +62,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    _count = 5;
     [self commonInitialization];
     
     [self subviewsInitialization];
@@ -91,7 +90,7 @@
     CGFloat top2 = top1 + spacing - height2 - 15;
     CGRect rect2 = CGRectMake(0, top2, width2, height2);
     
-    CGFloat width3 = 55;
+    CGFloat width3 = 70;
     CGFloat left3 = screenSize.width / 2 - width3 / 2;
     CGFloat top3 = top2 - width3 - 5;
     CGRect rect3 = CGRectMake(left3, top3, width3, width3);
@@ -106,13 +105,17 @@
     _lockView.delegate = self;
     [self.view addSubview:_lockView];
     
+    UIImageView * imageview = [[UIImageView alloc] initWithFrame:rect3];
+    imageview.image = [UIImage imageNamed:@"js_person_logo"];
+    [self.view addSubview:imageview];
+    
     _hintLabel = [[TQGestureLockHintLabel alloc] initWithFrame:rect2];
-    [_hintLabel setNormalText:@"绘制解锁图案"];
+    [_hintLabel setNormalText:@"绘制原密码解锁图案"];
     [self.view addSubview:_hintLabel];
     
-    _preview = [[TQGestureLockPreview alloc] initWithFrame:CGRectIntegral(rect3)];
-    [self.view addSubview:_preview];
-    [_preview redraw];
+//    _preview = [[TQGestureLockPreview alloc] initWithFrame:CGRectIntegral(rect3)];
+//    [self.view addSubview:_preview];
+//    [_preview redraw];
 }
 
 #pragma mark - TQGestureLockViewDelegate
@@ -132,48 +135,25 @@
 
 - (void)gestureLockView:(TQGestureLockView *)gestureLockView finalRightSecurityCodeSting:(NSString *)securityCodeSting
 {
-    if (self.passwordManager.hasFirstPassword == NO) {
-       
-        [gestureLockView setNeedsDisplayGestureLockErrorState:NO];
-        
-        self.passwordManager.firstPassword = securityCodeSting;
-       
-        [_preview redrawWithVerifySecurityCodeString:securityCodeSting];
-        
-        [_hintLabel setNormalText:@"请再次绘制解锁图案"];
-        
-    } else {
-        
-        if ([self.passwordManager.firstPassword isEqualToString:securityCodeSting]) {
-            
-            [gestureLockView setNeedsDisplayGestureLockErrorState:NO];
-          
-            [_hintLabel clearText];
-            
-            [self.passwordManager saveEventuallyPassword:securityCodeSting];
-            if (self.successblock) {
-                self.successblock();
-            }
+    weakSelf_declare;
+    NSString * oldCodeString = [self.passwordManager getEventuallyPassword];
+    if ([oldCodeString isEqualToString:securityCodeSting]) {
             gestureLockView.userInteractionEnabled = NO;
-            
+//            [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:TQGesturesPasswordStorageKey];
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC));
             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                if (_isModification) {
-                    NSArray * controllers = self.navigationController.viewControllers;
-                    [self.navigationController popToViewController:controllers[2] animated:YES];
-                } else {
-                    [self.navigationController popViewControllerAnimated:YES];
-                }
+                TQViewController1 * vc = [[TQViewController1 alloc] init];
+                vc.isModification = YES;
+                vc.title = @"手势密码设置";
+                [weakSelf.navigationController pushViewController:vc animated:YES];
             });
-
-        } else {
-            [gestureLockView setNeedsDisplayGestureLockErrorState:YES];
             
-            [_hintLabel setWarningText:@"与上一次绘制不一致，请重新绘制" shakeAnimated:YES];
-            
-            [self setNavRightButtonItem];
-        }
+    } else {
+        [gestureLockView setNeedsDisplayGestureLockErrorState:YES];
+        self.count--;
+        [_hintLabel setWarningText:[NSString stringWithFormat:@"密码错误，您还可以输入%ld次", self.count] shakeAnimated:YES];
     }
 }
 
 @end
+

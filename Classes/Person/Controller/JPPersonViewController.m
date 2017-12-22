@@ -209,7 +209,7 @@ static NSString *const headerReuseIdentifier = @"headerReuseIdentifier";
     return section == 0 ? headerView : nil;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return JPRealValue(12);
+    return JPRealValue(20);
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     UIView *footerView = [UIView new];

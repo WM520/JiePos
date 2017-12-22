@@ -84,7 +84,7 @@
     //bottomLine
     UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, self.height - 1, _cellwidth, 1)];
     line.backgroundColor = XBMakeColorWithRGB(234, 234, 234, 1);
-    [self.contentView addSubview:line];
+//    [self.contentView addSubview:line];
     
 }
 
@@ -155,6 +155,11 @@
 - (void)setupSwitch
 {
     [self.contentView addSubview:self.aswitch];
+    if (_item.isOn) {
+        [_aswitch setOn:YES];
+    } else {
+        [_aswitch setOn:NO];
+    }
 }
 
 - (void)setupIndicator

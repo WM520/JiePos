@@ -15,7 +15,7 @@
 #import "XBSettingSectionModel.h"
 #import "XBSettingCell.h"
 #import "JPBindingPhoneNumberViewController.h"
-#import "TQViewController1.h"
+#import "JPManageGesticulationViewController.h"
 
 static NSString *settingCellReuseIdentifier = @"settingCell";
 
@@ -89,8 +89,8 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
     item3.accessoryType = XBSettingAccessoryTypeDisclosureIndicator;
     item3.executeCode = ^() {
 //        [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"tel://10010"]];
-        TQViewController1 * vc = [[TQViewController1 alloc] init];
-        vc.title = @"设置手势密码";
+        JPManageGesticulationViewController * vc = [[JPManageGesticulationViewController alloc] init];
+        vc.title = @"手势密码设置";
         [self.navigationController pushViewController:vc animated:YES];
     };
     
@@ -186,7 +186,7 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return JPRealValue(12);
+    return 20;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

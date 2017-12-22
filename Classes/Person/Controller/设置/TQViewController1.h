@@ -9,6 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "JPViewController.h"
 
+typedef void(^SUCCESSBLOCK)();
+
 @interface TQViewController1 :JPViewController
+
+@property (nonatomic, copy) SUCCESSBLOCK successblock;
+@property (nonatomic, assign) BOOL isModification;
 
 @end

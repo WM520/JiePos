@@ -28,6 +28,9 @@
 		817D06431FEA04B400EBB660 /* TQGesturesPasswordManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 817D063F1FEA04B400EBB660 /* TQGesturesPasswordManager.m */; };
 		817D06441FEA04B400EBB660 /* TQGestureLockHintLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 817D06411FEA04B400EBB660 /* TQGestureLockHintLabel.m */; };
 		817D06471FEA04E900EBB660 /* CALayer+TQAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 817D06461FEA04E900EBB660 /* CALayer+TQAnimated.m */; };
+		81A953B11FEC94760009DC27 /* JPManageGesticulationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A953AF1FEC94760009DC27 /* JPManageGesticulationViewController.m */; };
+		81A953B21FEC94760009DC27 /* JPManageGesticulationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81A953B01FEC94760009DC27 /* JPManageGesticulationViewController.xib */; };
+		81A953B51FECD57E0009DC27 /* JPModificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A953B41FECD57E0009DC27 /* JPModificationViewController.m */; };
 		81B9225E1FE7AD14009B5ABB /* JPShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B9225C1FE7AD14009B5ABB /* JPShareViewController.m */; };
 		81B922671FE7B105009B5ABB /* ActionSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B922611FE7B105009B5ABB /* ActionSheetView.m */; };
 		81B922681FE7B105009B5ABB /* VerButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B922621FE7B105009B5ABB /* VerButton.m */; };
@@ -264,6 +267,11 @@
 		817D06411FEA04B400EBB660 /* TQGestureLockHintLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TQGestureLockHintLabel.m; sourceTree = "<group>"; };
 		817D06451FEA04E800EBB660 /* CALayer+TQAnimated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+TQAnimated.h"; sourceTree = "<group>"; };
 		817D06461FEA04E900EBB660 /* CALayer+TQAnimated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+TQAnimated.m"; sourceTree = "<group>"; };
+		81A953AE1FEC94760009DC27 /* JPManageGesticulationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPManageGesticulationViewController.h; sourceTree = "<group>"; };
+		81A953AF1FEC94760009DC27 /* JPManageGesticulationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPManageGesticulationViewController.m; sourceTree = "<group>"; };
+		81A953B01FEC94760009DC27 /* JPManageGesticulationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JPManageGesticulationViewController.xib; sourceTree = "<group>"; };
+		81A953B31FECD57E0009DC27 /* JPModificationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPModificationViewController.h; sourceTree = "<group>"; };
+		81A953B41FECD57E0009DC27 /* JPModificationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPModificationViewController.m; sourceTree = "<group>"; };
 		81B9225B1FE7AD14009B5ABB /* JPShareViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPShareViewController.h; sourceTree = "<group>"; };
 		81B9225C1FE7AD14009B5ABB /* JPShareViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPShareViewController.m; sourceTree = "<group>"; };
 		81B922611FE7B105009B5ABB /* ActionSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetView.m; sourceTree = "<group>"; };
@@ -851,6 +859,11 @@
 				817D063B1FEA04A800EBB660 /* corelock */,
 				817D06381FEA043000EBB660 /* TQViewController1.h */,
 				817D06371FEA042F00EBB660 /* TQViewController1.m */,
+				81A953AE1FEC94760009DC27 /* JPManageGesticulationViewController.h */,
+				81A953AF1FEC94760009DC27 /* JPManageGesticulationViewController.m */,
+				81A953B01FEC94760009DC27 /* JPManageGesticulationViewController.xib */,
+				81A953B31FECD57E0009DC27 /* JPModificationViewController.h */,
+				81A953B41FECD57E0009DC27 /* JPModificationViewController.m */,
 				961BF3271EE8DCFD00D962ED /* JPSettingViewController.h */,
 				961BF3281EE8DCFD00D962ED /* JPSettingViewController.m */,
 				BE2039951F4548A20073C809 /* JPModifyPayPassViewController.h */,
@@ -1890,6 +1903,7 @@
 				815C53DA1FE8EF5300DD8A23 /* JPBindingPhoneNumberViewController.xib in Resources */,
 				815C53DF1FE8F68A00DD8A23 /* JPVerificationCodeViewController.xib in Resources */,
 				810517F11FEB89F4007B91E7 /* JPPhoneRegisterViewController.xib in Resources */,
+				81A953B21FEC94760009DC27 /* JPManageGesticulationViewController.xib in Resources */,
 				96F9D1861EB2ECA8002D7A44 /* LaunchScreen.storyboard in Resources */,
 				BE2869E91F6908B20002B0D8 /* jiepos_loading.gif in Resources */,
 				815427FD1FD12447000EB2B9 /* JPMerchantRegisterViewController.xib in Resources */,
@@ -2066,6 +2080,7 @@
 				BE7A6ECC1F69339800340870 /* UIColor+JPFormHex.m in Sources */,
 				BE7A6EA81F69330E00340870 /* NSData+AES.m in Sources */,
 				81B922671FE7B105009B5ABB /* ActionSheetView.m in Sources */,
+				81A953B11FEC94760009DC27 /* JPManageGesticulationViewController.m in Sources */,
 				BEF39C701F57DF4A008E70D8 /* JPDealFlowCell.m in Sources */,
 				969FF7D91EA6174000A32D85 /* JPQuestionExtentionCell.m in Sources */,
 				960FB9BE1F15C28700A737A8 /* JPSelectButton.m in Sources */,
@@ -2073,6 +2088,7 @@
 				964A821E1E9F02970088C000 /* main.m in Sources */,
 				BE7A6E7E1F69330700340870 /* XWScanImage.m in Sources */,
 				BE7A6EE61F69344E00340870 /* JPNetworking.m in Sources */,
+				81A953B51FECD57E0009DC27 /* JPModificationViewController.m in Sources */,
 				960F4FDC1E9F47080035C9B2 /* JPPersonViewController.m in Sources */,
 				960FB9E31F15C39B00A737A8 /* JPMerchantsModel.m in Sources */,
 				960FB9DF1F15C37A00A737A8 /* JPMerchantsSHViewController.m in Sources */,
