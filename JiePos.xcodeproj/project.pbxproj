@@ -31,6 +31,7 @@
 		81A953B11FEC94760009DC27 /* JPManageGesticulationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A953AF1FEC94760009DC27 /* JPManageGesticulationViewController.m */; };
 		81A953B21FEC94760009DC27 /* JPManageGesticulationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81A953B01FEC94760009DC27 /* JPManageGesticulationViewController.xib */; };
 		81A953B51FECD57E0009DC27 /* JPModificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A953B41FECD57E0009DC27 /* JPModificationViewController.m */; };
+		81A953B81FECEC350009DC27 /* JPGesturePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A953B71FECEC350009DC27 /* JPGesturePasswordViewController.m */; };
 		81B9225E1FE7AD14009B5ABB /* JPShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B9225C1FE7AD14009B5ABB /* JPShareViewController.m */; };
 		81B922671FE7B105009B5ABB /* ActionSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B922611FE7B105009B5ABB /* ActionSheetView.m */; };
 		81B922681FE7B105009B5ABB /* VerButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B922621FE7B105009B5ABB /* VerButton.m */; };
@@ -272,6 +273,8 @@
 		81A953B01FEC94760009DC27 /* JPManageGesticulationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JPManageGesticulationViewController.xib; sourceTree = "<group>"; };
 		81A953B31FECD57E0009DC27 /* JPModificationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPModificationViewController.h; sourceTree = "<group>"; };
 		81A953B41FECD57E0009DC27 /* JPModificationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPModificationViewController.m; sourceTree = "<group>"; };
+		81A953B61FECEC350009DC27 /* JPGesturePasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPGesturePasswordViewController.h; sourceTree = "<group>"; };
+		81A953B71FECEC350009DC27 /* JPGesturePasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPGesturePasswordViewController.m; sourceTree = "<group>"; };
 		81B9225B1FE7AD14009B5ABB /* JPShareViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPShareViewController.h; sourceTree = "<group>"; };
 		81B9225C1FE7AD14009B5ABB /* JPShareViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPShareViewController.m; sourceTree = "<group>"; };
 		81B922611FE7B105009B5ABB /* ActionSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetView.m; sourceTree = "<group>"; };
@@ -1006,6 +1009,8 @@
 		96E024C11E9F5DE800802EDD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				81A953B61FECEC350009DC27 /* JPGesturePasswordViewController.h */,
+				81A953B71FECEC350009DC27 /* JPGesturePasswordViewController.m */,
 				96D20B8A1EC3F432000FC686 /* JPLoginViewController.h */,
 				96D20B8B1EC3F432000FC686 /* JPLoginViewController.m */,
 				96FE19921EA0A36800BA5FE5 /* JPForgetPswViewController.h */,
@@ -2068,6 +2073,7 @@
 				BE7A6EB01F69330E00340870 /* YUAudioPlayer.m in Sources */,
 				BE7A6EC01F69339000340870 /* UIView+JPExtention.m in Sources */,
 				BE0157C01F6A2ACD00D409C0 /* IBMenuView.m in Sources */,
+				81A953B81FECEC350009DC27 /* JPGesturePasswordViewController.m in Sources */,
 				BE7A6EB11F69330E00340870 /* YUAudioPlayList.m in Sources */,
 				BE7A6E721F69330700340870 /* SGQRCodeScanningVC.m in Sources */,
 				BE0157BB1F6A2ACD00D409C0 /* JPLaunchIntroView.m in Sources */,

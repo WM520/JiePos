@@ -49,7 +49,10 @@
     }
     //  记住密码时自动登录
     if (_isRemember && [JP_UserDefults objectForKey:@"passLogin"] && [JP_UserDefults objectForKey:@"userLogin"]) {
-        [self handleLoginRequest:nil];
+        if (!_isGesturePush) {
+            [self handleLoginRequest:nil];
+        }
+        
     }
 }
 

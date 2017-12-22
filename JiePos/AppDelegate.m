@@ -26,6 +26,8 @@
 #import <TencentOpenAPI/QQApiInterface.h>
 #import "WXApi.h"
 
+#import "JPGesturePasswordViewController.h"
+
 
 @interface AppDelegate () <UNUserNotificationCenterDelegate,IFlySpeechSynthesizerDelegate>
 @property (nonatomic, strong) PcmPlayer *audioPlayer;
@@ -397,9 +399,16 @@
 //    self.window.rootViewController = demoVC;
     
     //  设置登录界面为根视图
-    JPNavigationController *loginNav = [[JPNavigationController alloc] initWithRootViewController:[JPLoginViewController new]];
-    self.window.rootViewController = loginNav;
-
+    if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"tq_gesturesPassword"] isEqualToString:@""] || [[NSUserDefaults standardUserDefaults] stringForKey:@"tq_gesturesPassword"] == NULL) {
+        JPLoginViewController * vc = [JPLoginViewController new];
+        vc.isGesturePush = NO;
+        JPNavigationController *loginNav = [[JPNavigationController alloc] initWithRootViewController:vc];
+        self.window.rootViewController = loginNav;
+    } else {
+        JPGesturePasswordViewController * vc = [JPGesturePasswordViewController new];
+        self.window.rootViewController = vc;
+    }
+ 
     JPLaunchIntroView *launchView = [JPLaunchIntroView sharedWithImages:@[@"guide_01", @"guide_02", @"guide_03", @"guide_04"] buttonFrame:CGRectMake(kScreenWidth/2 - JPRealValue(112), kScreenHeight - JPRealValue(126), JPRealValue(224), JPRealValue(64))];
     [self.window bringSubviewToFront:launchView];
 }
