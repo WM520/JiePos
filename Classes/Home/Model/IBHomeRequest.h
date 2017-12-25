@@ -37,6 +37,9 @@
  @param callback 回调
  */
 + (void)getHomeDataWithAccount:(NSString *)account
+                     applyType:(NSUInteger)applyType
+                    merchantId:(NSInteger)merchantId
+                    merchantNo:(NSString *)merchantNo
                       callback:(JPNetCallback)callback;
 
 /**

@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '3D2B08ED9D47FA59F16809BF4FA27B83'
+               BlueprintIdentifier = 'D931EA473BC043C9688F380FBB3B3FEF'
                BlueprintName = 'TQGestureLockView'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libTQGestureLockView.a'>

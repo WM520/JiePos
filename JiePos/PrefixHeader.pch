@@ -35,6 +35,7 @@
 #import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
 #import <UMMobClick/MobClick.h>
 #import <UMessage_NOIDFA/UMessage.h>
+#import <SDAutoLayout/SDAutoLayout.h>
 #import <SDCycleScrollView/SDCycleScrollView.h>
 #import <FrameAccessor/FrameAccessor.h>
 

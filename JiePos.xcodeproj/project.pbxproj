@@ -32,6 +32,7 @@
 		81A953B21FEC94760009DC27 /* JPManageGesticulationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81A953B01FEC94760009DC27 /* JPManageGesticulationViewController.xib */; };
 		81A953B51FECD57E0009DC27 /* JPModificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A953B41FECD57E0009DC27 /* JPModificationViewController.m */; };
 		81A953B81FECEC350009DC27 /* JPGesturePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A953B71FECEC350009DC27 /* JPGesturePasswordViewController.m */; };
+		81A953BB1FF094710009DC27 /* WMCustomAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A953B91FF094710009DC27 /* WMCustomAlert.m */; };
 		81B9225E1FE7AD14009B5ABB /* JPShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B9225C1FE7AD14009B5ABB /* JPShareViewController.m */; };
 		81B922671FE7B105009B5ABB /* ActionSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B922611FE7B105009B5ABB /* ActionSheetView.m */; };
 		81B922681FE7B105009B5ABB /* VerButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B922621FE7B105009B5ABB /* VerButton.m */; };
@@ -275,6 +276,8 @@
 		81A953B41FECD57E0009DC27 /* JPModificationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPModificationViewController.m; sourceTree = "<group>"; };
 		81A953B61FECEC350009DC27 /* JPGesturePasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPGesturePasswordViewController.h; sourceTree = "<group>"; };
 		81A953B71FECEC350009DC27 /* JPGesturePasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPGesturePasswordViewController.m; sourceTree = "<group>"; };
+		81A953B91FF094710009DC27 /* WMCustomAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMCustomAlert.m; sourceTree = "<group>"; };
+		81A953BA1FF094710009DC27 /* WMCustomAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMCustomAlert.h; sourceTree = "<group>"; };
 		81B9225B1FE7AD14009B5ABB /* JPShareViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPShareViewController.h; sourceTree = "<group>"; };
 		81B9225C1FE7AD14009B5ABB /* JPShareViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPShareViewController.m; sourceTree = "<group>"; };
 		81B922611FE7B105009B5ABB /* ActionSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetView.m; sourceTree = "<group>"; };
@@ -1391,6 +1394,8 @@
 		BE3C15341F5E85FE00692B28 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				81A953BA1FF094710009DC27 /* WMCustomAlert.h */,
+				81A953B91FF094710009DC27 /* WMCustomAlert.m */,
 				BE3C15351F5E862700692B28 /* IBTextView.h */,
 				BE3C15361F5E862700692B28 /* IBTextView.m */,
 				BE37AF811F5FE41E00283D60 /* IBPopView.h */,
@@ -2100,6 +2105,7 @@
 				960FB9DF1F15C37A00A737A8 /* JPMerchantsSHViewController.m in Sources */,
 				96F723A71EA72A530082D973 /* KYSDatePickerView.m in Sources */,
 				BE3C15371F5E862700692B28 /* IBTextView.m in Sources */,
+				81A953BB1FF094710009DC27 /* WMCustomAlert.m in Sources */,
 				817D06431FEA04B400EBB660 /* TQGesturesPasswordManager.m in Sources */,
 				96F723A11EA72A4A0082D973 /* KYSNormalPickerView.m in Sources */,
 				BE7A6E2D1F69329500340870 /* IBUUIDManager.m in Sources */,

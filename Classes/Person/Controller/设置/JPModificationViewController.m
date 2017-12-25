@@ -138,15 +138,16 @@
     weakSelf_declare;
     NSString * oldCodeString = [self.passwordManager getEventuallyPassword];
     if ([oldCodeString isEqualToString:securityCodeSting]) {
-            gestureLockView.userInteractionEnabled = NO;
+        gestureLockView.userInteractionEnabled = NO;
+        [gestureLockView setNeedsDisplayGestureLockErrorState:YES];
 //            [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:TQGesturesPasswordStorageKey];
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC));
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                TQViewController1 * vc = [[TQViewController1 alloc] init];
-                vc.isModification = YES;
-                vc.title = @"手势密码设置";
-                [weakSelf.navigationController pushViewController:vc animated:YES];
-            });
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            TQViewController1 * vc = [[TQViewController1 alloc] init];
+            vc.isModification = YES;
+            vc.title = @"手势密码设置";
+            [weakSelf.navigationController pushViewController:vc animated:YES];
+        });
             
     } else {
         [gestureLockView setNeedsDisplayGestureLockErrorState:YES];

@@ -59,13 +59,15 @@
  @param callback 回调
  */
 + (void)getHomeDataWithAccount:(NSString *)account
+                     applyType:(NSUInteger)applyType
+                    merchantId:(NSInteger)merchantId
+                    merchantNo:(NSString *)merchantNo
                       callback:(JPNetCallback)callback {
-    
+
     NSMutableDictionary *dataDic = @{}.mutableCopy;
-    
     NSString *data = [JPTool dictionaryToJson:dataDic];
-    
-    [self postWithServiceCode:@"JBB30" account:account data:data callback:^(NSString *code, NSString *msg, id resp) {
+
+    [self postWithServiceCode:@"JBB39" account:account data:data callback:^(NSString *code, NSString *msg, id resp) {
         callback (code, msg, resp);
     }];
 }

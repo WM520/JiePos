@@ -38,14 +38,20 @@
 @property (nonatomic, copy) NSString *weixin;
 /** 支付宝总交易金额*/
 @property (nonatomic, copy) NSString *alipay;
+/** 京东总交易金额 */
+@property (nonatomic, copy) NSString *jdpay;
+/** qq钱包 */
+@property (nonatomic, copy) NSString *qqpay;
+/** 银联二维码总交易金额*/
+@property (nonatomic, copy) NSString *unionpay;
 /** 微信总交易金额*/
 @property (nonatomic, copy) NSString *wxqrcode;
 /** 支付宝总交易金额*/
 @property (nonatomic, copy) NSString *apqrcode;
-/** 银联二维码总交易金额*/
-@property (nonatomic, copy) NSString *unionpay;
 /** 今日累计交易金额*/
 @property (nonatomic, copy) NSString *todayTotal;
+
+
 @end
 
 @interface IBAdvertisementModel : NSObject

@@ -15,6 +15,8 @@
 #import "JPCodeViewController.h"
 #import "JPLastestNewsDetailViewController.h"
 #import <ShareSDK/ShareSDK.h>
+#import "WMCustomAlert.h"
+#import "JPBindingPhoneNumberViewController.h"
 //  背景音乐
 #import "YUAudio.h"
 
@@ -46,6 +48,9 @@
 @property (nonatomic, strong) NSMutableArray *adertisementList;
 /** 是否可提现*/
 //@property (nonatomic, assign) BOOL canGetCash;
+@property (nonatomic, assign) BOOL isShow;
+// 消费形式list
+@property (nonatomic, strong) NSArray * segmentTitleArray;
 @end
 
 @implementation JPIndexViewController
@@ -126,8 +131,8 @@
     // !!!: 首页金额数据
     dispatch_group_enter(group);
     
-    [IBHomeRequest getHomeDataWithAccount:[JPUserEntity sharedUserEntity].account callback:^(NSString *code, NSString *msg, id resp) {
-        
+
+    [IBHomeRequest getHomeDataWithAccount:[JPUserEntity sharedUserEntity].account applyType:[JPUserEntity sharedUserEntity].applyType merchantId:[JPUserEntity sharedUserEntity].merchantId merchantNo:[JPUserEntity sharedUserEntity].merchantNo callback:^(NSString *code, NSString *msg, id resp) {
         id obj = [IBAnalysis analysisWithEncryptString:resp privateKey:[JPUserEntity sharedUserEntity].privateKey];
         if ([obj isKindOfClass:[NSDictionary class]]) {
             if (code.integerValue == 0) {
@@ -135,11 +140,11 @@
                 if (dic.count > 0) {
                     JPLog(@"dic --- %@", dic);
                     JPHomeModel *model = [JPHomeModel yy_modelWithDictionary:dic];
-//                    weakSelf.lineView.dayNum = homeModel.todayTotal;
-                    
+                    //                    weakSelf.lineView.dayNum = homeModel.todayTotal;
+                
                     NSInteger curMonthTransAt = [model.curMonthTransAt doubleValue] * 100;
                     weakSelf.lineView.monthNum = [NSString stringWithFormat:@"%.2f", curMonthTransAt / 100.0];
-                    
+                    weakSelf.segmentTitleArray = [dic objectForKey:@"payList"];
                     [[NSNotificationCenter defaultCenter] postNotificationName:kCFNewNoticeNotification object:model];
                 }
             } else {
@@ -150,6 +155,7 @@
         }
         dispatch_group_leave(group);
     }];
+    
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
         //  请求完毕后的处理
         [weakSelf reloadScrollSubviews];
@@ -173,6 +179,17 @@
     if (self.isRolling) {
         // 开启跑马灯
         [self.rollingView.horizontalMarquee marqueeOfSettingWithState:MarqueeStart_H];
+    }
+    
+    if ([JP_UserDefults objectForKey:@"appPhone"] && _isShow != YES) {
+        _isShow = YES;
+        WMCustomAlert * alert = [[WMCustomAlert alloc] initWithTitle:@"您还没有绑定手机号，请绑定手机号" cancleButtonTitle:@"取消" commitButtonTitle:@"设置" isCancleImage:nil];
+        weakSelf_declare;
+        alert.commitBlock = ^{
+            JPBindingPhoneNumberViewController * vc = [[JPBindingPhoneNumberViewController alloc] init];
+            [weakSelf.navigationController pushViewController:vc animated:YES];
+        };
+        [alert show];
     }
     
     //  播放背景音乐
@@ -217,18 +234,74 @@
         
         JPHomeModel *model = (JPHomeModel *)note.object;
         
-        //  环状图
-        if ([JPUserEntity sharedUserEntity].applyType == 1) {
-            //  K9商户
-            weakSelf.pieView.segmentDataArray = @[model.weixin, model.alipay, model.jieji, model.bank].mutableCopy;
-            weakSelf.pieView.segmentTitleArray = @[@"微信", @"支付宝",@"借记卡", @"贷记卡"].mutableCopy;
-            weakSelf.pieView.segmentColorArray = @[[UIColor colorWithHexString:@"0ddddd"], [UIColor colorWithHexString:@"7a93f5"], [UIColor colorWithHexString:@"f5b87a"], [UIColor colorWithHexString:@"c87af5"]].mutableCopy;
-        } else {
-            //  一码付商户
-            weakSelf.pieView.segmentDataArray = @[model.wxqrcode, model.apqrcode].mutableCopy;
-            weakSelf.pieView.segmentTitleArray = @[@"微信", @"支付宝"].mutableCopy;
-            weakSelf.pieView.segmentColorArray = @[[UIColor colorWithHexString:@"0ddddd"], [UIColor colorWithHexString:@"7a93f5"]].mutableCopy;
+//        weakSelf.pieView.segmentTitleArray = [NSMutableArray arrayWithArray:self.segmentTitleArray];
+//        //  环状图
+//        if ([JPUserEntity sharedUserEntity].applyType == 1) {
+//            //  K9商户
+//            weakSelf.pieView.segmentDataArray = @[model.weixin, model.alipay, model.jieji, model.bank].mutableCopy;
+////            weakSelf.pieView.segmentTitleArray = @[@"微信", @"支付宝",@"借记卡", @"贷记卡"].mutableCopy;
+//            weakSelf.pieView.segmentColorArray = @[[UIColor colorWithHexString:@"0ddddd"], [UIColor colorWithHexString:@"7a93f5"], [UIColor colorWithHexString:@"f5b87a"], [UIColor colorWithHexString:@"c87af5"],[UIColor colorWithHexString:@"0ddddd"], [UIColor colorWithHexString:@"7a93f5"],[UIColor colorWithHexString:@"0ddddd"]].mutableCopy;
+//        } else {
+//            //  一码付商户
+//            weakSelf.pieView.segmentDataArray = @[model.wxqrcode, model.apqrcode].mutableCopy;
+//            weakSelf.pieView.segmentTitleArray = @[@"微信", @"支付宝"].mutableCopy;
+//            weakSelf.pieView.segmentColorArray = @[[UIColor colorWithHexString:@"0ddddd"], [UIColor colorWithHexString:@"7a93f5"]].mutableCopy;
+//        }
+        NSMutableArray * dataArray = [NSMutableArray array];
+        NSMutableArray * colorArray = [NSMutableArray array];
+        NSMutableArray * titleArray = [NSMutableArray array];
+        for (int i = 0; i < self.segmentTitleArray.count; i++) {
+            if ([_segmentTitleArray[i] isEqualToString:@"bank"]) {
+                [dataArray addObject:model.bank];
+                [titleArray addObject:@"贷记卡"];
+                [colorArray addObject:[UIColor colorWithHexString:@"c87af5"]];
+            }
+            if ([_segmentTitleArray[i] isEqualToString:@"jieji"]) {
+                [dataArray addObject:model.jieji];
+                [titleArray addObject:@"借记卡"];
+                [colorArray addObject:[UIColor colorWithHexString:@"f5b87a"]];
+            }
+            if ([_segmentTitleArray[i] isEqualToString:@"alipay"]) {
+                if ([JPUserEntity sharedUserEntity].applyType == 1) {
+                    [dataArray addObject:model.alipay];
+                } else {
+                    [dataArray addObject:model.apqrcode];
+                }
+
+                [titleArray addObject:@"支付宝"];
+                [colorArray addObject:[UIColor colorWithHexString:@"7a93f5"]];
+            }
+            if ([_segmentTitleArray[i] isEqualToString:@"weixin"]) {
+                if ([JPUserEntity sharedUserEntity].applyType == 1) {
+                    [dataArray addObject:model.weixin];
+                } else {
+                    [dataArray addObject:model.wxqrcode];
+                }
+                [titleArray addObject:@"微信"];
+                [colorArray addObject:[UIColor colorWithHexString:@"0ddddd"]];
+            }
+            
+            if ([_segmentTitleArray[i] isEqualToString:@"qqpay"]) {
+                [dataArray addObject:model.qqpay];
+                [titleArray addObject:@"qq钱包"];
+                [colorArray addObject:[UIColor colorWithHexString:@"#57E191"]];
+            }
+            if ([_segmentTitleArray[i] isEqualToString:@"jdpay"]) {
+                [dataArray addObject:model.jdpay];
+                [titleArray addObject:@"京东钱包"];
+                [colorArray addObject:[UIColor colorWithHexString:@"FC6074"]];
+            }
+            
+            if ([_segmentTitleArray[i] isEqualToString:@"unionpay"]) {
+                [dataArray addObject:model.unionpay];
+                [titleArray addObject:@"银联二维码"];
+                [colorArray addObject:[UIColor colorWithHexString:@"FDD55A"]];
+            }
+            
         }
+        weakSelf.pieView.segmentDataArray = dataArray;
+        weakSelf.pieView.segmentTitleArray = titleArray;
+        weakSelf.pieView.segmentColorArray = colorArray;
         
         NSInteger todayTotal = [model.todayTotal doubleValue] * 100;
         weakSelf.pieView.ammountLab.text = [NSString stringWithFormat:@"%.2f", todayTotal / 100.0];
@@ -417,6 +490,14 @@
         _adertisementList = @[].mutableCopy;
     }
     return _adertisementList;
+}
+
+- (NSArray *)segmentTitleArray
+{
+    if (!_segmentTitleArray) {
+        _segmentTitleArray = [NSArray array];
+    }
+    return _segmentTitleArray;
 }
 
 #pragma mark - Subviews
