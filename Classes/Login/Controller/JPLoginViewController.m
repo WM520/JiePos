@@ -34,6 +34,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"tq_gesturesPassword"] isEqualToString:@""] || [[NSUserDefaults standardUserDefaults] stringForKey:@"tq_gesturesPassword"] == NULL) {
+        self.view.hidden = NO;
+    }
     //  密码输入框
     UITextField *passField = [self.view viewWithTag:106];
     //  用户名输入框
@@ -53,7 +56,6 @@
         if (!_isGesturePush) {
             [self handleLoginRequest:nil];
         }
-        
     }
 }
 
@@ -70,7 +72,6 @@
         [JP_UserDefults setBool:YES forKey:@"defaultRemember"];
     }
     _isRemember = [JP_UserDefults boolForKey:@"remember"];
-    
     [self handleUserInterface];
 }
 
@@ -508,7 +509,7 @@
                 
                 NSString *userName = [keys containsObject:@"username"] ? dic[@"username"] : _userNameTextField.text;
                 
-                [[JPUserEntity sharedUserEntity] setIsLogin:YES account:userName merchantNo:merchantNo merchantId:[dic[@"merchantId"] integerValue] merchantName:dic[@"merchantName"] applyType:[dic[@"applyType"] integerValue] privateKey:dic[@"privateKey"] publicKey:dic[@"publicKey"]];
+                [[JPUserEntity sharedUserEntity] setIsLogin:YES account:userName merchantNo:merchantNo merchantId:[dic[@"merchantId"] integerValue] merchantName:dic[@"merchantName"] applyType:[dic[@"applyType"] integerValue] privateKey:dic[@"privateKey"] publicKey:dic[@"publicKey"] userId:dic[@"userId"]];
                                 
                 if (_isRemember) {
                     [JP_UserDefults setObject:_passwordTextField.text forKey:@"passLogin"];

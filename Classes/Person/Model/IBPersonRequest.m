@@ -485,4 +485,58 @@
                      }];
 }
 
+// 检测号码唯一性
++ (void)checkIsOnlyPhone:(NSString *)phoneNumber
+                 account:(NSString *)account
+                callback:(JPNetCallback)callback
+{
+    NSMutableDictionary *dataDic = @{}.mutableCopy;
+    [dataDic setObject:phoneNumber forKey:@"appPhone"];
+    NSString *data = [JPTool dictionaryToJson:dataDic];
+    [self postWithServiceCode:@"JBB34"
+                      account:account
+                         data:data
+                     callback:^(NSString *code, NSString *msg, id resp) {
+                         callback (code, msg, resp);
+                     }];
+}
+
+// 发送验证码
++ (void)sendSmsPhoneCode:(NSString *)phoneNumber
+                 account:(NSString *)account
+                callback:(JPNetCallback)callback
+{
+    NSMutableDictionary *dataDic = @{}.mutableCopy;
+    [dataDic setObject:phoneNumber forKey:@"appPhone"];
+    NSString *data = [JPTool dictionaryToJson:dataDic];
+    [self postWithServiceCode:@"JBB35"
+                      account:account
+                         data:data
+                     callback:^(NSString *code, NSString *msg, id resp) {
+                         callback (code, msg, resp);
+                     }];
+}
+
+// 校验短信验证码
++ (void)checkIsOKPhoneCode:(NSString *)code
+                  appPhone:(NSString *)appPhone
+                    userId:(NSString *)userId
+                   account:(NSString *)account
+                  callback:(JPNetCallback)callback
+{
+    NSMutableDictionary *dataDic = @{}.mutableCopy;
+    [dataDic setObject:appPhone forKey:@"appPhone"];
+    [dataDic setObject:code forKey:@"code"];
+    [dataDic setObject:userId forKey:@"userId"];
+    
+    NSString *data = [JPTool dictionaryToJson:dataDic];
+    [self postWithServiceCode:@"JBB36"
+                      account:account
+                         data:data
+                     callback:^(NSString *code, NSString *msg, id resp) {
+                         callback (code, msg, resp);
+                     }];
+}
+
+
 @end

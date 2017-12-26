@@ -15,6 +15,8 @@
                 <outlet property="firstNumberField" destination="VsQ-8l-tpm" id="oiG-nK-ADS"/>
                 <outlet property="fiveNumberField" destination="bJE-dP-Ogg" id="p8j-X6-vMh"/>
                 <outlet property="fourNumberField" destination="bQP-JQ-WZH" id="NkB-q3-Ugj"/>
+                <outlet property="getCodeButton" destination="wCi-4M-JKf" id="lpb-DY-OBt"/>
+                <outlet property="numberLabel" destination="58v-Hf-ol1" id="Voj-7B-mKA"/>
                 <outlet property="secondNumberFiled" destination="52s-zZ-Vwu" id="YAt-Bt-X8X"/>
                 <outlet property="sixNumberField" destination="kVP-cs-chX" id="7wG-xs-Jxq"/>
                 <outlet property="threeNumberField" destination="894-m6-3al" id="Vvr-dw-GbL"/>
@@ -44,7 +46,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VsQ-8l-tpm">
+                <textField opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VsQ-8l-tpm">
                     <rect key="frame" x="40" y="175" width="45" height="45"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="VsQ-8l-tpm" secondAttribute="height" multiplier="1:1" id="HTQ-wM-jjl"/>
@@ -53,31 +55,31 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                 </textField>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="52s-zZ-Vwu">
+                <textField opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="52s-zZ-Vwu">
                     <rect key="frame" x="90" y="175" width="45" height="45"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                 </textField>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="894-m6-3al">
+                <textField opaque="NO" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="894-m6-3al">
                     <rect key="frame" x="140" y="175" width="45" height="45"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                 </textField>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bQP-JQ-WZH">
+                <textField opaque="NO" tag="104" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bQP-JQ-WZH">
                     <rect key="frame" x="190" y="175" width="45" height="45"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                 </textField>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bJE-dP-Ogg">
+                <textField opaque="NO" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bJE-dP-Ogg">
                     <rect key="frame" x="240" y="175" width="45" height="45"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                 </textField>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kVP-cs-chX">
+                <textField opaque="NO" tag="106" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kVP-cs-chX">
                     <rect key="frame" x="290" y="175" width="45" height="45"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>

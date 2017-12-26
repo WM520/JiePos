@@ -43,7 +43,8 @@ static JPUserEntity *__userEntity = nil;
       merchantName:(NSString *)merchantName
          applyType:(NSInteger)applyType
         privateKey:(NSString *)privateKey
-         publicKey:(NSString *)publicKey {
+         publicKey:(NSString *)publicKey
+            userId:(NSString *)userId{
         
     if (_isLogin != isLogin) {
         _isLogin = isLogin;
@@ -68,6 +69,9 @@ static JPUserEntity *__userEntity = nil;
     }
     if (_publicKey != publicKey) {
         _publicKey = [publicKey copy];
+    }
+    if (_userId != userId) {
+        _userId = [userId copy];
     }
 }
 

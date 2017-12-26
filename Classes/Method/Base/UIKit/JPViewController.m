@@ -213,7 +213,7 @@
                 [[JPPushManager sharedManager] makeIsBindAlias:NO];
             }];
             
-            [[JPUserEntity sharedUserEntity] setIsLogin:NO account:@"" merchantNo:nil merchantId:0 merchantName:@"" applyType:0 privateKey:@"" publicKey:@""];
+            [[JPUserEntity sharedUserEntity] setIsLogin:NO account:@"" merchantNo:nil merchantId:0 merchantName:@"" applyType:0 privateKey:@"" publicKey:@"" userId:@""];
         }
         
         NSString *message = (NSString *)note.object;

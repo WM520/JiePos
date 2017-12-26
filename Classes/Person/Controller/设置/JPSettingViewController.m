@@ -64,7 +64,11 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
     };
     item1.img = [UIImage imageNamed:@"jp_person_phone"];
     item1.accessoryType = XBSettingAccessoryTypeDisclosureIndicator;
-    item1.detailText = @"13888888888";
+    if ([JP_UserDefults objectForKey:@"appPhone"]) {
+        item1.detailText = [NSString stringWithFormat:@"%@****%@", [[JP_UserDefults objectForKey:@"appPhone"] substringToIndex:3], [[JP_UserDefults objectForKey:@"appPhone"] substringFromIndex:7]];
+    } else {
+        item1.detailText = @"请绑定手机号";
+    }
     
     XBSettingSectionModel *section1 = [[XBSettingSectionModel alloc]init];
     section1.sectionHeaderHeight = 18;
@@ -268,18 +272,21 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
                 [[JPPushManager sharedManager] makeIsBindAlias:NO];
             }];
             
-            [[JPUserEntity sharedUserEntity] setIsLogin:NO account:@"" merchantNo:nil merchantId:0 merchantName:@"" applyType:0 privateKey:@"" publicKey:@""];
+            [[JPUserEntity sharedUserEntity] setIsLogin:NO account:@"" merchantNo:nil merchantId:0 merchantName:@"" applyType:0 privateKey:@"" publicKey:@"" userId:@""];
                         
 //            [JP_UserDefults removeObjectForKey:@"userLogin"];
             [JP_UserDefults removeObjectForKey:@"passLogin"];
 //            [JP_UserDefults removeObjectForKey:@"deviceToken"];
-            
             //  首页跑马灯
             [JP_UserDefults removeObjectForKey:@"isRolling"];
             [JP_UserDefults removeObjectForKey:@"roll"];
+            [JP_UserDefults removeObjectForKey:@"tq_gesturesPassword"];
+            [JP_UserDefults removeObjectForKey:@"appPhone"];
             [JP_UserDefults synchronize];
             
-            [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            [weakSelf dismissViewControllerAnimated:YES completion:^{
+                
+            }];
         }
     }];
     

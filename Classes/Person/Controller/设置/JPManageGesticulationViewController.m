@@ -45,17 +45,22 @@ UITableViewDataSource>
 {
     [super viewWillAppear:animated];
     self.passwordManager = [TQGesturesPasswordManager manager];
-    if (![_passwordManager.getEventuallyPassword  isEqual: @""]) {
-        self.isOn = YES;
-    } else {
+    NSLog(@"%@", _passwordManager.getEventuallyPassword);
+    
+    if ([_passwordManager.getEventuallyPassword  isEqual: @""] || _passwordManager.getEventuallyPassword  == NULL) {
         self.isOn = NO;
+    } else {
+        self.isOn = YES;
     };
 }
 
 - (void)configData
 {
     self.passwordManager = [TQGesturesPasswordManager manager];
-    if (![_passwordManager.getEventuallyPassword  isEqual: @""]) {
+    if ([_passwordManager.getEventuallyPassword  isEqual: @""] || _passwordManager.getEventuallyPassword  == NULL) {
+        _isOn = NO;
+        
+    } else {
         _isOn = YES;
         XBSettingItemModel *item2 = [[XBSettingItemModel alloc]init];
         item2.funcName = @"修改手势密码";
@@ -66,9 +71,6 @@ UITableViewDataSource>
         section2.sectionHeaderHeight = 18;
         section2.itemArray = @[item2];
         _section2 = section2;
-        
-    } else {
-        _isOn = NO;
     };
     weakSelf_declare;
     XBSettingItemModel *item1 = [[XBSettingItemModel alloc]init];

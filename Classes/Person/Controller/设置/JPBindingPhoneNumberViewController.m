@@ -10,6 +10,7 @@
 #import "JPVerificationCodeViewController.h"
 
 @interface JPBindingPhoneNumberViewController ()
+<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *numberTextField;
 
 @end
@@ -20,6 +21,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"更换手机号";
+    self.numberTextField.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -27,8 +29,29 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)nextTap:(id)sender {
-    JPVerificationCodeViewController * codeVC = [[JPVerificationCodeViewController alloc] init];
-    [self.navigationController pushViewController:codeVC animated:YES];
+    
+    [IBPersonRequest checkIsOnlyPhone:self.numberTextField.text account:[JPUserEntity sharedUserEntity].account callback:^(NSString *code, NSString *msg, id resp) {
+        if (code.integerValue == 0) {
+            JPVerificationCodeViewController * codeVC = [[JPVerificationCodeViewController alloc] init];
+            codeVC.numberPhone = self.numberTextField.text;
+            [self.navigationController pushViewController:codeVC animated:YES];
+        } else {
+            [IBProgressHUD showInfoWithStatus:msg];
+        }
+    }];
+
+}
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if (textField == _numberTextField) {
+        NSString *toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        if (toBeString.length > 11 && range.length!=1){
+            textField.text = [toBeString substringToIndex:11];
+            return NO;
+        }
+    }
+    return YES;
 }
 
 

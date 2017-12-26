@@ -138,8 +138,9 @@
         //            [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:TQGesturesPasswordStorageKey];
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            JPNavigationController *loginNav = [[JPNavigationController alloc] initWithRootViewController:[JPLoginViewController new]];
-            loginNav.view.hidden = YES;
+            JPLoginViewController * vc = [JPLoginViewController new];
+            JPNavigationController *loginNav = [[JPNavigationController alloc] initWithRootViewController:vc];
+            vc.view.hidden = YES;
             [weakSelf presentViewController:loginNav animated:YES completion:nil];
         });
         
@@ -147,12 +148,18 @@
         [gestureLockView setNeedsDisplayGestureLockErrorState:YES];
         self.count--;
         [_hintLabel setWarningText:[NSString stringWithFormat:@"密码错误，您还可以输入%ld次", self.count] shakeAnimated:YES];
+        if (_count <= 0) {
+            [JP_UserDefults removeObjectForKey:@"passLogin"];
+            JPNavigationController *loginNav = [[JPNavigationController alloc] initWithRootViewController:[JPLoginViewController new]];
+            [weakSelf presentViewController:loginNav animated:YES completion:nil];
+        }
     }
 }
 
 #pragma mark - Methods
 - (void)login
 {
+    [JP_UserDefults removeObjectForKey:@"passLogin"];
     JPLoginViewController * vc = [JPLoginViewController new];
     JPNavigationController *loginNav = [[JPNavigationController alloc] initWithRootViewController:vc];
     vc.isGesturePush = YES;

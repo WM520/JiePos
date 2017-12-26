@@ -27,6 +27,8 @@
 /** 公钥*/
 @property (nonatomic, copy, readonly) NSString *publicKey;
 
+@property (nonatomic, copy, readonly) NSString * userId;
+
 //  单例方法
 + (JPUserEntity *)sharedUserEntity;
 
@@ -49,5 +51,6 @@
       merchantName:(NSString *)merchantName
          applyType:(NSInteger)applyType
         privateKey:(NSString *)privateKey
-         publicKey:(NSString *)publicKey;
+         publicKey:(NSString *)publicKey
+            userId:(NSString *)userId;
 @end

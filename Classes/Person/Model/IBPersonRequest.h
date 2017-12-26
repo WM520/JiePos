@@ -204,4 +204,19 @@
                                           imgs:(id)imgs
                                         remark:(NSString *)remark
                                       callback:(JPNetCallback)callback;
+// 检测号码唯一性
++ (void)checkIsOnlyPhone:(NSString *)phoneNumber
+                 account:(NSString *)account
+                callback:(JPNetCallback)callback;
+
+// 发送验证码
++ (void)sendSmsPhoneCode:(NSString *)phoneNumber
+                 account:(NSString *)account
+                callback:(JPNetCallback)callback;
+// 校验短信验证码
++ (void)checkIsOKPhoneCode:(NSString *)code
+                  appPhone:(NSString *)appPhone
+                    userId:(NSString *)userId
+                   account:(NSString *)account
+                  callback:(JPNetCallback)callback;
 @end

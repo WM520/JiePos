@@ -181,7 +181,7 @@
         [self.rollingView.horizontalMarquee marqueeOfSettingWithState:MarqueeStart_H];
     }
     
-    if ([JP_UserDefults objectForKey:@"appPhone"] && _isShow != YES) {
+    if (([JP_UserDefults objectForKey:@"appPhone"] == NULL) && _isShow != YES) {
         _isShow = YES;
         WMCustomAlert * alert = [[WMCustomAlert alloc] initWithTitle:@"您还没有绑定手机号，请绑定手机号" cancleButtonTitle:@"取消" commitButtonTitle:@"设置" isCancleImage:nil];
         weakSelf_declare;
