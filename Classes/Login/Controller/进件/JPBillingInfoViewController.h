@@ -40,4 +40,8 @@
 @property (nonatomic, copy) NSString *mcc;
 /** 备注*/
 @property (nonatomic, copy) NSString *remark;
+/** 无码注册的手机号 */
+@property (nonatomic, copy) NSString * phoneNumber;
+/** 商户进件的类型 */
+@property (nonatomic, copy) NSString * qrcodeFlag;
 @end

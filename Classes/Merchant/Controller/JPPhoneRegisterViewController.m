@@ -10,9 +10,12 @@
 #import "IBBaseInfoViewController.h"
 
 @interface JPPhoneRegisterViewController ()
+<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *getCodeButton;
 @property (nonatomic, strong)NSTimer *timer;
 @property (nonatomic , assign)NSInteger time;
+@property (weak, nonatomic) IBOutlet UITextField *phoneTextField;
+@property (weak, nonatomic) IBOutlet UITextField *codeTextFiled;
 @end
 
 @implementation JPPhoneRegisterViewController
@@ -21,6 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.phoneTextField.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -31,13 +35,29 @@
 #pragma mark - Methods
 
 - (IBAction)getMessageCode:(id)sender {
-    _getCodeButton.userInteractionEnabled = NO;
-    self.timer.fireDate = [NSDate distantPast];
+    [JPNetTools1_0_2 checkIsOnlyPhone:self.phoneTextField.text callback:^(NSString *code, NSString *msg, id resp) {
+        if ([msg isEqualToString:@"成功"]) {
+            _getCodeButton.userInteractionEnabled = NO;
+            self.timer.fireDate = [NSDate distantPast];
+            [JPNetTools1_0_2 sendSmsPhoneCode:self.phoneTextField.text callback:^(NSString *code, NSString *msg, id resp) {
+                [IBProgressHUD showInfoWithStatus:msg];
+            }];
+        } else {
+            [IBProgressHUD showInfoWithStatus:msg];
+        }
+    }];
 }
 - (IBAction)nextTap:(id)sender {
-    IBBaseInfoViewController *baseInfoVC = [IBBaseInfoViewController new];
-    baseInfoVC.qrcodeid = @"739ea4cac8aa4266a9041aa53cb5ab2b";
-    [self.navigationController pushViewController:baseInfoVC animated:YES];
+    [JPNetTools1_0_2 checkCodeIsOK:self.phoneTextField.text code:self.codeTextFiled.text callback:^(NSString *code, NSString *msg, id resp) {
+        if ([code  isEqual: @"00"]) {
+            IBBaseInfoViewController *baseInfoVC = [IBBaseInfoViewController new];
+            baseInfoVC.qrcodeid = @"";
+            baseInfoVC.phoneNumber = self.phoneTextField.text;
+            [self.navigationController pushViewController:baseInfoVC animated:YES];
+        } else {
+            [IBProgressHUD showInfoWithStatus:msg];
+        }
+    }];
 }
 
 - (void)timeUp
@@ -52,6 +72,18 @@
         self.time = 60;
     }
     
+}
+#pragma mark - UITextFieldDelegate
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if (textField == _phoneTextField) {
+        NSString *toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        if (toBeString.length > 11 && range.length!=1){
+            textField.text = [toBeString substringToIndex:11];
+            [textField resignFirstResponder];
+            return NO;
+        }
+    }
+    return YES;
 }
 
 #pragma mark - Getter&&Setter

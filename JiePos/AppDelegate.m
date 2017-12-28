@@ -404,7 +404,7 @@
         vc.isGesturePush = NO;
         JPNavigationController *loginNav = [[JPNavigationController alloc] initWithRootViewController:vc];
         self.window.rootViewController = loginNav;
-    } else {
+    } else { // 有手势密码走手势密码登录逻辑
         JPGesturePasswordViewController * vc = [JPGesturePasswordViewController new];
         self.window.rootViewController = vc;
     }

@@ -59,6 +59,8 @@
 @property (nonatomic, strong) NSMutableArray *indusList;
 /** 行业编号*/
 @property (nonatomic, strong) NSMutableArray *indusNoList;
+/** 进件类型 */
+@property (nonatomic, strong) NSString * qrcodeFlag;
 @end
 
 @implementation IBBaseInfoViewController
@@ -71,7 +73,7 @@
     
     // !!!: 注册省市区县
     dispatch_group_enter(group);
-    [JPNetTools1_0_2 getRegisterAddressWithParent:@"1" level:@"1" qrcodeId:self.qrcodeid callback:^(NSString *code, NSString *msg, id resp) {
+    [JPNetTools1_0_2 getRegisterAddressWithParent:@"1" level:@"1" qrcodeId:self.qrcodeid qrcodeFlag:self.qrcodeFlag callback:^(NSString *code, NSString *msg, id resp) {
         JPLog(@"注册省市区县 %@ - %@ - %@", code, msg, resp);
         if ([code isEqualToString:@"00"]) {
             if ([resp isKindOfClass:[NSArray class]]) {
@@ -117,6 +119,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    if ([self.qrcodeid isEqualToString:@""]) {
+        self.qrcodeFlag = @"2";
+    } else {
+        self.qrcodeFlag = @"1";
+    }
     self.isEnterprise = true;
     self.hasLicence = true;
     [self.view addSubview:self.scrollView];
@@ -195,7 +202,7 @@
             NSInteger i = [provinceData indexOfObject:provinceView.textLab.text];
             JPCityModel *model = weakSelf.provinces[i];
             
-            [JPNetTools1_0_2 getRegisterAddressWithParent:model.code level:@"2" qrcodeId:weakSelf.qrcodeid callback:^(NSString *code, NSString *msg, id resp) {
+            [JPNetTools1_0_2 getRegisterAddressWithParent:model.code level:@"2" qrcodeId:weakSelf.qrcodeid qrcodeFlag:weakSelf.qrcodeFlag callback:^(NSString *code, NSString *msg, id resp) {
                 JPLog(@"市 === %@", resp);
                 if ([code isEqualToString:@"00"]) {
                     if ([resp isKindOfClass:[NSArray class]]) {
@@ -251,7 +258,7 @@
                 NSInteger i = [cityData indexOfObject:citiView.leftLab.text];
                 JPCityModel *model = weakSelf.cities[i];
                 
-                [JPNetTools1_0_2 getRegisterAddressWithParent:model.code level:@"3" qrcodeId:weakSelf.qrcodeid callback:^(NSString *code, NSString *msg, id resp) {
+                [JPNetTools1_0_2 getRegisterAddressWithParent:model.code level:@"3" qrcodeId:weakSelf.qrcodeid qrcodeFlag:weakSelf.qrcodeFlag callback:^(NSString *code, NSString *msg, id resp) {
                     JPLog(@"区/县 === %@", resp);
                     if ([code isEqualToString:@"00"]) {
                         if ([resp isKindOfClass:[NSArray class]]) {
@@ -790,7 +797,7 @@
             dispatch_group_enter(group);
             [SVProgressHUD showWithStatus:@"验证商户名称，请稍后..."];
             
-            [JPNetTools1_0_2 vaildBusinessInfoWithCheckCode:@"01" content:businessName callback:^(NSString *code, NSString *msg, id resp) {
+            [JPNetTools1_0_2 vaildBusinessInfoWithCheckCode:@"01" content:businessName qrcodeFlag:weakSelf.qrcodeFlag callback:^(NSString *code, NSString *msg, id resp) {
                 JPLog(@"查询商户名称是否存在 %@ - %@ - %@", code, msg, resp);
                 
                 if ([code isEqualToString:@"00"]) {
@@ -833,7 +840,7 @@
             // !!!: 查询用户名是否存在
             dispatch_group_enter(group);
             [SVProgressHUD showWithStatus:@"验证用户名，请稍后..."];
-            [JPNetTools1_0_2 vaildBusinessInfoWithCheckCode:@"02" content:userName callback:^(NSString *code, NSString *msg, id resp) {
+            [JPNetTools1_0_2 vaildBusinessInfoWithCheckCode:@"02" content:userName qrcodeFlag:self.qrcodeFlag callback:^(NSString *code, NSString *msg, id resp) {
                 JPLog(@"查询用户名是否存在 %@ - %@ - %@", code, msg, resp);
                 
                 if ([code isEqualToString:@"00"]) {
@@ -886,6 +893,9 @@
                 billInfoVC.userName = userName;
                 billInfoVC.IDCardNumber = idcardNumber;
                 billInfoVC.remark = remark;
+                billInfoVC.phoneNumber = weakSelf.phoneNumber;
+                billInfoVC.qrcodeFlag = weakSelf.qrcodeFlag;
+                
                 for (JPCityModel *model in weakSelf.provinces) {
                     if ([model.name isEqualToString:registerProvidence]) {
                         billInfoVC.registerProvince = model.code;

@@ -1478,7 +1478,7 @@ static NSString *const collectCellReuseIdentifier = @"collectCellReuseIdentifier
             if (cell.valueHasChange && cell.hasImage) {
                 
                 dispatch_group_enter(group);
-                [JPNetTools1_0_2 uploadImage:cell.bgView.image isUpdate:true checkContent:[JPUserEntity sharedUserEntity].account tagStr:cell.imgCode progress:nil callback:^(NSString *code, NSString *msg, id resp) {
+                [JPNetTools1_0_2 uploadImageold:cell.bgView.image isUpdate:true checkContent:[JPUserEntity sharedUserEntity].account tagStr:cell.imgCode progress:nil callback:^(NSString *code, NSString *msg, id resp) {
                     JPLog(@"图片上传 %@ - %@ - %@", code, msg, resp);
                     if ([code isEqualToString:@"00"]) {
                         

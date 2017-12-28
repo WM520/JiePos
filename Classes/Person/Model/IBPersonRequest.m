@@ -302,7 +302,7 @@
     //  data里面需要存放string类型的字符串
     NSString *update = isUpdate ? @"true" : @"false";
     NSString *dataString = [NSString stringWithFormat:@"{\"checkContent\":\"%@\",\"isUpdate\":%@}", checkContent, update];
-    
+#warning img2 多一个参数
     /** 服务编码*/
     [dataDic setObject:@"JBB11" forKey:@"serviceCode"];
     [dataDic setObject:dataString forKey:@"data"];
@@ -431,6 +431,122 @@
                                     merchantId:(NSString *)merchantId
                                           imgs:(id)imgs
                                         remark:(NSString *)remark
+                                    qrcodeFlag:(NSString *)qrcodeFlag
+                                      appPhone:(NSString *)appPhone
+                                      callback:(JPNetCallback)callback {
+    
+    NSMutableDictionary *dataDic = @{}.mutableCopy;
+    
+    [dataDic setObject:merchantCategory forKey:@"merchantCategory"];
+    [dataDic setObject:certificateImgType forKey:@"certificateImgType"];
+    [dataDic setObject:merchantName forKey:@"merchantName"];
+    [dataDic setObject:merchantShortName forKey:@"merchantShortName"];
+    [dataDic setObject:registerProvinceCode forKey:@"registerProvinceCode"];
+    [dataDic setObject:registerCityCode forKey:@"registerCityCode"];
+    [dataDic setObject:registerDistrictCode forKey:@"registerDistrictCode"];
+    [dataDic setObject:registerAddress forKey:@"registerAddress"];
+    [dataDic setObject:industryType forKey:@"industryType"];
+    [dataDic setObject:mcc forKey:@"mcc"];
+    [dataDic setObject:industryNo forKey:@"industryNo"];
+    [dataDic setObject:legalPersonName forKey:@"legalPersonName"];
+    [dataDic setObject:username forKey:@"username"];
+    [dataDic setObject:accountIdcard forKey:@"accountIdcard"];
+    [dataDic setObject:accountType forKey:@"accountType"];
+    [dataDic setObject:accountProvinceCode forKey:@"accountProvinceCode"];
+    [dataDic setObject:accountCityCode forKey:@"accountCityCode"];
+    [dataDic setObject:accountBankNameId forKey:@"accountBankNameId"];
+    [dataDic setObject:alliedBankCode forKey:@"alliedBankCode"];
+    [dataDic setObject:accountBankBranchName forKey:@"accountBankBranchName"];
+    [dataDic setObject:account forKey:@"account"];
+    [dataDic setObject:accountName forKey:@"accountName"];
+    [dataDic setObject:contactMobilePhone forKey:@"contactMobilePhone"];
+    [dataDic setObject:qrcodeFlag forKey:@"qrcodeFlag"];
+    [dataDic setObject:appPhone forKey:@"appPhone"];
+    if (qrcodeId) {
+        [dataDic setObject:qrcodeId forKey:@"qrcodeId"];
+    } else {
+        [dataDic setObject:@"" forKey:@"qrcodeId"];
+    }
+    if (merchantId) {
+        [dataDic setObject:merchantId forKey:@"merchantId"];
+    } else {
+        [dataDic setObject:@"" forKey:@"merchantId"];
+    }
+    [dataDic setObject:imgs forKey:@"imgs"];
+    if (remark) {
+        [dataDic setObject:remark forKey:@"remark"];
+    } else {
+        [dataDic setObject:@"" forKey:@"remark"];
+    }
+    
+    NSString *data = [JPTool dictionaryToJson:dataDic];
+    [self postWithServiceCode:@"JBB37"
+                      account:account
+                         data:data
+                     callback:^(NSString *code, NSString *msg, id resp) {
+                         callback (code, msg, resp);
+                     }];
+}
+
+/**
+ 商户进件资料提交
+ 
+ @param merchantCategory        商户类别    1-企业类；2-个体
+ @param certificateImgType      证件照类别   根据商户类别的值来动态赋值，0-企业类；1-个体有照，2无
+ @param merchantName            商户名称
+ @param merchantShortName       商户简称
+ @param registerProvinceCode    注册省份    传code
+ @param registerCityCode        注册地市    传code
+ @param registerDistrictCode    注册区县    传code
+ @param registerAddress         注册详细地址
+ @param industryType            行业类型-大类     直接传名称
+ @param mcc                     行业类型-小类     小类编码
+ @param industryNo              行业类型描述-小类
+ @param legalPersonName         法人姓名
+ @param username                用户名
+ @param accountIdcard           身份证号
+ @param accountType             账户类型    1-对公，2-对私
+ @param accountProvinceCode     开户地省份   传code
+ @param accountCityCode         开户地市    传code
+ @param accountBankNameId       银行名称    传名称
+ @param alliedBankCode          银联号     支行的code
+ @param accountBankBranchName   支行名称    传名称
+ @param account                 开户银行帐号
+ @param accountName             开户账号名称
+ @param contactMobilePhone      预留手机号
+ @param qrcodeId                二维码     商户入住时必传
+ @param merchantId              主键      商户修改时必传
+ @param imgs                    图片集合    证件照集合，同证件资料获取
+ @param remark                  备注
+ @param callback                回调
+ */
++ (void)commitMerchantInfoWithMerchantCategory:(NSString *)merchantCategory
+                            certificateImgType:(NSString *)certificateImgType
+                                  merchantName:(NSString *)merchantName
+                             merchantShortName:(NSString *)merchantShortName
+                          registerProvinceCode:(NSString *)registerProvinceCode
+                              registerCityCode:(NSString *)registerCityCode
+                          registerDistrictCode:(NSString *)registerDistrictCode
+                               registerAddress:(NSString *)registerAddress
+                                  industryType:(NSString *)industryType
+                                           mcc:(NSString *)mcc
+                                    industryNo:(NSString *)industryNo
+                               legalPersonName:(NSString *)legalPersonName
+                                      username:(NSString *)username
+                                 accountIdcard:(NSString *)accountIdcard
+                                   accountType:(NSString *)accountType
+                           accountProvinceCode:(NSString *)accountProvinceCode
+                               accountCityCode:(NSString *)accountCityCode
+                             accountBankNameId:(NSString *)accountBankNameId
+                                alliedBankCode:(NSString *)alliedBankCode
+                         accountBankBranchName:(NSString *)accountBankBranchName
+                                       account:(NSString *)account
+                                   accountName:(NSString *)accountName
+                            contactMobilePhone:(NSString *)contactMobilePhone
+                                      qrcodeId:(NSString *)qrcodeId
+                                    merchantId:(NSString *)merchantId
+                                          imgs:(id)imgs
+                                        remark:(NSString *)remark
                                       callback:(JPNetCallback)callback {
     
     NSMutableDictionary *dataDic = @{}.mutableCopy;
@@ -476,7 +592,6 @@
     }
     
     NSString *data = [JPTool dictionaryToJson:dataDic];
-    
     [self postWithServiceCode:@"JBB10"
                       account:account
                          data:data
@@ -484,6 +599,7 @@
                          callback (code, msg, resp);
                      }];
 }
+
 
 // 检测号码唯一性
 + (void)checkIsOnlyPhone:(NSString *)phoneNumber

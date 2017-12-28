@@ -14,9 +14,9 @@
 #pragma mark - PushServer
 //  注册推送
 /** 生产环境*/
-//static NSString *const jp_UMessageAlias_url = @"http://59.56.101.183:11830/cpay-acps-push/processMchntInfo/saveMchntInfo";
+static NSString *const jp_UMessageAlias_url = @"http://59.56.101.183:11830/cpay-acps-push/processMchntInfo/saveMchntInfo";
 /** 测试环境*/
-static NSString *const jp_UMessageAlias_url = @"http://139.196.226.55:8083/cpay-acps-push/processMchntInfo/saveMchntInfo";
+//static NSString *const jp_UMessageAlias_url = @"http://139.196.226.55:8083/cpay-acps-push/processMchntInfo/saveMchntInfo";
 // 退出登录注销token
 /** 生产环境*/
 static NSString *const jp_UMessage_logout_url = @"http://59.56.101.183:11830/cpay-acps-push/processMchntInfo/logOut";
@@ -33,7 +33,8 @@ static NSString *const JPServerUrl = @"http://wx.jiepos.com/jpay-spmp/";
 
 //  v1.0.2之后接口
 #define JPNewServerUrl [NSString stringWithFormat:@"%@app/jbb", JPServerUrl]
-#define JPImgServerUrl [NSString stringWithFormat:@"%@app/jbb/img", JPServerUrl]
+//#define JPImgServerUrl [NSString stringWithFormat:@"%@app/jbb/img", JPServerUrl]
+#define JPImgServerUrl [NSString stringWithFormat:@"%@app/jbb/img2", JPServerUrl]
 
 #pragma mark - 接口地址
 /** 登录*/

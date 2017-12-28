@@ -203,7 +203,7 @@ static NSString *const footerViewReuseIdentifier = @"footerView";
                     [IBProgressHUD loadingWithStatus:@"进件信息提交中，请耐心等待"];
                     
                     dispatch_group_enter(group);
-                    [JPNetTools1_0_2 uploadImage:cell.bgView.image isUpdate:false checkContent:weakSelf.qrcodeid tagStr:cell.imgCode progress:nil callback:^(NSString *code, NSString *msg, id resp) {
+                    [JPNetTools1_0_2 uploadImage:cell.bgView.image isUpdate:false checkContent:weakSelf.qrcodeid qrcodeFlag: weakSelf.qrcodeFlag tagStr:cell.imgCode progress:nil callback:^(NSString *code, NSString *msg, id resp) {
                         JPLog(@"图片上传 %@ - %@ - %@", code, msg, resp);
                         if ([code isEqualToString:@"00"]) {
                             
@@ -236,7 +236,7 @@ static NSString *const footerViewReuseIdentifier = @"footerView";
                 
                 [MobClick event:@"credentialsCommit"];
                 
-                [IBPersonRequest commitMerchantInfoWithMerchantCategory:merchantCategory certificateImgType:certificateImgType merchantName:weakSelf.merchantName merchantShortName:weakSelf.merchantShortName registerProvinceCode:weakSelf.registerProvince registerCityCode:weakSelf.registerCity registerDistrictCode:weakSelf.registerCounty registerAddress:weakSelf.detailAddress industryType:weakSelf.mainIndustry mcc:weakSelf.mcc industryNo:weakSelf.secondaryIndustry legalPersonName:weakSelf.legalName username:weakSelf.userName accountIdcard:weakSelf.IDCardNumber accountType:accountType accountProvinceCode:weakSelf.accountProvinceName accountCityCode:weakSelf.accountCityName accountBankNameId:weakSelf.bankName alliedBankCode:weakSelf.alliedBankCode accountBankBranchName:weakSelf.accountBankBranchName account:weakSelf.account accountName:weakSelf.accountUserName contactMobilePhone:weakSelf.contactMobilePhone qrcodeId:weakSelf.qrcodeid merchantId:nil imgs:dataArray remark:weakSelf.remark callback:^(NSString *code, NSString *msg, id resp) {
+                [IBPersonRequest commitMerchantInfoWithMerchantCategory:merchantCategory certificateImgType:certificateImgType merchantName:weakSelf.merchantName merchantShortName:weakSelf.merchantShortName registerProvinceCode:weakSelf.registerProvince registerCityCode:weakSelf.registerCity registerDistrictCode:weakSelf.registerCounty registerAddress:weakSelf.detailAddress industryType:weakSelf.mainIndustry mcc:weakSelf.mcc industryNo:weakSelf.secondaryIndustry legalPersonName:weakSelf.legalName username:weakSelf.userName accountIdcard:weakSelf.IDCardNumber accountType:accountType accountProvinceCode:weakSelf.accountProvinceName accountCityCode:weakSelf.accountCityName accountBankNameId:weakSelf.bankName alliedBankCode:weakSelf.alliedBankCode accountBankBranchName:weakSelf.accountBankBranchName account:weakSelf.account accountName:weakSelf.accountUserName contactMobilePhone:weakSelf.contactMobilePhone qrcodeId:weakSelf.qrcodeid merchantId:nil imgs:dataArray remark:weakSelf.remark qrcodeFlag:weakSelf.qrcodeFlag appPhone:weakSelf.phoneNumber callback:^(NSString *code, NSString *msg, id resp) {
                     if (code.integerValue == 0) {
                         [IBProgressHUD showSuccessWithStatus:@"提交成功！"];
                         

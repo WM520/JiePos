@@ -807,6 +807,8 @@ static NSString *const businessInfoStepsReuseIdentifier = @"businessInfoSteps";
     certificateInfoVC.secondaryIndustry = self.secondaryIndustry;
     certificateInfoVC.mcc = self.mcc;
     certificateInfoVC.remark = self.remark;
+    certificateInfoVC.qrcodeFlag = self.qrcodeFlag;
+    certificateInfoVC.phoneNumber = self.phoneNumber;
     
     certificateInfoVC.isPublic = self.isPublic;
     for (JPCityModel *model in self.provinces) {

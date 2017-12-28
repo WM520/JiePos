@@ -93,6 +93,7 @@
                         //  未使用 空码
                         IBBaseInfoViewController *baseInfoVC = [IBBaseInfoViewController new];
                         baseInfoVC.qrcodeid = qrcodeid;
+                        baseInfoVC.phoneNumber = @"";
                         [weakSelf.navigationController pushViewController:baseInfoVC animated:YES];
                     }
                 }

@@ -113,7 +113,7 @@ static NSString *const cellReuseIdentifier = @"cellReuseIdentifier";
 #pragma mark - lazy
 - (UITableView *)ctntView {
     if (!_ctntView) {
-        _ctntView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 49) style:UITableViewStyleGrouped];
+        _ctntView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 44) style:UITableViewStyleGrouped];
         _ctntView.dataSource = self;
         _ctntView.delegate = self;
         _ctntView.rowHeight = JPRealValue(630);
@@ -275,7 +275,7 @@ static NSString *const cellReuseIdentifier = @"cellReuseIdentifier";
 }
 
 - (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView {
-    return -64;
+    return -64-49;
 }
 
 - (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView {
