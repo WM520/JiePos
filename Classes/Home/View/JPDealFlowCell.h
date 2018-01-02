@@ -42,7 +42,7 @@
 @property (nonatomic, strong) YYLabel *returnCode;
 @property (nonatomic, strong) YYLabel *parameter1;
 @property (nonatomic, strong) YYLabel *parameter2;
-
+@property (nonatomic, strong) YYLabel *note;
 @property (nonatomic, strong) JPDealFlowModel *dealModel;
 @end
 

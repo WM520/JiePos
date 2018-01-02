@@ -7,7 +7,15 @@
 //
 
 #import "JPViewController.h"
+@protocol JPNewsViewControllerDelegate
+
+- (void)reload;
+
+@end
+
 //  消息
 @interface JPNewsViewController : JPViewController
+
+@property (nonatomic, weak) id<JPNewsViewControllerDelegate> delegate;
 
 @end

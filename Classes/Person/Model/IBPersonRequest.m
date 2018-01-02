@@ -654,5 +654,22 @@
                      }];
 }
 
+// getCustomerServiceNumber
++ (void)getCustomerServiceNumberAccount:(NSString *)account
+                             merchantId:(NSInteger)merchantId
+                               callback:(JPNetCallback)callback
+{
+    NSMutableDictionary *dataDic = @{}.mutableCopy;
+    [dataDic setObject:[NSString stringWithFormat:@"%ld", merchantId] forKey:@"merchantId"];
+    
+    NSString *data = [JPTool dictionaryToJson:dataDic];
+    [self postWithServiceCode:@"JBB40"
+                      account:account
+                         data:data
+                     callback:^(NSString *code, NSString *msg, id resp) {
+                         callback (code, msg, resp);
+                     }];
+}
+
 
 @end

@@ -239,6 +239,12 @@ static NSString *const extentionCellReuseIdentifier = @"extentionCell";
     
     CGFloat applyType1 = beforeIphone6 ? JPRealValue(328 + 30) : JPRealValue(288 + 30);
     CGFloat applyType2 = beforeIphone6 ? JPRealValue(294 + 25) : JPRealValue(254 + 25);
+    JPDealFlowModel * model = self.dataSource[indexPath.section];
+    if (![model.body isEqualToString:@""] && model.body != NULL) {
+        applyType1 = applyType1 + JPRealValue(34);
+        applyType2 = applyType2 + JPRealValue(34);
+    }
+    
     return [JPUserEntity sharedUserEntity].applyType == 1 ? applyType1 : applyType2;
 }
 

@@ -61,7 +61,15 @@
 
 - (void)subviewsInitialization
 {
+    weakSelf_declare;
     self.view.backgroundColor = [UIColor whiteColor];
+    UIImageView * imageview = [[UIImageView alloc] init];
+    imageview.image = [UIImage imageNamed:@"jbb_loginBg"];
+    [self.view addSubview:imageview];
+    
+    [imageview mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.top.and.right.equalTo(weakSelf.view);
+    }];
     
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     
@@ -69,17 +77,17 @@
     CGFloat diameter = (screenSize.width - spacing * 4) / 3;
     CGFloat bottom1 = JPRealValue(55);
     CGFloat width1 = kScreenWidth;
-    CGFloat top1 = kScreenHeight - width1 - bottom1 - 100;
+    CGFloat top1 = kScreenHeight - width1 - bottom1 - 80;
     CGRect rect1 = CGRectMake(0, top1, width1, width1);
     
     CGFloat width2 = screenSize.width, height2 = 30;
     CGFloat top2 = top1 + spacing - height2 - 15;
     CGRect rect2 = CGRectMake(0, top2, width2, height2);
     
-    CGFloat width3 = 70;
-    CGFloat left3 = screenSize.width / 2 - width3 / 2;
-    CGFloat top3 = top2 - width3 - 5;
-    CGRect rect3 = CGRectMake(left3, top3, width3, width3);
+//    CGFloat width3 = 70;
+//    CGFloat left3 = screenSize.width / 2 - width3 / 2;
+//    CGFloat top3 = top2 - width3 - 5;
+//    CGRect rect3 = CGRectMake(left3, top3, width3, width3);
     
     TQGestureLockDrawManager *drawManager = [TQGestureLockDrawManager defaultManager];
     drawManager.circleDiameter = diameter;
@@ -91,9 +99,7 @@
     _lockView.delegate = self;
     [self.view addSubview:_lockView];
     
-    UIImageView * imageview = [[UIImageView alloc] initWithFrame:rect3];
-    imageview.image = [UIImage imageNamed:@"js_person_logo"];
-    [self.view addSubview:imageview];
+   
     
     _hintLabel = [[TQGestureLockHintLabel alloc] initWithFrame:rect2];
     [_hintLabel setNormalText:@"绘制原密码解锁图案"];

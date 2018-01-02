@@ -20,7 +20,7 @@
 #define imageName @"imageName"
 #define configName @"configName"
 
-@interface JPPersonViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface JPPersonViewController () <UITableViewDataSource, UITableViewDelegate, JPNewsViewControllerDelegate>
 @property (nonatomic, strong) NSMutableArray <NSArray *>*dataSource;
 @property (nonatomic, strong) UITableView *ctntView;
 @property (nonatomic, strong) JPCodeModel *codeModel;
@@ -68,11 +68,20 @@ static NSString *const headerReuseIdentifier = @"headerReuseIdentifier";
     NSDictionary *configDic = self.dataSource[indexPath.section][indexPath.row];
     cell.imageView.image = [UIImage imageNamed:configDic[imageName]];
     cell.textLabel.text = configDic[configName];
-    if (![cell.textLabel.text isEqualToString:@"客服电话"]) {
+//    if (![cell.textLabel.text isEqualToString:@"客服电话"]) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    } else {
-        cell.detailTextLabel.text = @"";
-    }
+//    } else {
+        if ([cell.textLabel.text isEqualToString:@"消息中心"]) {
+//            cell.accessoryType = UITableViewCellAccessoryNone;
+            if ([JPPushHelper badgeNumber] > 0) {
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+            }
+            cell.detailTextLabel.textColor = [UIColor redColor];
+        } else {
+            cell.detailTextLabel.text = @"";
+        }
+        
+//    }
     return cell;
 }
 
@@ -194,6 +203,7 @@ static NSString *const headerReuseIdentifier = @"headerReuseIdentifier";
         } else if ([cell.textLabel.text isEqualToString:@"消息中心"]) {
             //  联系方式
             JPNewsViewController * newsVC = [JPNewsViewController new];
+            newsVC.delegate = self;
             newsVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:newsVC animated:YES];
         }
@@ -234,6 +244,14 @@ static NSString *const headerReuseIdentifier = @"headerReuseIdentifier";
     [self.dataSource addObject:configs2];
     [self.dataSource addObject:@[@{ imageName : @"jp_person_setting", configName : @"设置" }]];
 }
+
+#pragma mark - JPNewsViewControllerDelegate
+// 点击消息的回调
+- (void)reload
+{
+    [self.ctntView reloadData];
+}
+
 #pragma mark - Lazy
 - (UITableView *)ctntView {
     if (!_ctntView) {

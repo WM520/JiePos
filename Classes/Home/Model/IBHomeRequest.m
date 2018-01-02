@@ -214,7 +214,10 @@
     
     NSString *data = [JPTool dictionaryToJson:dataDic];
     
-    [self postWithServiceCode:@"JBB33" account:account data:data callback:^(NSString *code, NSString *msg, id resp) {
+//    [self postWithServiceCode:@"JBB33" account:account data:data callback:^(NSString *code, NSString *msg, id resp) {
+//        callback (code, msg, resp);
+//    }];
+    [self postWithServiceCode:@"JBB38" account:account data:data callback:^(NSString *code, NSString *msg, id resp) {
         callback (code, msg, resp);
     }];
 }

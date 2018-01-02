@@ -139,14 +139,14 @@ static NSString *const cellReuseIdentifier = @"cellReuseIdentifier";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    JPNavigationController *newsNav = self.tabBarController.viewControllers[1];
-    NSString *badge = nil;
-    if ([JPPushHelper badgeNumber] > 0) {
-        badge = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
-    }
-    [newsNav.tabBarItem setBadgeValue:badge];
+//    JPNavigationController *newsNav = self.tabBarController.viewControllers[1];
+//    NSString *badge = nil;
+//    if ([JPPushHelper badgeNumber] > 0) {
+//        badge = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+//    }
+//    [newsNav.tabBarItem setBadgeValue:badge];
     
-    [self.ctntView.mj_header beginRefreshing];
+//    [self.ctntView.mj_header beginRefreshing];
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -204,16 +204,18 @@ static NSString *const cellReuseIdentifier = @"cellReuseIdentifier";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [MobClick event:@"news_detailed"];
-         
+    
     JPNewsDetailViewController *dealDetailVC = [[JPNewsDetailViewController alloc] init];
 //    dealDetailVC.hidesBottomBarWhenPushed = YES;
     dealDetailVC.newsModel = self.dataSource[indexPath.section][indexPath.row];
 //    [self.navigationController pushViewController:dealDetailVC animated:YES];
     weakSelf_declare;
     [self presentViewController:dealDetailVC animated:YES completion:^{
+        [weakSelf.ctntView reloadData];
         JPNewsModel *model = weakSelf.dataSource[indexPath.section][indexPath.row];
         JPLog(@"%@ - %@ - %@", model.tenantsNumber, model.orderNumber, model.transactionTime);
         [JPPushHelper modifyUnreadWithNewsModel:model];
+        [weakSelf.delegate reload];
     }];
 }
 

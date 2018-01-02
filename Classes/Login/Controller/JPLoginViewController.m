@@ -56,6 +56,8 @@
         if (!_isGesturePush) {
             [self handleLoginRequest:nil];
         }
+    } else {
+        self.view.hidden = NO;
     }
 }
 

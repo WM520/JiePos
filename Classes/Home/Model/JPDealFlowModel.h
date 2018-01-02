@@ -49,4 +49,6 @@
 @property (nonatomic, copy) NSString *originalMoney;
 /** 优惠减免金额*/
 @property (nonatomic, copy) NSString *favorableMoney;
+/** 备注字段 */
+@property (nonatomic, copy) NSString * body;
 @end

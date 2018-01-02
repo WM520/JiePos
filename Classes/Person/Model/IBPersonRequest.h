@@ -251,4 +251,9 @@
                     userId:(NSString *)userId
                    account:(NSString *)account
                   callback:(JPNetCallback)callback;
+
+// getCustomerServiceNumber
++ (void)getCustomerServiceNumberAccount:(NSString *)account
+                             merchantId:(NSInteger)merchantId
+                               callback:(JPNetCallback)callback;
 @end
