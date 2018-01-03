@@ -35,12 +35,12 @@ static NSString *const headerReuseIdentifier = @"headerReuseIdentifier";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    JPNavigationController *newsNav = self.tabBarController.viewControllers[1];
-    NSString *badge = nil;
-    if ([JPPushHelper badgeNumber] > 0) {
-        badge = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
-    }
-    [newsNav.tabBarItem setBadgeValue:badge];
+//    JPNavigationController *newsNav = self.tabBarController.viewControllers[1];
+//    NSString *badge = nil;
+//    if ([JPPushHelper badgeNumber] > 0) {
+//        badge = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+//    }
+//    [newsNav.tabBarItem setBadgeValue:badge];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -74,9 +74,9 @@ static NSString *const headerReuseIdentifier = @"headerReuseIdentifier";
         if ([cell.textLabel.text isEqualToString:@"消息中心"]) {
 //            cell.accessoryType = UITableViewCellAccessoryNone;
             if ([JPPushHelper badgeNumber] > 0) {
+                cell.detailTextLabel.textColor = [UIColor redColor];
                 cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
             }
-            cell.detailTextLabel.textColor = [UIColor redColor];
         } else {
             cell.detailTextLabel.text = @"";
         }

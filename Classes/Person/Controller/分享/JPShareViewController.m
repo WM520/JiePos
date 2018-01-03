@@ -55,52 +55,49 @@
     NSArray *imageArr = @[@"wechatquan", @"wechat", @"link",@"kongjian"];
     ActionSheetView *actionsheet = [[ActionSheetView alloc] initWithShareHeadOprationWith:titlearr andImageArry:imageArr andProTitle:@"测试" and:ShowTypeIsShareStyle];
     [actionsheet setBtnClick:^(NSInteger btnTag) {
-        
+        NSArray *imageArray = @[[UIImage imageNamed:@"shareBG"]];
         if (btnTag == 0) {
-            NSArray *imageArray = @[[UIImage imageNamed:@"AppIcon"]];
+            
             if (imageArray) {
                 NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
                 //通用参数设置
-                [parameters SSDKSetupShareParamsByText:@"Share SDK"
+                [parameters SSDKSetupShareParamsByText:@"杰宝宝"
                                                 images:imageArray
-                                                   url:nil
-                                                 title:nil
+                                                   url:[NSURL URLWithString:@"http://wx.jiepos.com/jpay-spmp/jbbDownload.html"]
+                                                 title:@"杰宝宝App"
                                                   type:SSDKContentTypeImage];
                 [self shareWithParameters:parameters platformType:SSDKPlatformSubTypeWechatTimeline];
             }
         } else if (btnTag == 1) {
-            NSArray *imageArray = @[[UIImage imageNamed:@"AppIcon"]];
             if (imageArray) {
                 NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
                 //通用参数设置
-                [parameters SSDKSetupShareParamsByText:@"Share SDK"
+                [parameters SSDKSetupShareParamsByText:@"杰宝宝"
                                                 images:imageArray
-                                                   url:nil
-                                                 title:nil
+                                                   url:[NSURL URLWithString:@"http://wx.jiepos.com/jpay-spmp/jbbDownload.html"]
+                                                 title:@"杰宝宝App"
                                                   type:SSDKContentTypeImage];
                 [self shareWithParameters:parameters platformType:SSDKPlatformSubTypeWechatSession];
             }
         } else if (btnTag == 2) {
-            NSArray *imageArray = @[[UIImage imageNamed:@"AppIcon"]];
             if (imageArray) {
                 NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
                 //通用参数设置
-                [parameters SSDKSetupShareParamsByText:@"Share SDK"
+                [parameters SSDKSetupShareParamsByText:@"杰宝宝"
                                                 images:imageArray
-                                                   url:nil
-                                                 title:nil
+                                                   url:[NSURL URLWithString:@"http://wx.jiepos.com/jpay-spmp/jbbDownload.html"]
+                                                 title:@"杰宝宝App"
                                                   type:SSDKContentTypeImage];
                 [self shareWithParameters:parameters platformType:SSDKPlatformSubTypeQQFriend];
             }
         } else if (btnTag == 3) {
-            NSArray *imageArray = @[[UIImage imageNamed:@"AppIcon"]];
             if (imageArray) {
                 NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
                 //通用参数设置
-                [parameters SSDKSetupShareParamsByText:@"Share SDK"
+                [parameters SSDKSetupShareParamsByText:@"杰宝宝"
                                                 images:imageArray
-                                                   url:nil
-                                                 title:nil
+                                                   url:[NSURL URLWithString:@"http://wx.jiepos.com/jpay-spmp/jbbDownload.html"]
+                                                 title:@"杰宝宝App"
                                                   type:SSDKContentTypeImage];
                 [self shareWithParameters:parameters platformType:SSDKPlatformSubTypeQZone];
             }

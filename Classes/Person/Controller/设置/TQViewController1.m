@@ -41,7 +41,7 @@
         weakSelf_declare;
         _repeatSettings = [[UIButton alloc] init];
         [_repeatSettings setTitle:@"重新设置" forState:UIControlStateNormal];
-        [_repeatSettings setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        [_repeatSettings setTitleColor:RGB(122, 147, 245) forState:UIControlStateNormal];
         [_repeatSettings addTarget:self action:@selector(rightBarItemClicked) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_repeatSettings];
         [_repeatSettings mas_makeConstraints:^(MASConstraintMaker *make) {

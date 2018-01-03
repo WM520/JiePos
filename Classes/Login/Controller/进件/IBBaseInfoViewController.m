@@ -840,7 +840,7 @@
             // !!!: 查询用户名是否存在
             dispatch_group_enter(group);
             [SVProgressHUD showWithStatus:@"验证用户名，请稍后..."];
-            [JPNetTools1_0_2 vaildBusinessInfoWithCheckCode:@"02" content:userName qrcodeFlag:self.qrcodeFlag callback:^(NSString *code, NSString *msg, id resp) {
+            [JPNetTools1_0_2 vaildBusinessInfoWithCheckCode:@"02" content:userName qrcodeFlag:weakSelf.qrcodeFlag callback:^(NSString *code, NSString *msg, id resp) {
                 JPLog(@"查询用户名是否存在 %@ - %@ - %@", code, msg, resp);
                 
                 if ([code isEqualToString:@"00"]) {

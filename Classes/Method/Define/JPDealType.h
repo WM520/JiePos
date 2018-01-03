@@ -53,6 +53,12 @@ UIKIT_EXTERN NSString *__nonnull const JPAvailDealTypeA00002;
 UIKIT_EXTERN NSString *__nonnull const JPAvailDealTypeA00003;
 /** 支付宝支付退款*/
 UIKIT_EXTERN NSString *__nonnull const JPAvailDealTypeA00004;
+/** 京东支付退款 */
+UIKIT_EXTERN NSString * __nonnull const JPAvailDealTypeJ00004;
+/** QQ支付退款 */
+UIKIT_EXTERN NSString * __nonnull const JPAvailDealTypeQ00004;
+/** 银联二维码-退款 */
+UIKIT_EXTERN NSString * __nonnull const JPAvailDealTypeU00004;
 /** 支付宝支付退款查询*/
 UIKIT_EXTERN NSString *__nonnull const JPAvailDealTypeA00005;
 /** 支付宝扫码支付*/
@@ -67,8 +73,17 @@ UIKIT_EXTERN NSString *__nonnull const JPAvailDealTypeJA002;
 UIKIT_EXTERN NSString *__nonnull const JPAvailDealTypeJW001;
 /** 一码付微信支付查询*/
 UIKIT_EXTERN NSString *__nonnull const JPAvailDealTypeJW002;
-
-
-
+/** 京东扫码支付*/
+UIKIT_EXTERN NSString *__nonnull const JPAvailDealTypeJ00006;
+/** 京东条码支付*/
+UIKIT_EXTERN NSString *__nonnull const JPAvailDealTypeJ00001;
+/** QQ条码支付*/
+UIKIT_EXTERN NSString *__nonnull const JPAvailDealTypeQ00001;
+/** QQ扫码支付*/
+UIKIT_EXTERN NSString *__nonnull const JPAvailDealTypeQ00006;
+/** 银联二维码-扫码支付*/
+UIKIT_EXTERN NSString *__nonnull const JPAvailDealTypeU00006;
+/** 银联二维码-条码支付*/
+UIKIT_EXTERN NSString *__nonnull const JPAvailDealTypeU00001;
 
 

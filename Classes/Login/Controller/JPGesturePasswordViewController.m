@@ -20,6 +20,7 @@
 #import "TQGesturesPasswordManager.h"
 #import "TQGestureLockHintLabel.h"
 #import "TQGestureLockToast.h"
+#import "LXAlertView.h"
 
 @interface JPGesturePasswordViewController () <TQGestureLockViewDelegate>
 
@@ -71,14 +72,23 @@
         make.left.and.top.and.right.equalTo(weakSelf.view);
     }];
     
+    
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     
     CGFloat spacing = TQSizeFitW(40);
     CGFloat diameter = (screenSize.width - spacing * 4) / 3;
     CGFloat bottom1 = JPRealValue(55);
     CGFloat width1 = kScreenWidth;
-    CGFloat top1 = kScreenHeight - width1 - bottom1 - 80;
+    CGFloat top1 = kScreenHeight - width1 - bottom1 - 40;
     CGRect rect1 = CGRectMake(0, top1, width1, width1);
+    
+    UILabel * userNameLable = [[UILabel alloc] initWithFrame:CGRectMake(0, top1 - 40, kScreenWidth, 30)];
+    userNameLable.textColor = RGB(122, 147, 245);
+    userNameLable.textAlignment = NSTextAlignmentCenter;
+    userNameLable.font = [UIFont systemFontOfSize:18 weight:300];
+    userNameLable.text = [JP_UserDefults objectForKey:@"userLogin"];
+    [self.view addSubview:userNameLable];
+
     
     CGFloat width2 = screenSize.width, height2 = 30;
     CGFloat top2 = top1 + spacing - height2 - 15;
@@ -99,15 +109,15 @@
     _lockView.delegate = self;
     [self.view addSubview:_lockView];
     
-   
+    
     
     _hintLabel = [[TQGestureLockHintLabel alloc] initWithFrame:rect2];
-    [_hintLabel setNormalText:@"绘制原密码解锁图案"];
+    [_hintLabel setNormalText:@"请输入手势密码"];
     [self.view addSubview:_hintLabel];
     
     UIButton * loginWithCode = [[UIButton alloc] init];
     [loginWithCode setTitle:@"使用账号登录" forState: UIControlStateNormal];
-    [loginWithCode setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [loginWithCode setTitleColor:RGB(122, 147, 245) forState:UIControlStateNormal];
     [loginWithCode addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:loginWithCode];
     
@@ -156,9 +166,16 @@
         self.count--;
         [_hintLabel setWarningText:[NSString stringWithFormat:@"密码错误，您还可以输入%ld次", self.count] shakeAnimated:YES];
         if (_count <= 0) {
-            [JP_UserDefults removeObjectForKey:@"passLogin"];
-            JPNavigationController *loginNav = [[JPNavigationController alloc] initWithRootViewController:[JPLoginViewController new]];
-            [weakSelf presentViewController:loginNav animated:YES completion:nil];
+  
+            LXAlertView * alert = [[LXAlertView alloc] initWithTitle:@"提醒" message:@"你已经连续5次输错手势密码，手势登录失效，请使用登录密码重新登录，点击确认跳转到账号密码登录页面" cancelBtnTitle:nil otherBtnTitle:@"我知道了" clickIndexBlock:^(NSInteger clickIndex) {
+                if (clickIndex == 0) {
+                    [JP_UserDefults removeObjectForKey:@"passLogin"];
+                    [JP_UserDefults removeObjectForKey:@"tq_gesturesPassword"];
+                    JPNavigationController *loginNav = [[JPNavigationController alloc] initWithRootViewController:[JPLoginViewController new]];
+                    [weakSelf presentViewController:loginNav animated:YES completion:nil];
+                }
+            }];
+            [alert showLXAlertView];
         }
         
     }

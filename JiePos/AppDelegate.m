@@ -454,7 +454,10 @@
             [model.transactionCode isEqualToString:JPAvailDealTypeW00003] ||
             [model.transactionCode isEqualToString:JPAvailDealTypeW00004] ||
             [model.transactionCode isEqualToString:JPAvailDealTypeA00003] ||
-            [model.transactionCode isEqualToString:JPAvailDealTypeA00004]) {
+            [model.transactionCode isEqualToString:JPAvailDealTypeA00004] ||
+            [model.transactionCode isEqualToString:JPAvailDealTypeJ00004] ||
+            [model.transactionCode isEqualToString:JPAvailDealTypeQ00004] ||
+            [model.transactionCode isEqualToString:JPAvailDealTypeU00004]) {
             [self playVoiceWithString:[NSString stringWithFormat:@"退款%@元！", voice]];
         } else {
             [self playVoiceWithString:[NSString stringWithFormat:@"收款%@元！", voice]];

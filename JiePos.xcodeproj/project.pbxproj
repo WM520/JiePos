@@ -12,6 +12,8 @@
 		810517F01FEB89F4007B91E7 /* JPPhoneRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 810517EE1FEB89F4007B91E7 /* JPPhoneRegisterViewController.m */; };
 		810517F11FEB89F4007B91E7 /* JPPhoneRegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 810517EF1FEB89F4007B91E7 /* JPPhoneRegisterViewController.xib */; };
 		810517F71FEB9C04007B91E7 /* UIButton+JPEnlargeTouchArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 810517F61FEB9C04007B91E7 /* UIButton+JPEnlargeTouchArea.m */; };
+		811466A31FFC768B0049305F /* LXAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 811466A21FFC768A0049305F /* LXAlertView.m */; };
+		811466A61FFC769C0049305F /* UILabel+LXAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 811466A51FFC769C0049305F /* UILabel+LXAdd.m */; };
 		815427FC1FD12447000EB2B9 /* JPMerchantRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 815427FA1FD12447000EB2B9 /* JPMerchantRegisterViewController.m */; };
 		815427FD1FD12447000EB2B9 /* JPMerchantRegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 815427FB1FD12447000EB2B9 /* JPMerchantRegisterViewController.xib */; };
 		815C53D01FE8E26F00DD8A23 /* XBSettingSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 815C53CE1FE8E26F00DD8A23 /* XBSettingSectionModel.m */; };
@@ -240,6 +242,10 @@
 		810517EF1FEB89F4007B91E7 /* JPPhoneRegisterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JPPhoneRegisterViewController.xib; sourceTree = "<group>"; };
 		810517F51FEB9C04007B91E7 /* UIButton+JPEnlargeTouchArea.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+JPEnlargeTouchArea.h"; sourceTree = "<group>"; };
 		810517F61FEB9C04007B91E7 /* UIButton+JPEnlargeTouchArea.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+JPEnlargeTouchArea.m"; sourceTree = "<group>"; };
+		811466A11FFC768A0049305F /* LXAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXAlertView.h; sourceTree = "<group>"; };
+		811466A21FFC768A0049305F /* LXAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXAlertView.m; sourceTree = "<group>"; };
+		811466A41FFC769C0049305F /* UILabel+LXAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+LXAdd.h"; sourceTree = "<group>"; };
+		811466A51FFC769C0049305F /* UILabel+LXAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+LXAdd.m"; sourceTree = "<group>"; };
 		815427F91FD12447000EB2B9 /* JPMerchantRegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPMerchantRegisterViewController.h; sourceTree = "<group>"; };
 		815427FA1FD12447000EB2B9 /* JPMerchantRegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPMerchantRegisterViewController.m; sourceTree = "<group>"; };
 		815427FB1FD12447000EB2B9 /* JPMerchantRegisterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JPMerchantRegisterViewController.xib; sourceTree = "<group>"; };
@@ -1394,6 +1400,10 @@
 		BE3C15341F5E85FE00692B28 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				811466A41FFC769C0049305F /* UILabel+LXAdd.h */,
+				811466A51FFC769C0049305F /* UILabel+LXAdd.m */,
+				811466A11FFC768A0049305F /* LXAlertView.h */,
+				811466A21FFC768A0049305F /* LXAlertView.m */,
 				81A953BA1FF094710009DC27 /* WMCustomAlert.h */,
 				81A953B91FF094710009DC27 /* WMCustomAlert.m */,
 				BE3C15351F5E862700692B28 /* IBTextView.h */,
@@ -2002,6 +2012,7 @@
 				BE8DABD71F665B320060D033 /* JPBillingInfoViewController.m in Sources */,
 				BE7A6EE51F69344E00340870 /* IBNetworking.m in Sources */,
 				BE524C341F5D47B600C8E098 /* QRCodeScanningVC.m in Sources */,
+				811466A61FFC769C0049305F /* UILabel+LXAdd.m in Sources */,
 				960FB9EC1F15D50600A737A8 /* JP_HomeCell.m in Sources */,
 				960FB9AD1F15C27000A737A8 /* JPCredentialsHelper.m in Sources */,
 				96156FB81F17256700CF0CF6 /* JPNewsDetailViewController.m in Sources */,
@@ -2118,6 +2129,7 @@
 				960FB9761F15B13D00A737A8 /* JP_LoginNoticeView.m in Sources */,
 				960B30021EE8E55E0060E082 /* JPDealType.m in Sources */,
 				960E68E31EA8876500630C4A /* JPDealFlowModel.m in Sources */,
+				811466A31FFC768B0049305F /* LXAlertView.m in Sources */,
 				961BF35F1EE8DDCA00D962ED /* JPRegisterModel.m in Sources */,
 				815C53D41FE8E28C00DD8A23 /* XBSettingCell.m in Sources */,
 				BE7A6EBF1F69339000340870 /* UITextField+Helper.m in Sources */,
