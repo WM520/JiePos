@@ -16,7 +16,7 @@
 #import "XHToast.h"
 #import "JPMerchantRegisterViewController.h"
 #import "UIButton+JPEnlargeTouchArea.h"
-
+#import "TQViewController1.h"
 
 #define originMargin JPRealValue(502)
 
@@ -517,11 +517,20 @@
                     [JP_UserDefults setObject:_passwordTextField.text forKey:@"passLogin"];
                     [JP_UserDefults synchronize];
                 }
-                
-                //  跳转tabBarController首页
-                JPTabBarController *tabBarController = [[JPTabBarController alloc] init];
-//                [weakSelf.view.window setRootViewController:tabBarController];
-                [weakSelf presentViewController:tabBarController animated:YES completion:nil];
+                if (([JP_UserDefults objectForKey:@"tq_gesturesPassword"] == NULL || [[JP_UserDefults objectForKey:@"tq_gesturesPassword"] isEqualToString:@""]) && ![[JP_UserDefults objectForKey:@"TQLogin"] isEqualToString:@"1"]) {
+                    
+                    TQViewController1 * vc = [[TQViewController1 alloc] init];
+                    vc.isFirstLogin = YES;
+                    JPNavigationController * nav = [[JPNavigationController alloc] initWithRootViewController:vc];
+                    [weakSelf presentViewController:nav animated:YES completion:^{
+                        [JP_UserDefults setObject:@"1" forKey:@"TQLogin"];
+                    }];
+                } else {
+                    //  跳转tabBarController首页
+                    JPTabBarController *tabBarController = [[JPTabBarController alloc] init];
+                    //                [weakSelf.view.window setRootViewController:tabBarController];
+                    [weakSelf presentViewController:tabBarController animated:YES completion:nil];
+                }
             }
             return;
         }

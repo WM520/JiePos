@@ -12,6 +12,8 @@
 #import "TQGesturesPasswordManager.h"
 #import "TQGestureLockHintLabel.h"
 #import "TQGestureLockToast.h"
+#import "JPTabBarController.h"
+#import "LXAlertView.h"
 
 @interface TQViewController1 () <TQGestureLockViewDelegate>
 
@@ -28,7 +30,7 @@
 - (UIBarButtonItem *)rightButtonItem
 {
     if (!_rightButtonItem) {
-        _rightButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"重设" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarItemClicked)];
+        _rightButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"跳过" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarItemClicked)];
     }
     return _rightButtonItem;
 }
@@ -54,10 +56,12 @@
 }
 
 - (void)rightBarItemClicked {
-    _hintLabel.textColor = [UIColor grayColor];
-    _hintLabel.text = @"绘制解锁图案";
-    [_preview redraw];
-    self.passwordManager.firstPassword = nil;
+    weakSelf_declare;
+    LXAlertView * alert = [[LXAlertView alloc] initWithTitle:@"友情提醒" message:@"您可以在我的-设置-手势密码设置中启用手势密码，点击我知道了跳转至首页" cancelBtnTitle:nil otherBtnTitle:@"我知道了" clickIndexBlock:^(NSInteger clickIndex) {
+        JPTabBarController * tabVc = [[JPTabBarController alloc] init];
+        [weakSelf presentViewController:tabVc animated:YES completion:nil];
+    }];
+    [alert showLXAlertView];
 }
 
 - (void)viewDidLoad
@@ -72,6 +76,10 @@
 - (void)commonInitialization
 {
     self.passwordManager = [TQGesturesPasswordManager manager];
+    if (_isFirstLogin) {
+        self.title = @"请设置解锁图案";
+        self.navigationItem.rightBarButtonItem = self.rightButtonItem;
+    }
 }
 
 - (void)subviewsInitialization
@@ -158,11 +166,16 @@
             
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC));
             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                if (_isModification) {
-                    NSArray * controllers = self.navigationController.viewControllers;
-                    [self.navigationController popToViewController:controllers[2] animated:YES];
+                if (_isFirstLogin) {
+                    JPTabBarController * tabVc = [[JPTabBarController alloc] init];
+                    [self presentViewController:tabVc animated:YES completion:nil];
                 } else {
-                    [self.navigationController popViewControllerAnimated:YES];
+                    if (_isModification) {
+                        NSArray * controllers = self.navigationController.viewControllers;
+                        [self.navigationController popToViewController:controllers[2] animated:YES];
+                    } else {
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }
                 }
             });
 
@@ -175,5 +188,7 @@
         }
     }
 }
+
+
 
 @end

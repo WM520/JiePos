@@ -15,5 +15,5 @@ typedef void(^SUCCESSBLOCK)();
 
 @property (nonatomic, copy) SUCCESSBLOCK successblock;
 @property (nonatomic, assign) BOOL isModification;
-
+@property (nonatomic, assign) BOOL isFirstLogin;
 @end
