@@ -173,7 +173,7 @@ static NSString *const headerReuseIdentifier = @"header";
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     JPDealStateView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseIdentifier];
     
-    BOOL isRefund = [self.newsModel.transactionCode isEqualToString:JPAvailDealTypeT00002] || [self.newsModel.transactionCode isEqualToString:JPAvailDealTypeT00003] || [self.newsModel.transactionCode isEqualToString:JPAvailDealTypeT00009] || [self.newsModel.transactionCode isEqualToString:JPAvailDealTypeW00003] || [self.newsModel.transactionCode isEqualToString:JPAvailDealTypeW00004] || [self.newsModel.transactionCode isEqualToString:JPAvailDealTypeA00003] || [self.newsModel.transactionCode isEqualToString:JPAvailDealTypeA00004];
+    BOOL isRefund = [self.newsModel.transactionCode isEqualToString:JPAvailDealTypeT00002] || [self.newsModel.transactionCode isEqualToString:JPAvailDealTypeT00003] || [self.newsModel.transactionCode isEqualToString:JPAvailDealTypeT00009] || [self.newsModel.transactionCode isEqualToString:JPAvailDealTypeW00003] || [self.newsModel.transactionCode isEqualToString:JPAvailDealTypeW00004] || [self.newsModel.transactionCode isEqualToString:JPAvailDealTypeA00003] || [self.newsModel.transactionCode isEqualToString:JPAvailDealTypeA00004] || [self.newsModel.transactionCode isEqualToString:JPAvailDealTypeJ00004] ||[self.newsModel.transactionCode isEqualToString:JPAvailDealTypeQ00004] || [self.newsModel.transactionCode isEqualToString:JPAvailDealTypeU00004];
     
     headerView.ammount = self.newsModel.transactionMoney;
     headerView.type = isRefund;

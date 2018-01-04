@@ -59,7 +59,6 @@ UITableViewDataSource>
     self.passwordManager = [TQGesturesPasswordManager manager];
     if ([_passwordManager.getEventuallyPassword  isEqual: @""] || _passwordManager.getEventuallyPassword  == NULL) {
         _isOn = NO;
-        
     } else {
         _isOn = YES;
         XBSettingItemModel *item2 = [[XBSettingItemModel alloc]init];
@@ -72,6 +71,7 @@ UITableViewDataSource>
         section2.itemArray = @[item2];
         _section2 = section2;
     };
+    
     weakSelf_declare;
     XBSettingItemModel *item1 = [[XBSettingItemModel alloc]init];
     item1.funcName = @"手势登录管理";
@@ -101,14 +101,14 @@ UITableViewDataSource>
             };
             [weakSelf.navigationController pushViewController:vc animated:YES];
         } else {
-            [weakSelf.passwordManager saveEventuallyPassword:@""];
+            [JP_UserDefults removeObjectForKey:@"tq_gesturesPassword"];
             [weakSelf.dataSource removeLastObject];
             _item1.isOn = NO;
             [weakSelf.mainListView reloadData];
         }
     };
     _item1 = item1;
-    XBSettingSectionModel *section1 = [[XBSettingSectionModel alloc]init];
+    XBSettingSectionModel *section1 = [[XBSettingSectionModel alloc] init];
     section1.sectionHeaderHeight = 18;
     section1.itemArray = @[item1];
 

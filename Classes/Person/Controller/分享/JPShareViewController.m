@@ -50,7 +50,6 @@
 
 - (void)rightClick:(UIBarButtonItem *)rightItem
 {
-    
     NSArray *titlearr = @[@"微信朋友圈", @"微信好友",@"QQ好友", @"QQ空间"];
     NSArray *imageArr = @[@"wechatquan", @"wechat", @"link",@"kongjian"];
     ActionSheetView *actionsheet = [[ActionSheetView alloc] initWithShareHeadOprationWith:titlearr andImageArry:imageArr andProTitle:@"测试" and:ShowTypeIsShareStyle];

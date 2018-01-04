@@ -7,6 +7,7 @@
 //
 
 #import "JPBindingSuccessViewController.h"
+#import "JPLoginViewController.h"
 
 
 @interface JPBindingSuccessViewController ()
@@ -31,9 +32,12 @@
     NSArray * controllers = self.navigationController.viewControllers;
     [self.navigationController popToViewController:controllers[1] animated:YES];
 }
+// 跳转登录页
 - (IBAction)backAction:(id)sender {
-    NSArray * controllers = self.navigationController.viewControllers;
-    [self.navigationController popToViewController:controllers[1] animated:YES];
+//    NSArray * controllers = self.navigationController.viewControllers;
+//    [self.navigationController popToViewController:controllers[1] animated:YES];
+    JPLoginViewController * login = [[JPLoginViewController alloc] init];
+    [self presentViewController:login animated:YES completion:nil];
 }
 
 

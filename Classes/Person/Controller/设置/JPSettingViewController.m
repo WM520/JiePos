@@ -231,9 +231,7 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
 #pragma mark - action
 - (void)logoutClick:(UIButton *)sender {
     weakSelf_declare;
-    
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"退出登录将删除本地推送消息记录，是否退出？" preferredStyle:UIAlertControllerStyleAlert];
-    
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"退出" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //  确认退出
@@ -242,27 +240,24 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
         [MobClick event:@"setting_logout"];
         
         if ([JPUserEntity sharedUserEntity].isLogin) {
-            
+
             if ([JPUserEntity sharedUserEntity].merchantNo) {
                 NSMutableDictionary *params = @{}.mutableCopy;
                 [params setObject:[JPUserEntity sharedUserEntity].merchantNo forKey:@"alias"];
                 if ([JP_UserDefults objectForKey:@"deviceToken"]) {
                     [params setObject:[JP_UserDefults objectForKey:@"deviceToken"] forKey:@"deviceTokens"];
                 }
-                
                 //  appType 1：安卓飞燕，2：安卓杰宝宝，3：iOS杰宝宝，4：iOS飞燕
                 [params setObject:@"3" forKey:@"appType"];
-                
                 //获取当前版本号
                 NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
                 NSString *currentAppVersion = infoDic[@"CFBundleShortVersionString"];
                 [params setObject:currentAppVersion forKey:@"versionNo"];
-                
                 [JPNetworking postUrl:jp_UMessage_logout_url params:params progress:nil callback:^(id resp) {
                     JPLog(@"resp - %@", resp);
                  }];
             }
-            
+            // 友盟解绑
             [UMessage removeAlias:[JPUserEntity sharedUserEntity].merchantNo type:JP_UMessageAliasType response:^(id  _Nonnull responseObject, NSError * _Nonnull error) {
                 if(responseObject) {
                     JPLog(@"解绑成功！");
@@ -272,16 +267,21 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
                 [[JPPushManager sharedManager] makeIsBindAlias:NO];
             }];
             
+            //  本地账户置空
             [[JPUserEntity sharedUserEntity] setIsLogin:NO account:@"" merchantNo:nil merchantId:0 merchantName:@"" applyType:0 privateKey:@"" publicKey:@"" userId:@""];
                         
 //            [JP_UserDefults removeObjectForKey:@"userLogin"];
+            // 移除保存的密码
             [JP_UserDefults removeObjectForKey:@"passLogin"];
 //            [JP_UserDefults removeObjectForKey:@"deviceToken"];
             //  首页跑马灯
             [JP_UserDefults removeObjectForKey:@"isRolling"];
             [JP_UserDefults removeObjectForKey:@"roll"];
+            // 移除手势密码
             [JP_UserDefults removeObjectForKey:@"tq_gesturesPassword"];
+            // 移除手机账户
             [JP_UserDefults removeObjectForKey:@"appPhone"];
+            // 本地同步
             [JP_UserDefults synchronize];
             
             [weakSelf dismissViewControllerAnimated:YES completion:^{

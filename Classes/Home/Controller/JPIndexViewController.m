@@ -257,6 +257,7 @@
 //            weakSelf.pieView.segmentTitleArray = @[@"微信", @"支付宝"].mutableCopy;
 //            weakSelf.pieView.segmentColorArray = @[[UIColor colorWithHexString:@"0ddddd"], [UIColor colorWithHexString:@"7a93f5"]].mutableCopy;
 //        }
+        // 遍历商户支持的支付类型
         NSMutableArray * dataArray = [NSMutableArray array];
         NSMutableArray * colorArray = [NSMutableArray array];
         NSMutableArray * titleArray = [NSMutableArray array];
@@ -392,9 +393,25 @@
 
 #pragma mark - SDCycleScrollViewDelegate
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
+//    IBAdvertisementModel *model = self.adertisementList[index];
+//    JPWebViewController *webVC = [JPWebViewController new];
+//    webVC.urlString = model.detailUrl;
+//    webVC.naviTitle = model.title;
+//    webVC.hidesBottomBarWhenPushed = YES;
+    // !!!: 1.2.2 环球黑卡
     IBAdvertisementModel *model = self.adertisementList[index];
     JPWebViewController *webVC = [JPWebViewController new];
-    webVC.urlString = model.detailUrl;
+    NSString * url = model.detailUrl;
+    NSArray * array = [url componentsSeparatedByString:@"imagePath="];
+    NSLog(@"%@", array);
+    if (array.count >= 2) {
+        if ([array[1] hasPrefix:@"https"]) {
+            webVC.urlString = array[1];
+        } else {
+            webVC.urlString = model.detailUrl;
+        }
+    }
+    
     webVC.naviTitle = model.title;
     webVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:webVC animated:YES];
