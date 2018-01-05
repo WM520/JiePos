@@ -110,6 +110,8 @@
 static NSString *const JP_Noti_Value = @"noti_value";
 //  语音播报
 static NSString *const JP_Voice_Value = @"voice_value";
+// 应用内震动
+static NSString *const JP_Shake_Value = @"shake_value";
 
 #pragma mark - App配置信息
 // !!!: 友盟推送

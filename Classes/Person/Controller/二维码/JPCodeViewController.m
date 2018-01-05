@@ -24,7 +24,7 @@
 @end
 @implementation JPCodeViewController
 
-#pragma mark - View
+#pragma mark - lifestyle
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
@@ -51,7 +51,6 @@
     [self handleUserInterface];
 //    [self qrcodeViewWithUrlString:self.codeModel.url];
 }
-
 #pragma mark - Method
 - (void)handleUserInterface {
     [self.view addSubview:self.bgView];
@@ -115,7 +114,6 @@
         make.centerX.and.centerY.equalTo(weakSelf.qrcodeView);
     }];
 }
-
 #pragma mark - Lazy
 - (UIView *)bgView {
     if (!_bgView) {
@@ -196,7 +194,6 @@
     }
     return _nodataView;
 }
-
 #pragma mark - Action
 - (void)rightItemClicked:(UIBarButtonItem *)sender {
     
@@ -211,7 +208,6 @@
         }
     }];
 }
-
 //  二维码生成
 - (void)qrcodeViewWithUrlString:(NSString *)urlString {
     self.nodataView.hidden = [urlString isURLString];
@@ -274,7 +270,6 @@
     
     return [UIImage imageWithCGImage:scaledImage];
 }
-
 #pragma mark - NavigationBar
 - (void)layoutHomeView {
     _navImageView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
@@ -312,7 +307,6 @@
         self.nodataView.hidden = NO;
     }
 }
-
 //  把View写成图片
 - (UIImage *)makeImageWithView:(UIView *)view {
     

@@ -88,11 +88,17 @@
     
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     
+    CGFloat top1Height = 150;
+    // 适配首次登录的显示问题
+    if (_isFirstLogin) {
+        top1Height = 150 - 64;
+    }
+    
     CGFloat spacing = TQSizeFitW(40);
     CGFloat diameter = (screenSize.width - spacing * 4) / 3;
     CGFloat bottom1 = JPRealValue(55);
     CGFloat width1 = kScreenWidth;
-    CGFloat top1 = kScreenHeight - width1 - bottom1 - 150;
+    CGFloat top1 = kScreenHeight - width1 - bottom1 - top1Height;
     CGRect rect1 = CGRectMake(0, top1, width1, width1);
     
     CGFloat width2 = screenSize.width, height2 = 30;
@@ -179,15 +185,13 @@
                         [self.navigationController popViewControllerAnimated:YES];
                     }
                 }
-            });
-
-        } else {
-            [gestureLockView setNeedsDisplayGestureLockErrorState:YES];
-            
-            [_hintLabel setWarningText:@"与上一次绘制不一致，请重新绘制" shakeAnimated:YES];
-            
-            [self setNavRightButtonItem];
-        }
+            }); } else {
+                [gestureLockView setNeedsDisplayGestureLockErrorState:YES];
+                
+                [_hintLabel setWarningText:@"与上一次绘制不一致，请重新绘制" shakeAnimated:YES];
+                
+                [self setNavRightButtonItem];
+            }
     }
 }
 

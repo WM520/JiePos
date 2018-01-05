@@ -19,15 +19,19 @@
 
 #define imageName @"imageName"
 #define configName @"configName"
+static NSString *const headerReuseIdentifier = @"headerReuseIdentifier";
 
-@interface JPPersonViewController () <UITableViewDataSource, UITableViewDelegate, JPNewsViewControllerDelegate>
+@interface JPPersonViewController ()
+<UITableViewDataSource,
+UITableViewDelegate,
+JPNewsViewControllerDelegate>
+
 @property (nonatomic, strong) NSMutableArray <NSArray *>*dataSource;
 @property (nonatomic, strong) UITableView *ctntView;
 @property (nonatomic, strong) JPCodeModel *codeModel;
 @property (nonatomic, assign) BOOL selected;
-@end
 
-static NSString *const headerReuseIdentifier = @"headerReuseIdentifier";
+@end
 
 @implementation JPPersonViewController
 
@@ -44,10 +48,12 @@ static NSString *const headerReuseIdentifier = @"headerReuseIdentifier";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    // 初始化数据
     [self configData];
+    // 添加view
     [self.view addSubview:self.ctntView];
 }
+
 #pragma mark - tableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.dataSource.count;
@@ -87,33 +93,26 @@ static NSString *const headerReuseIdentifier = @"headerReuseIdentifier";
 
 #pragma mark - tableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    //防止重复点击
+    // 防止重复点击
     if (self.selected == false) {
         
         self.selected = true;
-        //在延时方法中将isSelect更改为false
+        // 在延时方法中将isSelect更改为false
         [self performSelector:@selector(repeatDelay) withObject:nil afterDelay:0.5f];
         // 在下面实现点击cell需要实现的逻辑
-        
 //        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         if ([cell.textLabel.text isEqualToString:@"公告"]) {
-            
-            //  公告
+            // 公告
             [MobClick event:@"person_notice"];
-            
-            JPNoticeViewController *noticeVC = [[JPNoticeViewController alloc] init];
+            JPNoticeViewController * noticeVC = [[JPNoticeViewController alloc] init];
             noticeVC.navigationItem.title = @"公告";
             noticeVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:noticeVC animated:YES];
             
         } else if ([cell.textLabel.text isEqualToString:@"常见问题"]) {
-            
-            //  常见问题
+            // 常见问题
             [MobClick event:@"person_questions"];
-            
             JPWebViewController *webVC = [JPWebViewController new];
             webVC.urlString = jp_question_url;
             webVC.naviTitle = @"常见问题";
@@ -122,13 +121,11 @@ static NSString *const headerReuseIdentifier = @"headerReuseIdentifier";
             
         } else if ([cell.textLabel.text isEqualToString:@"我的收款码"]) {
             
-            //  我的收款码
+            // 我的收款码
             [MobClick event:@"person_qrcode"];
-            
             JPCodeViewController *codeVC = [[JPCodeViewController alloc] init];
             codeVC.navigationItem.title = @"我的收款码";
             codeVC.hidesBottomBarWhenPushed = YES;
-            
             weakSelf_declare;
             [IBProgressHUD loading];
             [IBHomeRequest getQrcodeWithAccount:[JPUserEntity sharedUserEntity].account merchantId:[JPUserEntity sharedUserEntity].merchantId callback:^(NSString *code, NSString *msg, id resp) {
@@ -143,13 +140,12 @@ static NSString *const headerReuseIdentifier = @"headerReuseIdentifier";
                     [IBProgressHUD showInfoWithStatus:msg];
                 }
             }];
-        } else if ([cell.textLabel.text isEqualToString:@"商户自助查询"]) {
             
-            //  商户自助查询
+        } else if ([cell.textLabel.text isEqualToString:@"商户自助查询"]) {
+            // 商户自助查询
             //        JPMerchantsViewController *merchantVC = [[JPMerchantsViewController alloc] init];
             JPMerchantStateViewController *merchantVC = [[JPMerchantStateViewController alloc] init];
             merchantVC.hidesBottomBarWhenPushed = YES;
-            
             [IBProgressHUD loading];
             weakSelf_declare;
             [IBPersonRequest getMerchantStateWithAccount:[JPUserEntity sharedUserEntity].account callback:^(NSString *code, NSString *msg, id resp) {
@@ -180,28 +176,25 @@ static NSString *const headerReuseIdentifier = @"headerReuseIdentifier";
             }];
             
         } else if ([cell.textLabel.text isEqualToString:@"设置"]) {
-            
-            //  设置
+            // 设置
             [MobClick event:@"person_setting"];
-            
             JPSettingViewController *settingVC = [[JPSettingViewController alloc] init];
             settingVC.navigationItem.title = @"设置";
             settingVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:settingVC animated:YES];
         } else if ([cell.textLabel.text isEqualToString:@"联系方式"]) {
-            //  联系方式
+            // 联系方式
             JPContactViewController *contactVC = [JPContactViewController new];
             contactVC.hidesBottomBarWhenPushed = YES;
             contactVC.canUseWeixin = [JPTool canOpenWeixin];
             [self.navigationController pushViewController:contactVC animated:YES];
         } else if ([cell.textLabel.text isEqualToString:@"推荐分享"]) {
-            //  联系方式
+            // 联系方式
             JPShareViewController * sharetVC = [JPShareViewController new];
             sharetVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:sharetVC animated:YES];
-            
         } else if ([cell.textLabel.text isEqualToString:@"消息中心"]) {
-            //  联系方式
+            // 联系方式
             JPNewsViewController * newsVC = [JPNewsViewController new];
             newsVC.delegate = self;
             newsVC.hidesBottomBarWhenPushed = YES;
@@ -268,6 +261,7 @@ static NSString *const headerReuseIdentifier = @"headerReuseIdentifier";
     }
     return _ctntView;
 }
+
 - (NSMutableArray <NSArray *>*)dataSource {
     if (!_dataSource) {
         _dataSource = @[].mutableCopy;
@@ -280,7 +274,6 @@ static NSString *const headerReuseIdentifier = @"headerReuseIdentifier";
 }
 
 - (void)repeatDelay {
-    
     self.selected = false;
 }
 

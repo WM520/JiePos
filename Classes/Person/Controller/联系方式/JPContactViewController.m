@@ -16,6 +16,7 @@
 @property (nonatomic, copy) NSString * mobileNumber;
 @end
 @implementation JPMobileCell
+
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
@@ -366,7 +367,6 @@
     [contentText appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"1、复制微信号：%@\n2、打开微信，点击右上角“+”【添加好友】\n3、在搜索框中，粘贴微信号，与微信客服沟通", weixinNumber] attributes:@{NSForegroundColorAttributeName : JP_NoticeText_Color, NSFontAttributeName : [UIFont systemFontOfSize:JPRealValue(24)], NSParagraphStyleAttributeName : paragraphStyle}]];
     _textView.attributedText = contentText;
 }
-
 
 @end
 

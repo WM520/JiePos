@@ -27,38 +27,7 @@
 
 @implementation JPModificationViewController
 
-- (UIBarButtonItem *)rightButtonItem
-{
-    if (!_rightButtonItem) {
-        _rightButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"重设" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarItemClicked)];
-    }
-    return _rightButtonItem;
-}
-
-- (void)setNavRightButtonItem {
-    if (!self.repeatSettings) {
-        weakSelf_declare;
-        _repeatSettings = [[UIButton alloc] init];
-        [_repeatSettings setTitle:@"重新设置" forState:UIControlStateNormal];
-        [_repeatSettings setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-        [_repeatSettings addTarget:self action:@selector(rightBarItemClicked) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:_repeatSettings];
-        [_repeatSettings mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(weakSelf.view);
-            make.right.equalTo(weakSelf.view);
-            make.height.equalTo(@30);
-            make.bottom.equalTo(weakSelf.view).offset(JPRealValue(-50));
-        }];
-    }
-}
-
-- (void)rightBarItemClicked {
-    _hintLabel.textColor = [UIColor grayColor];
-    _hintLabel.text = @"绘制解锁图案";
-    [_preview redraw];
-    self.passwordManager.firstPassword = nil;
-}
-
+#pragma mark -lifestyle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -68,6 +37,7 @@
     [self subviewsInitialization];
 }
 
+#pragma mark - init
 - (void)commonInitialization
 {
     self.passwordManager = [TQGesturesPasswordManager manager];
@@ -119,7 +89,6 @@
 }
 
 #pragma mark - TQGestureLockViewDelegate
-
 - (void)gestureLockView:(TQGestureLockView *)gestureLockView lessErrorSecurityCodeSting:(NSString *)securityCodeSting
 {
     [gestureLockView setNeedsDisplayGestureLockErrorState:YES];
@@ -154,6 +123,40 @@
         self.count--;
         [_hintLabel setWarningText:[NSString stringWithFormat:@"密码错误，您还可以输入%ld次", self.count] shakeAnimated:YES];
     }
+}
+
+#pragma mark - Methods
+- (void)setNavRightButtonItem {
+    if (!self.repeatSettings) {
+        weakSelf_declare;
+        _repeatSettings = [[UIButton alloc] init];
+        [_repeatSettings setTitle:@"重新设置" forState:UIControlStateNormal];
+        [_repeatSettings setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        [_repeatSettings addTarget:self action:@selector(rightBarItemClicked) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:_repeatSettings];
+        [_repeatSettings mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(weakSelf.view);
+            make.right.equalTo(weakSelf.view);
+            make.height.equalTo(@30);
+            make.bottom.equalTo(weakSelf.view).offset(JPRealValue(-50));
+        }];
+    }
+}
+
+- (void)rightBarItemClicked {
+    _hintLabel.textColor = [UIColor grayColor];
+    _hintLabel.text = @"绘制解锁图案";
+    [_preview redraw];
+    self.passwordManager.firstPassword = nil;
+}
+
+#pragma mark - setter or getter
+- (UIBarButtonItem *)rightButtonItem
+{
+    if (!_rightButtonItem) {
+        _rightButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"重设" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarItemClicked)];
+    }
+    return _rightButtonItem;
 }
 
 @end

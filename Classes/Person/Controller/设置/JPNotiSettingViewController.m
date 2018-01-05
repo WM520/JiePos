@@ -81,7 +81,7 @@
                           @{
                               configName : @"震动",
                               imageName : @"jp_person_set_voice",
-                              aSwitchValue : [NSNumber numberWithBool:[JP_UserDefults boolForKey:JP_Voice_Value]]
+                              aSwitchValue : [NSNumber numberWithBool:[JP_UserDefults boolForKey:JP_Shake_Value]]
                               }
                           ], nil];
     }
@@ -140,6 +140,7 @@ static NSString *cellReuseIdentifier = @"cellReuseIdentifier";
     cell.switchBlock = ^(UISwitch *aSwitch, NSInteger tag, BOOL isOn) {
         UISwitch *notiSwitch = (UISwitch *)[weakSelf.view viewWithTag:1];
         UISwitch *voiceSwitch = (UISwitch *)[weakSelf.view viewWithTag:11];
+        UISwitch *shakeSwitch = (UISwitch *)[weakSelf.view viewWithTag:12];
         if (tag == 1) {
             
             [MobClick event:@"setting_getNoti"];
@@ -168,7 +169,9 @@ static NSString *cellReuseIdentifier = @"cellReuseIdentifier";
                     if(responseObject) {
                         JPLog(@"解绑成功！");
                         voiceSwitch.on = NO;
+                        shakeSwitch.on = NO;
                         [JP_UserDefults setBool:NO forKey:JP_Voice_Value];
+                        [JP_UserDefults setBool:NO forKey:JP_Shake_Value];
                         notiSwitch.on = NO;
                         [JP_UserDefults setBool:NO forKey:JP_Noti_Value];
                     } else {
@@ -210,6 +213,16 @@ static NSString *cellReuseIdentifier = @"cellReuseIdentifier";
                 JPLog(@"语音播报关闭了");
                 voiceSwitch.on = NO;
                 [JP_UserDefults setBool:NO forKey:JP_Voice_Value];
+            }
+        } else if (tag == 12) {
+            if (isOn) {
+                JPLog(@"震动打开了");
+                shakeSwitch.on = YES;
+                [JP_UserDefults setBool:YES forKey:JP_Shake_Value];
+            } else {
+                JPLog(@"震动关闭了");
+                shakeSwitch.on = NO;
+                [JP_UserDefults setBool:NO forKey:JP_Shake_Value];
             }
         }
         [JP_UserDefults synchronize];

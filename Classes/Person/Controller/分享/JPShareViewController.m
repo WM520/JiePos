@@ -20,6 +20,7 @@
 
 @implementation JPShareViewController
 
+#pragma mark - liftstyle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -31,6 +32,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Init
 - (void)configUI
 {
     weakSelf_declare;
@@ -47,7 +49,7 @@
     }];
 }
 
-
+#pragma mark - Methods
 - (void)rightClick:(UIBarButtonItem *)rightItem
 {
     NSArray *titlearr = @[@"微信朋友圈", @"微信好友",@"QQ好友", @"QQ空间"];
@@ -104,6 +106,7 @@
     }];
     [[UIApplication sharedApplication].keyWindow addSubview:actionsheet];
 }
+
 - (void)shareWithParameters:(NSMutableDictionary *)parameters platformType:(SSDKPlatformType) platformType
 {
     if (_isShare) {

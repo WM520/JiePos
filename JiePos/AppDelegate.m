@@ -28,6 +28,8 @@
 
 #import "JPGesturePasswordViewController.h"
 
+#import <AVFoundation/AVFoundation.h>
+
 
 @interface AppDelegate () <UNUserNotificationCenterDelegate,IFlySpeechSynthesizerDelegate>
 @property (nonatomic, strong) PcmPlayer *audioPlayer;
@@ -69,7 +71,7 @@
     if (![JP_UserDefults boolForKey:@"firstIn"]) {
         [JP_UserDefults setBool:YES forKey:JP_Noti_Value];
         [JP_UserDefults setBool:YES forKey:JP_Voice_Value];
-        
+        [JP_UserDefults setBool:YES forKey:JP_Shake_Value];
         [JP_UserDefults setBool:YES forKey:@"firstIn"];
     }
     
@@ -270,7 +272,10 @@
     
     //  定制自定的的弹出框
     if (transInfo.count > 0) {
-        
+        // 是否震动
+        if ([JP_UserDefults boolForKey:JP_Shake_Value]) {
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        }
         JPNewsModel *model = [JPNewsModel yy_modelWithDictionary:transInfo];
         [self playVoice:model unread:YES];
     }
@@ -297,7 +302,13 @@
     } else {
         //应用处于前台时的本地推送接受
     }
-    completionHandler (UNNotificationPresentationOptionSound | UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionAlert);
+    // 是否震动
+    if ([JP_UserDefults boolForKey:JP_Shake_Value]) {
+        completionHandler (UNNotificationPresentationOptionSound | UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionAlert);
+    } else {
+        completionHandler (UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionAlert);
+    }
+
 }
 
 // !!!: iOS10以下：处理后台点击通知的代理方法

@@ -29,6 +29,7 @@ UITableViewDataSource>
 
 @implementation JPManageGesticulationViewController
 
+#pragma mark - lifestyle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -53,7 +54,7 @@ UITableViewDataSource>
         self.isOn = YES;
     };
 }
-
+#pragma mark - init
 - (void)configData
 {
     self.passwordManager = [TQGesturesPasswordManager manager];
