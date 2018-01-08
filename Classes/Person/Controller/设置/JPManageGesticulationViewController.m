@@ -33,13 +33,14 @@ UITableViewDataSource>
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    // 初始化数据
     [self configData];
+    // 初始化UI
     [self configUI];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -54,6 +55,7 @@ UITableViewDataSource>
         self.isOn = YES;
     };
 }
+
 #pragma mark - init
 - (void)configData
 {
@@ -71,7 +73,7 @@ UITableViewDataSource>
         section2.sectionHeaderHeight = 18;
         section2.itemArray = @[item2];
         _section2 = section2;
-    };
+    }
     
     weakSelf_declare;
     XBSettingItemModel *item1 = [[XBSettingItemModel alloc]init];
@@ -93,7 +95,7 @@ UITableViewDataSource>
                 item2.img = [UIImage imageNamed:@"jp_person_login_password"];
                 item2.accessoryType = XBSettingAccessoryTypeDisclosureIndicator;
                 _item2 = item2;
-                XBSettingSectionModel *section2 = [[XBSettingSectionModel alloc]init];
+                XBSettingSectionModel *section2 = [[XBSettingSectionModel alloc] init];
                 section2.sectionHeaderHeight = 18;
                 section2.itemArray = @[item2];
                 _section2 = section2;
@@ -151,7 +153,6 @@ UITableViewDataSource>
     cell.item = itemModel;
     return cell;
 }
-
 
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

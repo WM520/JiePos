@@ -37,7 +37,7 @@
 {
     weakSelf_declare;
     self.title = @"推荐分享";
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"jp_news_allread"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(rightClick:)];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"jp_news_share"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(rightClick:)];
     self.navigationItem.rightBarButtonItem = rightItem;
     _backgroundImageView = [[UIImageView alloc] init];
     _backgroundImageView.image = [UIImage imageNamed:@"shareBG"];

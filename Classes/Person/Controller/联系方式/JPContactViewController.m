@@ -61,7 +61,6 @@
 {
     _mobileNumber = mobileNumber;
     [_mobileButton setAttributedTitle:[self attributrStringWithString:mobileNumber color:JPBaseColor] forState:UIControlStateNormal];
-    
 }
 
 #pragma mark - Getter

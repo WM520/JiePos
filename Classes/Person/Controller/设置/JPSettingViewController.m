@@ -92,7 +92,6 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
     item3.img = [UIImage imageNamed:@"jp_person_shoushi_password"];
     item3.accessoryType = XBSettingAccessoryTypeDisclosureIndicator;
     item3.executeCode = ^() {
-//        [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"tel://10010"]];
         JPManageGesticulationViewController * vc = [[JPManageGesticulationViewController alloc] init];
         vc.title = @"手势密码设置";
         [self.navigationController pushViewController:vc animated:YES];
@@ -139,7 +138,6 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
 }
 
 #pragma mark - tableViewDataSource
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.dataSource.count;
 }
@@ -292,12 +290,10 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
     
     [alertController addAction:cancelAction];
     [alertController addAction:confirmAction];
-    
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
-
-
+#pragma mark - setter or getter
 - (UITableView *)ctntView {
     if (!_ctntView) {
         _ctntView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];

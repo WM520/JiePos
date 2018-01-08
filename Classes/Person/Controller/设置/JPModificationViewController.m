@@ -32,8 +32,9 @@
 {
     [super viewDidLoad];
     _count = 5;
+    // 初始化数据
     [self commonInitialization];
-    
+    // 初始化UI
     [self subviewsInitialization];
 }
 

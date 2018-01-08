@@ -25,7 +25,6 @@ static NSString * const MONEYNUMBERS = @"0123456789";
     
     // 获取contextRef对象;
     CGContextRef context = UIGraphicsGetCurrentContext();
-    
     // 画外框
     // 获取边框大小
     CGRect conRect = CGRectMake(x, y, self.squareSize * self.digitsNumber, self.squareSize);

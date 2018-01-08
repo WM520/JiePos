@@ -36,9 +36,6 @@
 }
 
 - (void)setNavRightButtonItem {
-//    if (!self.navigationItem.rightBarButtonItem) {
-//        self.navigationItem.rightBarButtonItem = self.rightButtonItem;
-//    }
     if (!self.repeatSettings) {
         weakSelf_declare;
         _repeatSettings = [[UIButton alloc] init];
