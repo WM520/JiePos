@@ -11,18 +11,13 @@
 #import "XBConst.h"
 #import "UIView+Extension.h"
 @interface XBSettingCell()
+
 @property (strong, nonatomic) UILabel *funcNameLabel;
 @property (nonatomic,strong) UIImageView *imgView;
-
 @property (nonatomic,strong) UIImageView *indicator;
-
 @property (nonatomic,strong) UISwitch *aswitch;
-
 @property (nonatomic,strong) UILabel *detailLabel;
-
 @property (nonatomic,strong) UIImageView *detailImageView;
-
-
 
 @end
 @implementation XBSettingCell
@@ -42,8 +37,6 @@
     } else {
         [self updateUI];
     }
-    
-    
 }
 
 - (void)setCellwidth:(CGFloat)cellwidth
@@ -68,7 +61,6 @@
     if (self.item.funcName) {
         [self setupFuncLabel];
     }
-
     //accessoryType
     if (self.item.accessoryType) {
         [self setupAccessoryType];
@@ -80,12 +72,10 @@
     if (self.item.detailImage) {
         [self setupDetailImage];
     }
-
     //bottomLine
     UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, self.height - 1, _cellwidth, 1)];
     line.backgroundColor = XBMakeColorWithRGB(234, 234, 234, 1);
 //    [self.contentView addSubview:line];
-    
 }
 
 -(void)setupDetailImage
@@ -131,7 +121,7 @@
         default:
             break;
     }
-    
+
     [self.contentView addSubview:self.detailLabel];
 }
 
@@ -165,7 +155,6 @@
 - (void)setupIndicator
 {
     [self.contentView addSubview:self.indicator];
-    
 }
 
 - (void)setupImgView

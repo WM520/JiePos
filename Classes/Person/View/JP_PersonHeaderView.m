@@ -9,6 +9,7 @@
 #import "JP_PersonHeaderView.h"
 
 @interface JP_PersonHeaderView ()
+
 @property (nonatomic, strong) UIImageView *bgView;
 @property (nonatomic, strong) UIView *currentView;
 @property (nonatomic, strong) UIImageView *portraitView;
@@ -16,7 +17,9 @@
 @property (nonatomic, strong) UIImageView *tagView;
 @property (nonatomic, strong) UILabel *userLab;
 @property (nonatomic, strong) UILabel *merchantNoLab;
+
 @end
+
 @implementation JP_PersonHeaderView
 
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
@@ -99,6 +102,7 @@
     }
     return _bgView;
 }
+
 - (UIView *)currentView {
     if (!_currentView) {
         _currentView = [UIView new];
@@ -112,6 +116,7 @@
     }
     return _currentView;
 }
+
 - (UIImageView *)portraitView {
     if (!_portraitView) {
         _portraitView = [UIImageView new];
@@ -119,6 +124,7 @@
     }
     return _portraitView;
 }
+
 - (UILabel *)merchatLab {
     if (!_merchatLab) {
         _merchatLab = [UILabel new];
@@ -127,6 +133,7 @@
     }
     return _merchatLab;
 }
+
 - (UIImageView *)tagView {
     if (!_tagView) {
         _tagView = [UIImageView new];
@@ -134,6 +141,7 @@
     }
     return _tagView;
 }
+
 - (UILabel *)userLab {
     if (!_userLab) {
         _userLab = [UILabel new];
@@ -142,6 +150,7 @@
     }
     return _userLab;
 }
+
 - (UILabel *)merchantNoLab {
     if (!_merchantNoLab) {
         _merchantNoLab = [UILabel new];
@@ -150,4 +159,5 @@
     }
     return _merchantNoLab;
 }
+
 @end

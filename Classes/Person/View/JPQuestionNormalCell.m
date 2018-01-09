@@ -9,10 +9,13 @@
 #import "JPQuestionNormalCell.h"
 
 @interface JPQuestionNormalCell ()
+
 @property (nonatomic, strong) UILabel       *quesLab;
 @property (nonatomic, strong) UIImageView   *indicatorView;
 @property (nonatomic, strong) UILabel       *lineLab;
+
 @end
+
 @implementation JPQuestionNormalCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
