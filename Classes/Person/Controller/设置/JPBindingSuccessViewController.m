@@ -17,6 +17,7 @@
 
 @implementation JPBindingSuccessViewController
 
+#pragma mark - lifestyle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -28,6 +29,8 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+
+#pragma mark - Action
 - (void)rightBarItemClicked {
     NSArray * controllers = self.navigationController.viewControllers;
     [self.navigationController popToViewController:controllers[1] animated:YES];
@@ -39,6 +42,5 @@
     JPLoginViewController * login = [[JPLoginViewController alloc] init];
     [self presentViewController:login animated:YES completion:nil];
 }
-
 
 @end

@@ -11,11 +11,15 @@
 
 @interface JPPhoneRegisterViewController ()
 <UITextFieldDelegate>
+
 @property (weak, nonatomic) IBOutlet UIButton *getCodeButton;
 @property (nonatomic, strong)NSTimer *timer;
 @property (nonatomic , assign)NSInteger time;
 @property (weak, nonatomic) IBOutlet UITextField *phoneTextField;
 @property (weak, nonatomic) IBOutlet UITextField *codeTextFiled;
+@property (weak, nonatomic) IBOutlet UIButton *sendMsgButton;
+@property (weak, nonatomic) IBOutlet UIButton *nextstepButton;
+
 @end
 
 @implementation JPPhoneRegisterViewController
@@ -25,6 +29,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.phoneTextField.delegate = self;
+    self.sendMsgButton.enabled = NO;
+    self.nextstepButton.enabled = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,11 +39,11 @@
 }
 
 #pragma mark - Methods
-
 - (IBAction)getMessageCode:(id)sender {
     [JPNetTools1_0_2 checkIsOnlyPhone:self.phoneTextField.text callback:^(NSString *code, NSString *msg, id resp) {
         if ([msg isEqualToString:@"成功"]) {
             _getCodeButton.userInteractionEnabled = NO;
+            self.nextstepButton.enabled = YES;
             self.timer.fireDate = [NSDate distantPast];
             [JPNetTools1_0_2 sendSmsPhoneCode:self.phoneTextField.text callback:^(NSString *code, NSString *msg, id resp) {
                 [IBProgressHUD showInfoWithStatus:msg];
@@ -71,13 +77,19 @@
         [_getCodeButton setTitle:@"重新获取" forState:UIControlStateNormal];
         self.time = 60;
     }
-    
 }
+
 #pragma mark - UITextFieldDelegate
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     if (textField == _phoneTextField) {
         NSString *toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        if (toBeString.length == 11) {
+            self.sendMsgButton.enabled = YES;
+        } else {
+            self.sendMsgButton.enabled = NO;
+        }
         if (toBeString.length > 11 && range.length!=1){
+            
             textField.text = [toBeString substringToIndex:11];
             [textField resignFirstResponder];
             return NO;

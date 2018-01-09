@@ -11,6 +11,7 @@
 #define imageName       @"imageName"
 #define configName      @"configName"
 #define aSwitchValue    @"aSwitchValue"
+static NSString *cellReuseIdentifier = @"cellReuseIdentifier";
 
 @interface JPSettingCell : UITableViewCell
 @property (nonatomic, strong) UISwitch *aSwitch;
@@ -62,45 +63,7 @@
 
 @implementation JPNotiSettingViewController
 
-- (NSArray<NSArray *> *)configArray {
-    if (!_configArray) {
-        _configArray = [NSArray arrayWithObjects:
-                        @[
-                          @{
-                              configName : @"接收消息通知",
-                              imageName : @"jp_person_set_noti",
-                              aSwitchValue : [NSNumber numberWithBool:[JP_UserDefults boolForKey:JP_Noti_Value]]
-                              }
-                          ],
-                        @[
-                          @{
-                              configName : @"语音播报",
-                              imageName : @"jp_person_set_voice",
-                              aSwitchValue : [NSNumber numberWithBool:[JP_UserDefults boolForKey:JP_Voice_Value]]
-                              },
-                          @{
-                              configName : @"震动",
-                              imageName : @"jp_person_set_voice",
-                              aSwitchValue : [NSNumber numberWithBool:[JP_UserDefults boolForKey:JP_Shake_Value]]
-                              }
-                          ], nil];
-    }
-    return _configArray;
-}
-
-- (UITableView *)ctntView {
-    if (!_ctntView) {
-        _ctntView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64) style:UITableViewStyleGrouped];
-        _ctntView.dataSource = self;
-        _ctntView.delegate = self;
-        _ctntView.backgroundColor = JP_viewBackgroundColor;
-        _ctntView.scrollEnabled = NO;
-//        _ctntView.separatorColor = JP_LineColor;
-        _ctntView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    }
-    return _ctntView;
-}
-
+#pragma mark - lifestyle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -108,9 +71,12 @@
     [self.view addSubview:self.ctntView];
 }
 
-#pragma mark - tableViewDataSource
-static NSString *cellReuseIdentifier = @"cellReuseIdentifier";
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 
+#pragma mark - tableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.configArray.count;
 }
@@ -147,7 +113,6 @@ static NSString *cellReuseIdentifier = @"cellReuseIdentifier";
             
             if (isOn) {
                 JPLog(@"通知开启了");
-
                 //  绑定友盟推送alias
                 [UMessage addAlias:[JP_UserDefults objectForKey:@"merchantNo"] type:JP_UMessageAliasType response:^(id  _Nonnull responseObject, NSError * _Nonnull error) {
                     if(responseObject) {
@@ -163,7 +128,6 @@ static NSString *cellReuseIdentifier = @"cellReuseIdentifier";
                 }];
             } else {
                 JPLog(@"通知关闭了");
-                
                 //  解绑友盟推送alias
                 [UMessage removeAlias:[JP_UserDefults objectForKey:@"merchantNo"] type:JP_UMessageAliasType response:^(id  _Nonnull responseObject, NSError * _Nonnull error) {
                     if(responseObject) {
@@ -227,7 +191,6 @@ static NSString *cellReuseIdentifier = @"cellReuseIdentifier";
         }
         [JP_UserDefults synchronize];
     };
-    
     return cell;
 }
 
@@ -235,9 +198,11 @@ static NSString *cellReuseIdentifier = @"cellReuseIdentifier";
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return section == 0 ? JPRealValue(28) : 0.01;
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return section == 0 ? JPRealValue(48) : JPRealValue(80);
 }
+
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     UIView *footerView = [UIView new];
     footerView.backgroundColor = JP_viewBackgroundColor;
@@ -262,23 +227,47 @@ static NSString *cellReuseIdentifier = @"cellReuseIdentifier";
         make.right.equalTo(footerView.mas_right).offset(JPRealValue(-40));
         make.bottom.equalTo(footerView.mas_bottom);
     }];
-    
     return footerView;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - setter or getter
+- (NSArray<NSArray *> *)configArray {
+    if (!_configArray) {
+        _configArray = [NSArray arrayWithObjects:
+                        @[
+                          @{
+                              configName : @"接收消息通知",
+                              imageName : @"jp_person_set_noti",
+                              aSwitchValue : [NSNumber numberWithBool:[JP_UserDefults boolForKey:JP_Noti_Value]]
+                              }
+                          ],
+                        @[
+                          @{
+                              configName : @"语音播报",
+                              imageName : @"jp_person_set_voice",
+                              aSwitchValue : [NSNumber numberWithBool:[JP_UserDefults boolForKey:JP_Voice_Value]]
+                              },
+                          @{
+                              configName : @"震动",
+                              imageName : @"jp_person_set_voice",
+                              aSwitchValue : [NSNumber numberWithBool:[JP_UserDefults boolForKey:JP_Shake_Value]]
+                              }
+                          ], nil];
+    }
+    return _configArray;
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+- (UITableView *)ctntView {
+    if (!_ctntView) {
+        _ctntView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64) style:UITableViewStyleGrouped];
+        _ctntView.dataSource = self;
+        _ctntView.delegate = self;
+        _ctntView.backgroundColor = JP_viewBackgroundColor;
+        _ctntView.scrollEnabled = NO;
+        //        _ctntView.separatorColor = JP_LineColor;
+        _ctntView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    }
+    return _ctntView;
+}
 
 @end

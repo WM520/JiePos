@@ -59,7 +59,6 @@
     
         [_clearImageView addGestureRecognizer:recognizer];
         [self addSubview:_clearImageView];
-        
     }
     return self;
 }
@@ -73,7 +72,6 @@
     return self;
 }
 
-
 - (void)configUI
 {
     _iconView = [[UIImageView alloc] init];
@@ -84,8 +82,6 @@
     [self addSubview:_textLabel];
     _indicatorView = [[UIImageView alloc] init];
     [self addSubview:_indicatorView];
-    
-  
 }
 
 - (void)setNeedsDisplay

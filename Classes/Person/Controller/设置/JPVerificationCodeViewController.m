@@ -62,6 +62,7 @@
     self.fourNumberField.delegate = self;
     self.fiveNumberField.delegate = self;
     self.sixNumberField.delegate = self;
+    self.getCodeButton.enabled = NO;
 }
 
 
@@ -170,6 +171,7 @@
                 [self.navigationController pushViewController:bindingSuccessVC animated:YES];
             } else {
                 [IBProgressHUD showInfoWithStatus:msg];
+                self.getCodeButton.enabled = YES;
             }
     
         }];
@@ -207,7 +209,6 @@
         [_getCodeButton setTitle:@"重新获取" forState:UIControlStateNormal];
         self.time = 60;
     }
-    
 }
 
 #pragma mark - Getter&&Setter

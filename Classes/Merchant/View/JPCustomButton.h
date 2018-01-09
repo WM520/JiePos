@@ -11,9 +11,10 @@
 
 typedef void(^ActionBlock)();
 @interface JPCustomButton : UIView
+
 - (instancetype)initWithIconView:(NSString *)iconView
                       textString:(NSString *)textString
                    indicatorView:(NSString *)indicatorView;
-
 @property (nonatomic, copy) ActionBlock actionBlock;
+
 @end
