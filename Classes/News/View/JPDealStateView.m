@@ -9,6 +9,7 @@
 #import "JPDealStateView.h"
 
 @interface JPDealStateView ()
+
 @property (nonatomic, strong) UIImageView *bgView;
 @property (nonatomic, strong) UIImageView *circleView;
 /** 交易金额*/
@@ -16,9 +17,11 @@
 @property (nonatomic, strong) UIView *lineView;
 /** 交易类型*/
 @property (nonatomic, strong) UILabel *typeLab;
+
 @end
 
 @implementation JPDealStateView
+
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithReuseIdentifier:reuseIdentifier];
     if (self) {
@@ -31,6 +34,7 @@
     }
     return self;
 }
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     
@@ -59,6 +63,7 @@
     }];
     [self layoutIfNeeded];
 }
+
 - (void)setType:(JP_DealType)type {
     if (self.ammount.length > 4) {
         self.ammountLab.font = [UIFont systemFontOfSize:JPRealValue(40)];
@@ -73,6 +78,7 @@
         self.typeLab.text = @"退款金额(元)";
     }
 }
+
 - (UIImageView *)bgView {
     if (!_bgView) {
         _bgView = [UIImageView new];
@@ -80,6 +86,7 @@
     }
     return _bgView;
 }
+
 - (UIImageView *)circleView {
     if (!_circleView) {
         _circleView = [UIImageView new];
@@ -87,6 +94,7 @@
     }
     return _circleView;
 }
+
 - (UIView *)lineView {
     if (!_lineView) {
         _lineView = [UIView new];
@@ -94,6 +102,7 @@
     }
     return _lineView;
 }
+
 - (UILabel *)ammountLab {
     if (!_ammountLab) {
         _ammountLab = [UILabel new];
@@ -103,6 +112,7 @@
     }
     return _ammountLab;
 }
+
 - (UILabel *)typeLab {
     if (!_typeLab) {
         _typeLab = [UILabel new];
@@ -112,5 +122,6 @@
     }
     return _typeLab;
 }
+
 @end
 

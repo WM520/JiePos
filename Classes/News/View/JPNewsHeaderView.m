@@ -9,8 +9,11 @@
 #import "JPNewsHeaderView.h"
 
 @interface JPNewsHeaderView ()
+
 @property (nonatomic, strong) UILabel *timeLab;
+
 @end
+
 @implementation JPNewsHeaderView
 
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {

@@ -72,6 +72,7 @@
         [JP_UserDefults setBool:YES forKey:JP_Noti_Value];
         [JP_UserDefults setBool:YES forKey:JP_Voice_Value];
         [JP_UserDefults setBool:YES forKey:JP_Shake_Value];
+        // 第一次登录的时候提醒用户设置手势密码
         [JP_UserDefults setBool:YES forKey:@"firstIn"];
     }
     

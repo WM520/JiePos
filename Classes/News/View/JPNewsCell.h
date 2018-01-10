@@ -10,5 +10,7 @@
 #import "JPNewsModel.h"
 
 @interface JPNewsCell : UITableViewCell
+
 @property (nonatomic, strong) JPNewsModel *newsModel;
+
 @end

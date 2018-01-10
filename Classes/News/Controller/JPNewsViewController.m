@@ -11,27 +11,73 @@
 #import "JPNewsCell.h"
 #import "IBPopView.h"
 #import "JPNewsDetailViewController.h"
+static NSString *const headerReuseIdentifier = @"headerReuseIdentifier";
+static NSString *const cellReuseIdentifier = @"cellReuseIdentifier";
 
-@interface JPNewsViewController () <UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, UIPopoverPresentationControllerDelegate> {
+@interface JPNewsViewController ()
+<UITableViewDataSource,
+UITableViewDelegate,
+DZNEmptyDataSetSource,
+DZNEmptyDataSetDelegate,
+UIPopoverPresentationControllerDelegate> {
     IBPopView   *_popVC;
 }
 @property (nonatomic, strong) UITableView *ctntView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, getter=isLoading) BOOL loading;
-@end
 
-static NSString *const headerReuseIdentifier = @"headerReuseIdentifier";
-static NSString *const cellReuseIdentifier = @"cellReuseIdentifier";
+@end
 
 @implementation JPNewsViewController
 
-- (void)setLoading:(BOOL)loading {
-    if (self.isLoading == loading) {
-        return;
-    }
-    _loading = loading;
+#pragma mark - lifestyle
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
-    [self.ctntView reloadEmptyDataSet];
+    //    JPNavigationController *newsNav = self.tabBarController.viewControllers[1];
+    //    NSString *badge = nil;
+    //    if ([JPPushHelper badgeNumber] > 0) {
+    //        badge = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+    //    }
+    //    [newsNav.tabBarItem setBadgeValue:badge];
+    
+    //    [self.ctntView.mj_header beginRefreshing];
+}
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCFUMMessageClickNotification object:nil];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = @"消息中心";
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"jp_news_allread"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(rightClick:)];
+    self.navigationItem.rightBarButtonItem = rightItem;
+    
+    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    gradientLayer.colors = @[(__bridge id)[UIColor colorWithHexString:@"7a93f5"].CGColor, (__bridge id)[UIColor colorWithHexString:@"68b2f2"].CGColor, (__bridge id)[UIColor colorWithHexString:@"51dbf0"].CGColor];
+    gradientLayer.locations = @[@0, @0.5, @1.0];
+    gradientLayer.startPoint = CGPointMake(0, 0);
+    gradientLayer.endPoint = CGPointMake(1.0, 1.0);
+    gradientLayer.frame = (CGRect){0, 0, kScreenWidth, kScreenHeight - 49};
+    [self.view.layer addSublayer:gradientLayer];
+    
+    [self.view addSubview:self.ctntView];
+    
+    self.ctntView.emptyDataSetSource = self;
+    self.ctntView.emptyDataSetDelegate = self;
+    
+    weakSelf_declare;
+    self.ctntView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf.dataSource removeAllObjects];
+        [weakSelf getDataFromDataBase];
+    }];
+    self.ctntView.mj_header.hidden = YES;
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:kCFUMMessageClickNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        [weakSelf.ctntView.mj_header beginRefreshing];
+    }];
 }
 
 - (void)dealloc {
@@ -110,81 +156,6 @@ static NSString *const cellReuseIdentifier = @"cellReuseIdentifier";
     [self.ctntView.mj_header endRefreshing];
 }
 
-#pragma mark - lazy
-- (UITableView *)ctntView {
-    if (!_ctntView) {
-        _ctntView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 44) style:UITableViewStyleGrouped];
-        _ctntView.dataSource = self;
-        _ctntView.delegate = self;
-        _ctntView.rowHeight = JPRealValue(630);
-        _ctntView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _ctntView.backgroundColor = [UIColor clearColor];
-        _ctntView.estimatedSectionHeaderHeight = 0;
-        _ctntView.estimatedSectionFooterHeight = 0;
-        
-        [_ctntView registerClass:[JPNewsHeaderView class] forHeaderFooterViewReuseIdentifier:headerReuseIdentifier];
-        [_ctntView registerClass:[JPNewsCell class] forCellReuseIdentifier:cellReuseIdentifier];
-    }
-    return _ctntView;
-}
-//  数据源
-- (NSMutableArray *)dataSource {
-    if (!_dataSource) {
-        _dataSource = @[].mutableCopy;
-    }
-    return _dataSource;
-}
-
-#pragma mark - view
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-//    JPNavigationController *newsNav = self.tabBarController.viewControllers[1];
-//    NSString *badge = nil;
-//    if ([JPPushHelper badgeNumber] > 0) {
-//        badge = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
-//    }
-//    [newsNav.tabBarItem setBadgeValue:badge];
-    
-//    [self.ctntView.mj_header beginRefreshing];
-}
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCFUMMessageClickNotification object:nil];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.title = @"消息中心";
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"jp_news_allread"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(rightClick:)];
-    self.navigationItem.rightBarButtonItem = rightItem;
-    
-    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    gradientLayer.colors = @[(__bridge id)[UIColor colorWithHexString:@"7a93f5"].CGColor, (__bridge id)[UIColor colorWithHexString:@"68b2f2"].CGColor, (__bridge id)[UIColor colorWithHexString:@"51dbf0"].CGColor];
-    gradientLayer.locations = @[@0, @0.5, @1.0];
-    gradientLayer.startPoint = CGPointMake(0, 0);
-    gradientLayer.endPoint = CGPointMake(1.0, 1.0);
-    gradientLayer.frame = (CGRect){0, 0, kScreenWidth, kScreenHeight - 49};
-    [self.view.layer addSublayer:gradientLayer];
-    
-    [self.view addSubview:self.ctntView];
-    
-    self.ctntView.emptyDataSetSource = self;
-    self.ctntView.emptyDataSetDelegate = self;
-    
-    weakSelf_declare;
-    self.ctntView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [weakSelf.dataSource removeAllObjects];
-        [weakSelf getDataFromDataBase];
-    }];
-    self.ctntView.mj_header.hidden = YES;
-
-    [[NSNotificationCenter defaultCenter] addObserverForName:kCFUMMessageClickNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
-        [weakSelf.ctntView.mj_header beginRefreshing];
-    }];
-}
-
 #pragma mark - tableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.dataSource.count;
@@ -204,7 +175,6 @@ static NSString *const cellReuseIdentifier = @"cellReuseIdentifier";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [MobClick event:@"news_detailed"];
-    
     JPNewsDetailViewController *dealDetailVC = [[JPNewsDetailViewController alloc] init];
 //    dealDetailVC.hidesBottomBarWhenPushed = YES;
     dealDetailVC.newsModel = self.dataSource[indexPath.section][indexPath.row];
@@ -255,8 +225,8 @@ static NSString *const cellReuseIdentifier = @"cellReuseIdentifier";
     animation.duration = 0.25;
     animation.cumulative = YES;
     animation.repeatCount = MAXFLOAT;
-    
     return animation;
+    
 }
 
 #pragma mark - DZNEmptyDataSetDelegate
@@ -282,17 +252,14 @@ static NSString *const cellReuseIdentifier = @"cellReuseIdentifier";
 
 - (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView {
     NSString *text = @"正在加载，请稍后...";
-    
     NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;
     paragraph.alignment = NSTextAlignmentCenter;
-    
     NSDictionary *attributes = @{
                                  NSFontAttributeName:JP_DefaultsFont,
                                  NSForegroundColorAttributeName:[UIColor whiteColor],
                                  NSParagraphStyleAttributeName:paragraph
                                  };
-    
     return self.loading ? [[NSAttributedString alloc] initWithString:text attributes:attributes] : nil;
 }
 
@@ -334,9 +301,41 @@ static NSString *const cellReuseIdentifier = @"cellReuseIdentifier";
     };
 }
 
+- (void)setLoading:(BOOL)loading {
+    if (self.isLoading == loading) {
+        return;
+    }
+    _loading = loading;
+    [self.ctntView reloadEmptyDataSet];
+}
 //代理方法 ,点击即可dismiss掉每次init产生的PopViewController
 - (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
     return UIModalPresentationNone;
+}
+
+#pragma mark - lazy
+- (UITableView *)ctntView {
+    if (!_ctntView) {
+        _ctntView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 44) style:UITableViewStyleGrouped];
+        _ctntView.dataSource = self;
+        _ctntView.delegate = self;
+        _ctntView.rowHeight = JPRealValue(630);
+        _ctntView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _ctntView.backgroundColor = [UIColor clearColor];
+        _ctntView.estimatedSectionHeaderHeight = 0;
+        _ctntView.estimatedSectionFooterHeight = 0;
+        
+        [_ctntView registerClass:[JPNewsHeaderView class] forHeaderFooterViewReuseIdentifier:headerReuseIdentifier];
+        [_ctntView registerClass:[JPNewsCell class] forCellReuseIdentifier:cellReuseIdentifier];
+    }
+    return _ctntView;
+}
+//  数据源
+- (NSMutableArray *)dataSource {
+    if (!_dataSource) {
+        _dataSource = @[].mutableCopy;
+    }
+    return _dataSource;
 }
 
 @end

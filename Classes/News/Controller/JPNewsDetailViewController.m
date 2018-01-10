@@ -8,38 +8,20 @@
 
 #import "JPNewsDetailViewController.h"
 #import "JPDealStateView.h"
+static NSString *const cellReuseIdentifier = @"cell";
+static NSString *const headerReuseIdentifier = @"header";
 
 @interface JPNewsDetailViewController () <UITableViewDataSource, UITableViewDelegate>
+
 @property (nonatomic, strong) UITableView *ctntView;
 @property (nonatomic, strong) NSArray <NSArray *>*titleArray;
 @property (nonatomic, strong) UIView *navImageView;
+
 @end
 
 @implementation JPNewsDetailViewController
 
-- (UITableView *)ctntView {
-    if (!_ctntView) {
-        _ctntView = [[UITableView alloc] initWithFrame:(CGRect){0, 0, kScreenWidth, kScreenHeight} style:UITableViewStyleGrouped];
-        _ctntView.dataSource = self;
-        _ctntView.delegate = self;
-        _ctntView.backgroundColor = JP_viewBackgroundColor;
-        _ctntView.separatorColor = JP_LineColor;
-        _ctntView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _ctntView.contentInset = (UIEdgeInsets){-20, 0, 0, 0};
-        _ctntView.estimatedSectionFooterHeight = 0;
-        
-        [_ctntView registerClass:[JPDealStateView class] forHeaderFooterViewReuseIdentifier:headerReuseIdentifier];
-    }
-    return _ctntView;
-}
-
-- (NSArray<NSArray *> *)titleArray {
-    if (!_titleArray) {
-        _titleArray = [NSArray arrayWithObjects:@[@"应付金额", @"优惠金额"], @[@"交易时间", @"商户号", @"商户名称"], @[@"交易类型", @"支付方式"], @[@"订单号", @"平台流水号", @"应答码"], nil];
-    }
-    return _titleArray;
-}
-
+#pragma mark - lifestyle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -48,10 +30,12 @@
     [self.view bringSubviewToFront:_navImageView];
 }
 
-#pragma mark - tableViewDataSource
-static NSString *const cellReuseIdentifier = @"cell";
-static NSString *const headerReuseIdentifier = @"header";
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 
+#pragma mark - tableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.titleArray.count;
 }
@@ -180,15 +164,6 @@ static NSString *const headerReuseIdentifier = @"header";
     return section == 0 ? headerView : nil;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
-}
-
 #pragma mark - NavigationBar
 - (void)layoutHomeView {
     if (!_navImageView) {
@@ -212,6 +187,10 @@ static NSString *const headerReuseIdentifier = @"header";
     }
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 #pragma mark - Action
 - (void)backButtonClicked:(UIButton *)sender {
     [self dismissViewControllerAnimated:YES completion:^{
@@ -223,14 +202,28 @@ static NSString *const headerReuseIdentifier = @"header";
     return YES;
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+#pragma mark - setter or getter
+- (UITableView *)ctntView {
+    if (!_ctntView) {
+        _ctntView = [[UITableView alloc] initWithFrame:(CGRect){0, 0, kScreenWidth, kScreenHeight} style:UITableViewStyleGrouped];
+        _ctntView.dataSource = self;
+        _ctntView.delegate = self;
+        _ctntView.backgroundColor = JP_viewBackgroundColor;
+        _ctntView.separatorColor = JP_LineColor;
+        _ctntView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _ctntView.contentInset = (UIEdgeInsets){-20, 0, 0, 0};
+        _ctntView.estimatedSectionFooterHeight = 0;
+        
+        [_ctntView registerClass:[JPDealStateView class] forHeaderFooterViewReuseIdentifier:headerReuseIdentifier];
+    }
+    return _ctntView;
+}
+
+- (NSArray<NSArray *> *)titleArray {
+    if (!_titleArray) {
+        _titleArray = [NSArray arrayWithObjects:@[@"应付金额", @"优惠金额"], @[@"交易时间", @"商户号", @"商户名称"], @[@"交易类型", @"支付方式"], @[@"订单号", @"平台流水号", @"应答码"], nil];
+    }
+    return _titleArray;
+}
 
 @end

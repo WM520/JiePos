@@ -23,6 +23,8 @@ typedef NS_ENUM(NSUInteger, JPResult) {
 @end
 
 @interface JPNoNewsView : UIView
+
 @property (nonatomic, assign) JPResult result;
 @property (nonatomic, retain) id<JPResultDelegate> delegate;
+
 @end

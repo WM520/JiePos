@@ -9,10 +9,13 @@
 #import "JPNewsTitleView.h"
 
 @interface JPNewsTitleView ()
+
 @property (nonatomic, strong) UIImageView *logoView;
 @property (nonatomic, strong) UILabel     *titleLab;
+
 @end
 @implementation JPNewsTitleView
+
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
@@ -42,6 +45,7 @@
     }
     return self;
 }
+
 - (void)setType:(JPNewsType)type {
     if (type == JPNewsTypeCollection) {
         self.logoView.image = [UIImage imageNamed:@"jp_news_collection"];
@@ -54,4 +58,5 @@
         self.titleLab.text = @"提现金额（元）";
     }
 }
+
 @end

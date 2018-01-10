@@ -13,5 +13,7 @@ typedef NS_ENUM(NSUInteger, JPNewsType) {
     JPNewsTypeCash       = 3,   //  提现金额
 };
 @interface JPNewsTitleView : UIView
+
 @property (nonatomic, assign) JPNewsType type;
+
 @end

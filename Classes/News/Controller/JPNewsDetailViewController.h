@@ -10,6 +10,8 @@
 #import "JPNewsModel.h"
 
 @interface JPNewsDetailViewController : JPViewController
+
 @property (nonatomic, strong) JPNewsModel *newsModel;
 @property (nonatomic, strong) NSString *businessName;
+
 @end
