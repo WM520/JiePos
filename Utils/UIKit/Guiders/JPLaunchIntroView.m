@@ -8,16 +8,16 @@
 
 #import "JPLaunchIntroView.h"
 
-static NSString *const kAppVersion = @"appVersion";
+static NSString * const kAppVersion = @"appVersion";
 @interface JPLaunchIntroView () <UIScrollViewDelegate> {
-    UIScrollView  *launchScrollView;
-    UIPageControl *page;
+    UIScrollView  * launchScrollView;
+    UIPageControl * page;
 }
 @end
 @implementation JPLaunchIntroView
-NSArray *images;
+NSArray * images;
 CGRect enterBtnFrame;
-static JPLaunchIntroView *launch = nil;
+static JPLaunchIntroView * launch = nil;
 
 #pragma mark - 创建对象-->>带button
 + (instancetype)sharedWithImages:(NSArray *)imageNames buttonFrame:(CGRect)frame {
@@ -33,7 +33,7 @@ static JPLaunchIntroView *launch = nil;
     self = [super initWithFrame:frame];
     if (self) {
         if ([self isFirstLauch]) {
-            UIWindow *window = [UIApplication sharedApplication].windows.lastObject;
+            UIWindow * window = [UIApplication sharedApplication].windows.lastObject;
             [window addSubview:self];
             [self addImages];
         } else {
@@ -46,10 +46,10 @@ static JPLaunchIntroView *launch = nil;
 - (BOOL)isFirstLauch {
     
     //获取当前版本号
-    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
-    NSString *currentAppVersion = infoDic[@"CFBundleShortVersionString"];
+    NSDictionary * infoDic = [[NSBundle mainBundle] infoDictionary];
+    NSString * currentAppVersion = infoDic[@"CFBundleShortVersionString"];
     //获取上次启动应用保存的appVersion
-    NSString *version = [JP_UserDefults objectForKey:kAppVersion];
+    NSString * version = [JP_UserDefults objectForKey:kAppVersion];
     //版本升级或首次登录
     if (version == nil || ![version isEqualToString:currentAppVersion]) {
         
@@ -102,12 +102,12 @@ static JPLaunchIntroView *launch = nil;
     }
     
     for (int i = 0; i < images.count; i ++) {
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(i * kScreenWidth, 0, kScreenWidth, kScreenHeight)];
+        UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(i * kScreenWidth, 0, kScreenWidth, kScreenHeight)];
         imageView.image = [UIImage imageNamed:images[i]];
         [launchScrollView addSubview:imageView];
         if (i == images.count - 1) {
             //判断要不要添加button
-            UIButton *enterButton = [[UIButton alloc] initWithFrame:CGRectMake(enterBtnFrame.origin.x, enterBtnFrame.origin.y, enterBtnFrame.size.width, enterBtnFrame.size.height)];
+            UIButton * enterButton = [[UIButton alloc] initWithFrame:CGRectMake(enterBtnFrame.origin.x, enterBtnFrame.origin.y, enterBtnFrame.size.width, enterBtnFrame.size.height)];
             enterButton.backgroundColor = [UIColor whiteColor];
             [enterButton setTitle:@"立即体验" forState:UIControlStateNormal];
             enterButton.titleLabel.font = JP_DefaultsFont;
@@ -127,10 +127,12 @@ static JPLaunchIntroView *launch = nil;
         }
     }
 }
+
 #pragma mark - 进入按钮
 - (void)enterBtnClick {
     [self hideGuidView];
 }
+
 #pragma mark - 隐藏引导页
 - (void)hideGuidView {
     [UIView animateWithDuration:0.5 animations:^{
@@ -138,9 +140,9 @@ static JPLaunchIntroView *launch = nil;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self removeFromSuperview];
         });
-        
     }];
 }
+
 #pragma mark - scrollView Delegate
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
     //  滑到最后一页隐藏pageControl
@@ -150,6 +152,7 @@ static JPLaunchIntroView *launch = nil;
         page.hidden = NO;
     }
 }
+
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     //  设置当前的pageControl
     page.currentPage = scrollView.contentOffset.x / kScreenWidth;
@@ -160,4 +163,5 @@ static JPLaunchIntroView *launch = nil;
         page.hidden = NO;
     }
 }
+
 @end

@@ -9,12 +9,15 @@
 #import "IBWaterWaveView.h"
 
 @interface IBWaterWaveView ()
+
 @property (nonatomic, strong) CADisplayLink *displayLink;
 @property (nonatomic, strong) CAShapeLayer *firstWaveLayer;
 @property (nonatomic, strong) CAShapeLayer *secondeWaveLayer;
 @property (nonatomic, strong) CAGradientLayer *gradientLayer1;
 @property (nonatomic, strong) CAGradientLayer *gradientLayer2;
+
 @end
+
 @implementation IBWaterWaveView
 {
     CGFloat _waveAmplitude;      //!< 振幅
@@ -168,4 +171,5 @@
     [_displayLink invalidate];
     _displayLink = nil;
 }
+
 @end

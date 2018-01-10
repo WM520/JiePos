@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface IBWaterWaveView : UIView
+
 @property (nonatomic, strong) UIColor *startColor;
 @property (nonatomic, strong) UIColor *endColor;
+
 @end

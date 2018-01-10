@@ -147,19 +147,10 @@ float __cornerRadius = 5;
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     UITouch * touch = touches.anyObject;
     CGPoint location2 = [touch locationInView:self.bgView];
-    
 //    JPLog(@"%@",NSStringFromCGPoint(location2));
     if (NSStringFromCGPoint(location2)) {
         [self removeFromSuperview];
     }
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

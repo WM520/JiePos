@@ -12,9 +12,13 @@
 @interface IBLinkButton : UIButton {
     UIColor *lineColor;
 }
+
 - (void)setLineColor:(UIColor*)color;
+
 @end
+
 @implementation IBLinkButton
+
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
@@ -43,14 +47,18 @@
     CGContextClosePath(contextRef);
     CGContextDrawPath(contextRef, kCGPathStroke);
 }
+
 @end
 
 @interface IBMenuView ()
+
 @property (nonatomic, strong) UILabel *wordLab;
 @property (nonatomic, strong) IBLinkButton *leftButton;
 @property (nonatomic, strong) IBLinkButton *rightButton;
 @property (nonatomic, assign) NSInteger lastTag;
+
 @end
+
 @implementation IBMenuView
 
 - (instancetype)initWithFrame:(CGRect)frame {

@@ -15,7 +15,6 @@
 
 + (NSString *)getUUID {
     NSString * strUUID = (NSString *)[IBKeychainStore load:KEY_USERNAME_PASSWORD];
-    
     //首次执行该方法时，uuid为空
     if ([strUUID isEqualToString:@""] || !strUUID) {
         //生成一个uuid的方法

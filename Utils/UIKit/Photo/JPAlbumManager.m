@@ -14,10 +14,13 @@ void STImageWriteToPhotosAlbum(UIImage *image, NSString *album, JPAlbumSaveHandl
 }
 
 @interface JPAlbumManager ()
+
 @property(nonatomic, strong) ALAssetsLibrary *assetsLibrary;
+
 @end
 
 @implementation JPAlbumManager
+
 static JPAlbumManager *_sharedManager;
 + (instancetype)sharedManager {
     static dispatch_once_t onceToken;
@@ -51,6 +54,7 @@ static JPAlbumManager *_sharedManager;
                      self.assetsLibrary = nil;
                  }];
 }
+
 @end
 
 @implementation ALAssetsLibrary (JPAssetsLibrary)

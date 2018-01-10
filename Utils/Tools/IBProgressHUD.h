@@ -9,10 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @interface IBProgressHUD : NSObject
+
 + (void)loading;
 + (void)loadingWithStatus:(NSString *)status;
 + (void)showSuccessWithStatus:(NSString *)status;
 + (void)showErrorWithStatus:(NSString *)status;
 + (void)showInfoWithStatus:(NSString *)status;
 + (void)dismiss;
+
 @end

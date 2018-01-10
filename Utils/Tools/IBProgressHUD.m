@@ -27,13 +27,17 @@
 + (void)showSuccessWithStatus:(NSString *)status {
     [SVProgressHUD showSuccessWithStatus:status];
 }
+
 + (void)showErrorWithStatus:(NSString *)status {
     [SVProgressHUD showErrorWithStatus:status];
 }
+
 + (void)showInfoWithStatus:(NSString *)status {
     [SVProgressHUD showInfoWithStatus:status];
 }
+
 + (void)dismiss {
     [SVProgressHUD dismiss];
 }
+
 @end

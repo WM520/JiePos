@@ -11,6 +11,7 @@
 static NSString *const weixin = @"weixin://";
 
 @implementation JPTool
+
 //字典转json格式字符串：
 + (NSString *)dictionaryToJson:(NSDictionary *)dic {
     NSError *parseError = nil;
@@ -40,7 +41,6 @@ static NSString *const weixin = @"weixin://";
 }
 
 + (void)openWeixin {
-    
     BOOL canOpen = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:weixin]];
     if(canOpen) {
         //打开微信
@@ -49,4 +49,5 @@ static NSString *const weixin = @"weixin://";
         [IBProgressHUD showInfoWithStatus:@"您还没有安装微信！"];
     }
 }
+
 @end

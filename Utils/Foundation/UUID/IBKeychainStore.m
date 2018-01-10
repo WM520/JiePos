@@ -9,6 +9,7 @@
 #import "IBKeychainStore.h"
 
 @implementation IBKeychainStore
+
 + (NSMutableDictionary *)getKeychainQuery:(NSString *)service {
     return [NSMutableDictionary dictionaryWithObjectsAndKeys:
             (id)kSecClassGenericPassword,(id)kSecClass,
@@ -55,4 +56,5 @@
     NSMutableDictionary *keychainQuery = [self getKeychainQuery:service];
     SecItemDelete((CFDictionaryRef)keychainQuery);
 }
+
 @end

@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface IBSwitchManager : NSObject
+
 @property (nonatomic, assign) BOOL canPlayMusic;
 + (instancetype)sharedManager;
+
 @end

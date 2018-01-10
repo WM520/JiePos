@@ -14,6 +14,7 @@
 #define viewHeight 300
 
 @interface IBDatePickerView ()
+
 @property (nonatomic, copy) IBCompleteBlock completeBlock;//选择完成回调
 @property (nonatomic, weak) UIWindow *window;
 @property (nonatomic, strong) UIView *selectView;
@@ -26,7 +27,9 @@
 @property (nonatomic, strong) IBDatePicker *rightPicker;
 @property (nonatomic, strong) UILabel *ymLab;
 @property (nonatomic, strong) UIView *lineView;
+
 @end
+
 @implementation IBDatePickerView
 
 + (instancetype)ibShowWithCompleteBlock:(IBCompleteBlock)completeBlock {
@@ -43,7 +46,6 @@
         self.frame = self.window.bounds;
 //        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
 //        [self addGestureRecognizer:tap];
-        
         //黑色半透明北京
         _selectView = [[UIView alloc] init];
         _selectView.backgroundColor = [UIColor whiteColor];
@@ -77,7 +79,6 @@
         __weak typeof(self) weakSelf = self;
         dateButton.dateBlock = ^(BOOL isDay) {
             JPLog(@"当前状态 - isDay - %@", isDay == 1 ? @"按日查询" : @"按月查询");
-            
             weakSelf.scrollView.contentOffset = CGPointMake(weakSelf.frame.size.width * (1 - isDay), 0);
         };
         [_selectView addSubview:dateButton];
@@ -100,7 +101,6 @@
             }
         };
         [self.leftView addSubview:self.leftPicker];
-        
         [self.rightView addSubview:self.ymLab];
         [self.rightView addSubview:self.lineView];
         [self.rightView addSubview:self.rightPicker];
@@ -144,7 +144,6 @@
 - (CGRect)ib_hideSelectViewFrame {
     return CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), viewHeight);
 }
-
 // 获取当前处于activity状态的Window
 - (UIWindow *)window {
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
@@ -159,6 +158,7 @@
     }
     return window;
 }
+
 #pragma mark - Action
 - (void)tap {
     [self ib_getSelected];
@@ -182,7 +182,6 @@
         IBDateModel *dateModel = [IBDateModel new];
         dateModel.startDate = self.menuView.leftDate;
         dateModel.endDate = self.menuView.rightDate;
-        
         if (self.completeBlock) {
             self.completeBlock(IBDateTypeYMD, dateModel);
         }
@@ -190,7 +189,6 @@
         //  按月查询
         IBDateModel *dateModel = [IBDateModel new];
         dateModel.monthCaledar = self.ymLab.text;
-        
         if (self.completeBlock) {
             self.completeBlock(IBDateTypeYM, dateModel);
         }
@@ -267,7 +265,6 @@
         _ymLab.font = [UIFont systemFontOfSize:15];
         _ymLab.textColor = JPBaseColor;
         _ymLab.textAlignment = NSTextAlignmentCenter;
-        
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"yyyy-MM"];
         _ymLab.text = [formatter stringFromDate:[NSDate date]];

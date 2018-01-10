@@ -22,7 +22,6 @@ static NSString * const MONEYNUMBERS = @"0123456789";
     CGFloat height = rect.size.height;
     CGFloat x = (width - self.squareSize * self.digitsNumber) / 2.0f;
     CGFloat y = (height - self.squareSize) / 2.0f;
-    
     // 获取contextRef对象;
     CGContextRef context = UIGraphicsGetCurrentContext();
     // 画外框
@@ -36,7 +35,6 @@ static NSString * const MONEYNUMBERS = @"0123456789";
     CGContextSetStrokeColorWithColor(context, self.rectColor.CGColor);
     // 使用指定颜色来实现该CGContextRef的填充颜色
     CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
-    
     // 画竖线
     for (int i = 1; i <= self.digitsNumber; i++) {
         // 向当前路径结束点移动到(x,y)点
@@ -50,7 +48,6 @@ static NSString * const MONEYNUMBERS = @"0123456789";
     CGContextDrawPath(context, kCGPathFillStroke);
     // 使用指定颜色来实现该CGContextRef的填充颜色
     CGContextSetFillColorWithColor(context, self.pointColor.CGColor);
-    
     // 画黑点
     for (int i = 1; i <= self.saveStore.length; i++) {
         // 向当前路径添加一段圆弧

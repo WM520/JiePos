@@ -7,9 +7,9 @@
 //
 
 #import "IBDateButton.h"
+static NSInteger count = 0;
 
 @implementation IBDateButton
-static NSInteger count = 0;
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -40,7 +40,6 @@ static NSInteger count = 0;
 }
 
 - (void)buttonClick:(UIButton *)sender {
-    
     count ++;
     if (count % 2 == 0) {
         [self setTitle:@"按日查询" forState:UIControlStateNormal];
@@ -55,4 +54,5 @@ static NSInteger count = 0;
         self.dateBlock(self.isDay);
     }
 }
+
 @end

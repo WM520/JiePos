@@ -22,6 +22,7 @@ typedef void (^JPAlbumSaveHandler)(UIImage *image, NSError *error);
 extern void JPImageWriteToPhotosAlbum(UIImage *image, NSString *album, JPAlbumSaveHandler completionHandler);
 
 @interface JPAlbumManager : NSObject
+
 + (instancetype)sharedManager;
 
 /**
@@ -32,6 +33,7 @@ extern void JPImageWriteToPhotosAlbum(UIImage *image, NSString *album, JPAlbumSa
  * @param  completionHandler 回调
  */
 - (void)saveImage:(UIImage *)image toAlbum:(NSString *)album completionHandler:(JPAlbumSaveHandler)completionHandler;
+
 @end
 
 @interface ALAssetsLibrary (JPAssetsLibrary)

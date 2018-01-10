@@ -17,5 +17,7 @@ typedef NS_ENUM(NSUInteger, IBDateType) {
 typedef void (^IBCompleteBlock)(IBDateType type, IBDateModel *dateModel);
 
 @interface IBDatePickerView : UIView
+
 + (instancetype)ibShowWithCompleteBlock:(IBCompleteBlock)completeBlock;
+
 @end

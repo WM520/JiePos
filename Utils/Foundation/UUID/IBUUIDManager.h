@@ -9,5 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface IBUUIDManager : NSObject
+
 + (NSString *)getUUID;
+
 @end
