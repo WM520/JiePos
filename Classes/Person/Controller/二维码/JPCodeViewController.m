@@ -10,6 +10,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 
 @interface JPCodeViewController ()
+
 @property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, strong) UIImageView *logoView;
 @property (nonatomic, strong) UILabel *titleLab;
@@ -21,6 +22,7 @@
 @property (nonatomic, strong) UIImageView *wechatView;
 @property (nonatomic, strong) UIImageView *nodataView;
 @property (nonatomic, strong) UIView *navImageView;
+
 @end
 @implementation JPCodeViewController
 
@@ -30,6 +32,7 @@
     
     self.navigationController.navigationBarHidden = YES;
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    // 导航栏背景颜色
@@ -51,6 +54,7 @@
     [self handleUserInterface];
 //    [self qrcodeViewWithUrlString:self.codeModel.url];
 }
+
 #pragma mark - Method
 - (void)handleUserInterface {
     [self.view addSubview:self.bgView];
@@ -114,86 +118,7 @@
         make.centerX.and.centerY.equalTo(weakSelf.qrcodeView);
     }];
 }
-#pragma mark - Lazy
-- (UIView *)bgView {
-    if (!_bgView) {
-        _bgView = [UIView new];
-        _bgView.backgroundColor = JP_viewBackgroundColor;
-        _bgView.layer.cornerRadius = JPRealValue(10);
-        _bgView.layer.masksToBounds = YES;
-    }
-    return _bgView;
-}
-- (UIImageView *)logoView {
-    if (!_logoView) {
-        _logoView = [UIImageView new];
-        _logoView.image = [UIImage imageNamed:@"jp_code_jbbLogo"];
-    }
-    return _logoView;
-}
-- (UILabel *)titleLab {
-    if (!_titleLab) {
-        _titleLab = [UILabel new];
-        _titleLab.text = @"杰宝宝收款码";
-        _titleLab.font = [UIFont systemFontOfSize:JPRealValue(30)];
-        _titleLab.textColor = JP_Content_Color;
-    }
-    return _titleLab;
-}
-- (UIView *)codeBgView {
-    if (!_codeBgView) {
-        _codeBgView = [UIView new];
-        _codeBgView.backgroundColor = [UIColor whiteColor];
-    }
-    return _codeBgView;
-}
-- (UILabel *)merchantsNameLab {
-    if (!_merchantsNameLab) {
-        _merchantsNameLab = [UILabel new];
-        _merchantsNameLab.text = self.codeModel.merchantName;
-        _merchantsNameLab.textColor = [UIColor colorWithHexString:@"608dff"];
-        _merchantsNameLab.font = [UIFont systemFontOfSize:JPRealValue(40)];
-        _merchantsNameLab.textAlignment = NSTextAlignmentCenter;
-    }
-    return _merchantsNameLab;
-}
-- (UIImageView *)qrcodeView {
-    if (!_qrcodeView) {
-        _qrcodeView = [UIImageView new];
-    }
-    return _qrcodeView;
-}
-- (UILabel *)supportLab {
-    if (!_supportLab) {
-        _supportLab = [UILabel new];
-        _supportLab.text = @"使用支付宝微信扫一扫付款";
-        _supportLab.font = [UIFont systemFontOfSize:JPRealValue(30)];
-        _supportLab.textAlignment = NSTextAlignmentCenter;
-        _supportLab.textColor = JP_Content_Color;
-    }
-    return _supportLab;
-}
-- (UIImageView *)aliView {
-    if (!_aliView) {
-        _aliView = [UIImageView new];
-        _aliView.image = [UIImage imageNamed:@"ali"];
-    }
-    return _aliView;
-}
-- (UIImageView *)wechatView {
-    if (!_wechatView) {
-        _wechatView = [UIImageView new];
-        _wechatView.image = [UIImage imageNamed:@"wechat"];
-    }
-    return _wechatView;
-}
-- (UIImageView *)nodataView {
-    if (!_nodataView) {
-        _nodataView = [UIImageView new];
-        _nodataView.image = [UIImage imageNamed:@"jp_result_noPaymentCode"];
-    }
-    return _nodataView;
-}
+
 #pragma mark - Action
 - (void)rightItemClicked:(UIBarButtonItem *)sender {
     
@@ -270,6 +195,7 @@
     
     return [UIImage imageWithCGImage:scaledImage];
 }
+
 #pragma mark - NavigationBar
 - (void)layoutHomeView {
     _navImageView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
@@ -334,6 +260,96 @@
 //- (BOOL)navigationBarHidden {
 //    return YES;
 //}
+
+#pragma mark - Lazy
+- (UIView *)bgView {
+    if (!_bgView) {
+        _bgView = [UIView new];
+        _bgView.backgroundColor = JP_viewBackgroundColor;
+        _bgView.layer.cornerRadius = JPRealValue(10);
+        _bgView.layer.masksToBounds = YES;
+    }
+    return _bgView;
+}
+
+- (UIImageView *)logoView {
+    if (!_logoView) {
+        _logoView = [UIImageView new];
+        _logoView.image = [UIImage imageNamed:@"jp_code_jbbLogo"];
+    }
+    return _logoView;
+}
+
+- (UILabel *)titleLab {
+    if (!_titleLab) {
+        _titleLab = [UILabel new];
+        _titleLab.text = @"杰宝宝收款码";
+        _titleLab.font = [UIFont systemFontOfSize:JPRealValue(30)];
+        _titleLab.textColor = JP_Content_Color;
+    }
+    return _titleLab;
+}
+
+- (UIView *)codeBgView {
+    if (!_codeBgView) {
+        _codeBgView = [UIView new];
+        _codeBgView.backgroundColor = [UIColor whiteColor];
+    }
+    return _codeBgView;
+}
+
+- (UILabel *)merchantsNameLab {
+    if (!_merchantsNameLab) {
+        _merchantsNameLab = [UILabel new];
+        _merchantsNameLab.text = self.codeModel.merchantName;
+        _merchantsNameLab.textColor = [UIColor colorWithHexString:@"608dff"];
+        _merchantsNameLab.font = [UIFont systemFontOfSize:JPRealValue(40)];
+        _merchantsNameLab.textAlignment = NSTextAlignmentCenter;
+    }
+    return _merchantsNameLab;
+}
+
+- (UIImageView *)qrcodeView {
+    if (!_qrcodeView) {
+        _qrcodeView = [UIImageView new];
+    }
+    return _qrcodeView;
+}
+
+- (UILabel *)supportLab {
+    if (!_supportLab) {
+        _supportLab = [UILabel new];
+        _supportLab.text = @"使用支付宝微信扫一扫付款";
+        _supportLab.font = [UIFont systemFontOfSize:JPRealValue(30)];
+        _supportLab.textAlignment = NSTextAlignmentCenter;
+        _supportLab.textColor = JP_Content_Color;
+    }
+    return _supportLab;
+}
+
+- (UIImageView *)aliView {
+    if (!_aliView) {
+        _aliView = [UIImageView new];
+        _aliView.image = [UIImage imageNamed:@"ali"];
+    }
+    return _aliView;
+}
+
+- (UIImageView *)wechatView {
+    if (!_wechatView) {
+        _wechatView = [UIImageView new];
+        _wechatView.image = [UIImage imageNamed:@"wechat"];
+    }
+    return _wechatView;
+}
+
+- (UIImageView *)nodataView {
+    if (!_nodataView) {
+        _nodataView = [UIImageView new];
+        _nodataView.image = [UIImage imageNamed:@"jp_result_noPaymentCode"];
+    }
+    return _nodataView;
+}
 
 @end
 

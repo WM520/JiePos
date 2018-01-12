@@ -166,7 +166,8 @@
         NSLog(@"%@", [JPUserEntity sharedUserEntity].userId);
         NSLog(@"%@", [JPUserEntity sharedUserEntity].account);
         [IBPersonRequest checkIsOKPhoneCode:_codeID appPhone:self.numberPhone userId:[JPUserEntity sharedUserEntity].userId account:[JPUserEntity sharedUserEntity].account callback:^(NSString *code, NSString *msg, id resp) {
-            if (code == 0) {
+//            id obj = [IBAnalysis analysisWithEncryptString:resp privateKey:[JPUserEntity sharedUserEntity].privateKey];
+            if ([code isEqualToString:@"0"]) {
                 JPBindingSuccessViewController * bindingSuccessVC = [[JPBindingSuccessViewController alloc] init];
                 [self.navigationController pushViewController:bindingSuccessVC animated:YES];
             } else {
@@ -175,7 +176,6 @@
             }
     
         }];
-
         return 6;
     }else
         return k;

@@ -16,6 +16,7 @@
 
 @implementation JPLastestNewsDetailViewController
 
+#pragma mark - lifestyle
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
@@ -31,6 +32,11 @@
     }
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 - (void)handleLastNewsWithTitle:(NSString *)title date:(NSString *)date content:(NSString *)content {
     
     YYTextView *txtView = [[YYTextView alloc] initWithFrame:(CGRect){0, 0, kScreenWidth, kScreenHeight - 64}];
@@ -42,7 +48,7 @@
     
     //创建最主要的attribute文本
     NSMutableAttributedString *contentText = [NSMutableAttributedString new];
-    
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.lineSpacing = JPRealValue(16);// 字体的行间距
     paragraphStyle.paragraphSpacing = JPRealValue(5);
@@ -58,11 +64,6 @@
     
     txtView.attributedText = contentText;
     [self.view addSubview:txtView];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

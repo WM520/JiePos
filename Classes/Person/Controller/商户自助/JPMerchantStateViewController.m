@@ -216,6 +216,7 @@ static NSString *const merchantsCellReuseIdentifier = @"merchantsCell";
 
 @implementation JPMerchantStateViewController
 
+#pragma mark - lifestyle
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
@@ -230,6 +231,11 @@ static NSString *const merchantsCellReuseIdentifier = @"merchantsCell";
     [self.scrollView addSubview:self.logoView];
     [self.scrollView addSubview:self.statusLab];
     [self.scrollView addSubview:self.ctntView];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - NavigationBar
@@ -252,6 +258,7 @@ static NSString *const merchantsCellReuseIdentifier = @"merchantsCell";
     [leftButton addTarget:self action:@selector(backButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [_navImageView addSubview:leftButton];
 }
+
 #pragma mark - Action
 - (void)backButtonClicked:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated:YES];
@@ -453,20 +460,5 @@ static NSString *const merchantsCellReuseIdentifier = @"merchantsCell";
     }
     return _statusLab;
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end

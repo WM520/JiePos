@@ -64,7 +64,7 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     if (textField == _numberTextField) {
         NSString *toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
-        if (toBeString.length == 11) {
+        if (toBeString.length >= 11) {
             self.nextButton.enabled = YES;
         } else {
             self.nextButton.enabled = NO;

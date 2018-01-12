@@ -167,12 +167,12 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    JPNavigationController *newsNav = self.tabBarController.viewControllers[1];
-    NSString *badge = nil;
-    if ([JPPushHelper badgeNumber] > 0) {
-        badge = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
-    }
-    [newsNav.tabBarItem setBadgeValue:badge];
+//    JPNavigationController *newsNav = self.tabBarController.viewControllers[1];
+//    NSString *badge = nil;
+//    if ([JPPushHelper badgeNumber] > 0) {
+//        badge = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+//    }
+//    [newsNav.tabBarItem setBadgeValue:badge];
     
     
     [self.scrollView.mj_header beginRefreshing];
@@ -184,13 +184,6 @@
     
     if (([JP_UserDefults objectForKey:@"appPhone"] == NULL) && _isShow != YES) {
         _isShow = YES;
-//        WMCustomAlert * alert = [[WMCustomAlert alloc] initWithTitle:@"您还没有绑定手机号，请绑定手机号" cancleButtonTitle:@"取消" commitButtonTitle:@"设置" isCancleImage:nil];
-//        weakSelf_declare;
-//        alert.commitBlock = ^{
-//            JPBindingPhoneNumberViewController * vc = [[JPBindingPhoneNumberViewController alloc] init];
-//            [weakSelf.navigationController pushViewController:vc animated:YES];
-//        };
-//        [alert show];
         weakSelf_declare;
         LXAlertView * alert = [[LXAlertView alloc] initWithTitle:@"提醒" message:@"您还没有绑定手机号，请绑定手机号" cancelBtnTitle:@"取消" otherBtnTitle:@"设置" clickIndexBlock:^(NSInteger clickIndex) {
             if (clickIndex == 1) {

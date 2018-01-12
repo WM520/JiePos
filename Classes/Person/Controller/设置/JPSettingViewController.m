@@ -282,15 +282,25 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
             // 本地同步
             [JP_UserDefults synchronize];
             
-            [weakSelf dismissViewControllerAnimated:YES completion:^{
-                
-            }];
+//            [weakSelf dismissViewControllerAnimated:YES completion:^{
+//
+//            }];
+            [weakSelf dismissModalStack];
         }
     }];
     
     [alertController addAction:cancelAction];
     [alertController addAction:confirmAction];
     [self presentViewController:alertController animated:YES completion:nil];
+}
+
+// 退到最顶层的控制器
+-(void)dismissModalStack {
+    UIViewController *vc = self.presentingViewController;
+    while (vc.presentingViewController) {
+        vc = vc.presentingViewController;
+    }
+    [vc dismissViewControllerAnimated:YES completion:NULL];
 }
 
 #pragma mark - setter or getter

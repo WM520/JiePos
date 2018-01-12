@@ -517,6 +517,7 @@
                     [JP_UserDefults setObject:_passwordTextField.text forKey:@"passLogin"];
                     [JP_UserDefults synchronize];
                 }
+                // 判断是否是第一次登录，是第一次登录，要其设置手势密码
                 if (([JP_UserDefults objectForKey:@"tq_gesturesPassword"] == NULL || [[JP_UserDefults objectForKey:@"tq_gesturesPassword"] isEqualToString:@""]) && ![[JP_UserDefults objectForKey:@"TQLogin"] isEqualToString:@"1"]) {
                     
                     TQViewController1 * vc = [[TQViewController1 alloc] init];

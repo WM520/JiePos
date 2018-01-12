@@ -30,7 +30,7 @@ JPNewsViewControllerDelegate>
 @property (nonatomic, strong) UITableView *ctntView;
 @property (nonatomic, strong) JPCodeModel *codeModel;
 @property (nonatomic, assign) BOOL selected;
-
+@property (nonatomic, assign) NSInteger badgeNumber;
 @end
 
 @implementation JPPersonViewController
@@ -45,7 +45,11 @@ JPNewsViewControllerDelegate>
 //        badge = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
 //    }
 //    [newsNav.tabBarItem setBadgeValue:badge];
+    if ([JPPushHelper badgeNumber] != _badgeNumber) {
+        [self.ctntView reloadData];
+    }
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // 初始化数据
@@ -109,7 +113,6 @@ JPNewsViewControllerDelegate>
             noticeVC.navigationItem.title = @"公告";
             noticeVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:noticeVC animated:YES];
-            
         } else if ([cell.textLabel.text isEqualToString:@"常见问题"]) {
             // 常见问题
             [MobClick event:@"person_questions"];
@@ -118,9 +121,7 @@ JPNewsViewControllerDelegate>
             webVC.naviTitle = @"常见问题";
             webVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:webVC animated:YES];
-            
         } else if ([cell.textLabel.text isEqualToString:@"我的收款码"]) {
-            
             // 我的收款码
             [MobClick event:@"person_qrcode"];
             JPCodeViewController *codeVC = [[JPCodeViewController alloc] init];
@@ -140,7 +141,6 @@ JPNewsViewControllerDelegate>
                     [IBProgressHUD showInfoWithStatus:msg];
                 }
             }];
-            
         } else if ([cell.textLabel.text isEqualToString:@"商户自助查询"]) {
             // 商户自助查询
             //        JPMerchantsViewController *merchantVC = [[JPMerchantsViewController alloc] init];
@@ -174,7 +174,6 @@ JPNewsViewControllerDelegate>
                     [IBProgressHUD showInfoWithStatus:msg];
                 }
             }];
-            
         } else if ([cell.textLabel.text isEqualToString:@"设置"]) {
             // 设置
             [MobClick event:@"person_setting"];
@@ -206,14 +205,16 @@ JPNewsViewControllerDelegate>
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return section == 0 ? JPRealValue(430) : 0.01;
 }
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     JP_PersonHeaderView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseIdentifier];
-    
     return section == 0 ? headerView : nil;
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return JPRealValue(20);
 }
+
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     UIView *footerView = [UIView new];
     footerView.backgroundColor = JP_viewBackgroundColor;
@@ -222,6 +223,7 @@ JPNewsViewControllerDelegate>
 
 #pragma mark - Method
 - (void)configData {
+    self.badgeNumber = [JPPushHelper badgeNumber];
     NSMutableArray *configs1 = @[].mutableCopy;
     [configs1 addObject:@{ imageName : @"jp_person_notice", configName : @"公告" }];
     [configs1 addObject:@{ imageName : @"jp_person_news", configName : @"消息中心" }];

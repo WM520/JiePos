@@ -8,13 +8,19 @@
 
 #import "JPContactViewController.h"
 
+static NSString *const mobileCell = @"mobileCell";
+static NSString *const weixinCell = @"weixinCell";
+
 @interface JPMobileCell : UITableViewCell
+
 @property (nonatomic, strong) UIButton *headerView;
 @property (nonatomic, strong) UIView *currentView;
 @property (nonatomic, strong) UIButton *mobileButton;
 @property (nonatomic, strong) UILabel *workTime;
 @property (nonatomic, copy) NSString * mobileNumber;
+
 @end
+
 @implementation JPMobileCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -29,6 +35,7 @@
     }
     return self;
 }
+
 #pragma mark - Method
 - (void)layoutSubviews {
     [super layoutSubviews];
@@ -157,6 +164,7 @@
 @end
 
 @interface JPWeixinCell : UITableViewCell
+
 @property (nonatomic, strong) UIButton *headerView;
 @property (nonatomic, strong) UIView *currentView;
 @property (nonatomic, strong) UILabel *weixinNo;
@@ -167,7 +175,9 @@
 @property (nonatomic, strong) YYTextView *textView;
 @property (nonatomic, copy) NSString * weixinNumber;
 @property (nonatomic, copy) NSString * mobileNumber;
+
 @end
+
 @implementation JPWeixinCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -370,13 +380,16 @@
 @end
 
 @interface JPContactViewController () <UITableViewDataSource, UITableViewDelegate>
+
 @property (nonatomic, strong) UITableView *ctntView;
 @property (nonatomic, strong) JPMobileCell *cell1;
 @property (nonatomic, strong) JPWeixinCell *cell2;
+
 @end
 
 @implementation JPContactViewController
 
+#pragma mark - lifestyle
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
@@ -402,9 +415,12 @@
     }];
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 #pragma mark - tableViewDataSource
-static NSString *const mobileCell = @"mobileCell";
-static NSString *const weixinCell = @"weixinCell";
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
 }
@@ -455,20 +471,5 @@ static NSString *const weixinCell = @"weixinCell";
     }
     return _ctntView;
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

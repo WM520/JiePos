@@ -9,5 +9,7 @@
 #import "JPViewController.h"
 
 @interface JPContactViewController : JPViewController
+
 @property (nonatomic, assign) BOOL canUseWeixin;
+
 @end

@@ -14,20 +14,20 @@
 #pragma mark - PushServer
 //  注册推送
 /** 生产环境*/
-static NSString *const jp_UMessageAlias_url = @"http://59.56.101.183:11830/cpay-acps-push/processMchntInfo/saveMchntInfo";
+//static NSString *const jp_UMessageAlias_url = @"http://59.56.101.183:11830/cpay-acps-push/processMchntInfo/saveMchntInfo";
 /** 测试环境*/
-//static NSString *const jp_UMessageAlias_url = @"http://139.196.226.55:8083/cpay-acps-push/processMchntInfo/saveMchntInfo";
+static NSString *const jp_UMessageAlias_url = @"http://139.196.226.55:8083/cpay-acps-push/processMchntInfo/saveMchntInfo";
 // 退出登录注销token
 /** 生产环境*/
-static NSString *const jp_UMessage_logout_url = @"http://59.56.101.183:11830/cpay-acps-push/processMchntInfo/logOut";
+//static NSString *const jp_UMessage_logout_url = @"http://59.56.101.183:11830/cpay-acps-push/processMchntInfo/logOut";
 /** 测试环境*/
-//static NSString *const jp_UMessage_logout_url = @"http://139.196.226.55:8083/cpay-acps-push/processMchntInfo/logOut";
+static NSString *const jp_UMessage_logout_url = @"http://139.196.226.55:8083/cpay-acps-push/processMchntInfo/logOut";
 
 #pragma mark - APIServer
 /** 生产服务器IP地址*/
-static NSString *const JPServerUrl = @"http://wx.jiepos.com/jpay-spmp/";
+//static NSString *const JPServerUrl = @"http://wx.jiepos.com/jpay-spmp/";
 /** 测试服务器IP地址*/
-//static NSString *const JPServerUrl = @"http://139.196.226.55:8079/jpay-spmp/";
+static NSString *const JPServerUrl = @"http://139.196.226.55:8079/jpay-spmp/";
 /** 本地测试IP地址*/
 //static NSString *const JPServerUrl = @"http://192.168.14.110:8080/jpay-spmp/";
 

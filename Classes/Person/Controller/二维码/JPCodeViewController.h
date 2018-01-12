@@ -10,5 +10,7 @@
 #import "JPCodeModel.h"
 
 @interface JPCodeViewController : JPViewController
+
 @property (nonatomic, strong) JPCodeModel *codeModel;
+
 @end

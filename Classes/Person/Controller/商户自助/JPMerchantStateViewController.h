@@ -12,4 +12,5 @@
 /** 申请进度*/
 @property (nonatomic, assign) JPApplyProgress applyProgress;
 @property (nonatomic, strong) JPStateQueryModel *merchantsModel;
+
 @end
