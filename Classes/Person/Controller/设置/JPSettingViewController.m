@@ -285,7 +285,7 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
 //            [weakSelf dismissViewControllerAnimated:YES completion:^{
 //
 //            }];
-            [weakSelf dismissModalStack];
+            [weakSelf dismissViewControllerClass:[JPLoginViewController class]];
         }
     }];
     
@@ -301,6 +301,18 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
         vc = vc.presentingViewController;
     }
     [vc dismissViewControllerAnimated:YES completion:NULL];
+}
+
+// 模态退到指定的控制器
+- (void)dismissViewControllerClass:(Class)class {
+    UIViewController *vc = self;
+    while (![vc isKindOfClass:class] && vc != nil) {
+        vc = vc.presentingViewController;
+        if ([vc isKindOfClass:[UINavigationController class]]) {
+            vc = ((UINavigationController *)vc).viewControllers.lastObject;
+        }
+    }
+    [vc dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - setter or getter
