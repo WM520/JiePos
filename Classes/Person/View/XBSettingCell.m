@@ -171,7 +171,7 @@
     self.funcNameLabel = [[UILabel alloc]init];
     self.funcNameLabel.text = self.item.funcName;
     self.funcNameLabel.textColor = XBMakeColorWithRGB(51, 51, 51, 1);
-    self.funcNameLabel.font = [UIFont systemFontOfSize:XBFuncLabelFont];
+    self.funcNameLabel.font = JP_DefaultsFont;
     self.funcNameLabel.size = [self sizeForTitle:self.item.funcName withFont:self.funcNameLabel.font];
     self.funcNameLabel.centerY = self.contentView.centerY;
     self.funcNameLabel.x = CGRectGetMaxX(self.imgView.frame) + XBFuncLabelToFuncImgGap;

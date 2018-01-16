@@ -237,75 +237,76 @@
         
         JPHomeModel *model = (JPHomeModel *)note.object;
         
-//        weakSelf.pieView.segmentTitleArray = [NSMutableArray arrayWithArray:self.segmentTitleArray];
-//        //  环状图
-//        if ([JPUserEntity sharedUserEntity].applyType == 1) {
-//            //  K9商户
+        weakSelf.pieView.segmentTitleArray = [NSMutableArray arrayWithArray:self.segmentTitleArray];
+        //  环状图
+        if ([JPUserEntity sharedUserEntity].applyType == 1) {
+            //  K9商户
 //            weakSelf.pieView.segmentDataArray = @[model.weixin, model.alipay, model.jieji, model.bank].mutableCopy;
-////            weakSelf.pieView.segmentTitleArray = @[@"微信", @"支付宝",@"借记卡", @"贷记卡"].mutableCopy;
+//            weakSelf.pieView.segmentTitleArray = @[@"微信", @"支付宝",@"借记卡", @"贷记卡"].mutableCopy;
 //            weakSelf.pieView.segmentColorArray = @[[UIColor colorWithHexString:@"0ddddd"], [UIColor colorWithHexString:@"7a93f5"], [UIColor colorWithHexString:@"f5b87a"], [UIColor colorWithHexString:@"c87af5"],[UIColor colorWithHexString:@"0ddddd"], [UIColor colorWithHexString:@"7a93f5"],[UIColor colorWithHexString:@"0ddddd"]].mutableCopy;
-//        } else {
-//            //  一码付商户
-//            weakSelf.pieView.segmentDataArray = @[model.wxqrcode, model.apqrcode].mutableCopy;
-//            weakSelf.pieView.segmentTitleArray = @[@"微信", @"支付宝"].mutableCopy;
-//            weakSelf.pieView.segmentColorArray = @[[UIColor colorWithHexString:@"0ddddd"], [UIColor colorWithHexString:@"7a93f5"]].mutableCopy;
-//        }
-        // 遍历商户支持的支付类型
-        NSMutableArray * dataArray = [NSMutableArray array];
-        NSMutableArray * colorArray = [NSMutableArray array];
-        NSMutableArray * titleArray = [NSMutableArray array];
-        for (int i = 0; i < self.segmentTitleArray.count; i++) {
-            if ([_segmentTitleArray[i] isEqualToString:@"bank"]) {
-                [dataArray addObject:model.bank];
-                [titleArray addObject:@"贷记卡"];
-                [colorArray addObject:[UIColor colorWithHexString:@"c87af5"]];
-            }
-            if ([_segmentTitleArray[i] isEqualToString:@"jieji"]) {
-                [dataArray addObject:model.jieji];
-                [titleArray addObject:@"借记卡"];
-                [colorArray addObject:[UIColor colorWithHexString:@"f5b87a"]];
-            }
-            if ([_segmentTitleArray[i] isEqualToString:@"alipay"]) {
-                if ([JPUserEntity sharedUserEntity].applyType == 1) {
-                    [dataArray addObject:model.alipay];
-                } else {
-                    [dataArray addObject:model.apqrcode];
+            // 遍历商户支持的支付类型
+            NSMutableArray * dataArray = [NSMutableArray array];
+            NSMutableArray * colorArray = [NSMutableArray array];
+            NSMutableArray * titleArray = [NSMutableArray array];
+            for (int i = 0; i < self.segmentTitleArray.count; i++) {
+                if ([_segmentTitleArray[i] isEqualToString:@"bank"]) {
+                    [dataArray addObject:model.bank];
+                    [titleArray addObject:@"贷记卡"];
+                    [colorArray addObject:[UIColor colorWithHexString:@"c87af5"]];
                 }
-
-                [titleArray addObject:@"支付宝"];
-                [colorArray addObject:[UIColor colorWithHexString:@"7a93f5"]];
-            }
-            if ([_segmentTitleArray[i] isEqualToString:@"weixin"]) {
-                if ([JPUserEntity sharedUserEntity].applyType == 1) {
-                    [dataArray addObject:model.weixin];
-                } else {
-                    [dataArray addObject:model.wxqrcode];
+                if ([_segmentTitleArray[i] isEqualToString:@"jieji"]) {
+                    [dataArray addObject:model.jieji];
+                    [titleArray addObject:@"借记卡"];
+                    [colorArray addObject:[UIColor colorWithHexString:@"f5b87a"]];
                 }
-                [titleArray addObject:@"微信"];
-                [colorArray addObject:[UIColor colorWithHexString:@"0ddddd"]];
+                if ([_segmentTitleArray[i] isEqualToString:@"alipay"]) {
+                    if ([JPUserEntity sharedUserEntity].applyType == 1) {
+                        [dataArray addObject:model.alipay];
+                    } else {
+                        [dataArray addObject:model.apqrcode];
+                    }
+                    
+                    [titleArray addObject:@"支付宝"];
+                    [colorArray addObject:[UIColor colorWithHexString:@"7a93f5"]];
+                }
+                if ([_segmentTitleArray[i] isEqualToString:@"weixin"]) {
+                    if ([JPUserEntity sharedUserEntity].applyType == 1) {
+                        [dataArray addObject:model.weixin];
+                    } else {
+                        [dataArray addObject:model.wxqrcode];
+                    }
+                    [titleArray addObject:@"微信"];
+                    [colorArray addObject:[UIColor colorWithHexString:@"0ddddd"]];
+                }
+                
+                if ([_segmentTitleArray[i] isEqualToString:@"qqpay"]) {
+                    [dataArray addObject:model.qqpay];
+                    [titleArray addObject:@"qq钱包"];
+                    [colorArray addObject:[UIColor colorWithHexString:@"#57E191"]];
+                }
+                if ([_segmentTitleArray[i] isEqualToString:@"jdpay"]) {
+                    [dataArray addObject:model.jdpay];
+                    [titleArray addObject:@"京东钱包"];
+                    [colorArray addObject:[UIColor colorWithHexString:@"FC6074"]];
+                }
+                
+                if ([_segmentTitleArray[i] isEqualToString:@"unionpay"]) {
+                    [dataArray addObject:model.unionpay];
+                    [titleArray addObject:@"银联二维码"];
+                    [colorArray addObject:[UIColor colorWithHexString:@"FDD55A"]];
+                }
+                
             }
-            
-            if ([_segmentTitleArray[i] isEqualToString:@"qqpay"]) {
-                [dataArray addObject:model.qqpay];
-                [titleArray addObject:@"qq钱包"];
-                [colorArray addObject:[UIColor colorWithHexString:@"#57E191"]];
-            }
-            if ([_segmentTitleArray[i] isEqualToString:@"jdpay"]) {
-                [dataArray addObject:model.jdpay];
-                [titleArray addObject:@"京东钱包"];
-                [colorArray addObject:[UIColor colorWithHexString:@"FC6074"]];
-            }
-            
-            if ([_segmentTitleArray[i] isEqualToString:@"unionpay"]) {
-                [dataArray addObject:model.unionpay];
-                [titleArray addObject:@"银联二维码"];
-                [colorArray addObject:[UIColor colorWithHexString:@"FDD55A"]];
-            }
-            
+            weakSelf.pieView.segmentDataArray = dataArray;
+            weakSelf.pieView.segmentTitleArray = titleArray;
+            weakSelf.pieView.segmentColorArray = colorArray;
+        } else {
+            //  一码付商户
+            weakSelf.pieView.segmentDataArray = @[model.wxqrcode, model.apqrcode].mutableCopy;
+            weakSelf.pieView.segmentTitleArray = @[@"微信", @"支付宝"].mutableCopy;
+            weakSelf.pieView.segmentColorArray = @[[UIColor colorWithHexString:@"0ddddd"], [UIColor colorWithHexString:@"7a93f5"]].mutableCopy;
         }
-        weakSelf.pieView.segmentDataArray = dataArray;
-        weakSelf.pieView.segmentTitleArray = titleArray;
-        weakSelf.pieView.segmentColorArray = colorArray;
+   
         
         NSInteger todayTotal = [model.todayTotal doubleValue] * 100;
         weakSelf.pieView.ammountLab.text = [NSString stringWithFormat:@"%.2f", todayTotal / 100.0];

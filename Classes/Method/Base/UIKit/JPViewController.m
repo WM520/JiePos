@@ -165,17 +165,17 @@
         
         if ([JPUserEntity sharedUserEntity].isLogin) {
             JPNavigationController *nav = self.tabBarController.viewControllers[0];
-            if (nav.viewControllers.count > 1) {
-                [nav popToRootViewControllerAnimated:NO];
-            }
-            nav.tabBarController.selectedIndex = 1;
-            
-            JPNavigationController *newsNav = self.tabBarController.viewControllers[1];
-            NSString *badge = nil;
-            if ([JPPushHelper badgeNumber] > 0) {
-                badge = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
-            }
-            [newsNav.tabBarItem setBadgeValue:badge];
+//            if (nav.viewControllers.count > 1) {
+//                [nav popToRootViewControllerAnimated:NO];
+//            }
+            nav.tabBarController.selectedIndex = 3;
+//
+//            JPNavigationController *newsNav = self.tabBarController.viewControllers[1];
+//            NSString *badge = nil;
+//            if ([JPPushHelper badgeNumber] > 0) {
+//                badge = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+//            }
+//            [newsNav.tabBarItem setBadgeValue:badge];
         }
     }];
     
@@ -222,11 +222,24 @@
         
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"退出" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             
+//            [JP_UserDefults removeObjectForKey:@"passLogin"];
+//
+//            //  首页跑马灯
+//            [JP_UserDefults removeObjectForKey:@"isRolling"];
+//            [JP_UserDefults removeObjectForKey:@"roll"];
+            // 移除保存的密码
             [JP_UserDefults removeObjectForKey:@"passLogin"];
-            
+            //            [JP_UserDefults removeObjectForKey:@"deviceToken"];
             //  首页跑马灯
             [JP_UserDefults removeObjectForKey:@"isRolling"];
             [JP_UserDefults removeObjectForKey:@"roll"];
+            // 移除手势密码
+            [JP_UserDefults removeObjectForKey:@"tq_gesturesPassword"];
+            // 移除手机账户
+            [JP_UserDefults removeObjectForKey:@"appPhone"];
+            //
+            [JP_UserDefults removeObjectForKey:@"firstIn"];
+            
             [JP_UserDefults synchronize];
             
             [weakSelf dismissViewControllerAnimated:YES completion:nil];

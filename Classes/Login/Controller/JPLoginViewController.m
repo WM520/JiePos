@@ -451,7 +451,10 @@
                 //  登录成功 先把用户名存到本地
                 [JP_UserDefults setObject:_userNameTextField.text forKey:@"userLogin"];
                 if ([keys containsObject:@"appPhone"]) {
-                    [JP_UserDefults setObject:[resp objectForKey:@"appPhone"] forKey:@"appPhone"];
+                    NSLog(@"------%@", [resp objectForKey:@"appPhone"]);
+                    if (![[resp objectForKey:@"appPhone"] isEqual:[NSNull null]]) {
+                        [JP_UserDefults setObject:[resp objectForKey:@"appPhone"] forKey:@"appPhone"];
+                    }
                 }
                 
                 NSString *merchantNo = nil;

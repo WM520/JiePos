@@ -41,7 +41,7 @@ UIPopoverPresentationControllerDelegate> {
     //    }
     //    [newsNav.tabBarItem setBadgeValue:badge];
     
-    //    [self.ctntView.mj_header beginRefreshing];
+    [self.ctntView.mj_header beginRefreshing];
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -181,7 +181,6 @@ UIPopoverPresentationControllerDelegate> {
 //    [self.navigationController pushViewController:dealDetailVC animated:YES];
     weakSelf_declare;
     [self presentViewController:dealDetailVC animated:YES completion:^{
-        [weakSelf.ctntView reloadData];
         JPNewsModel *model = weakSelf.dataSource[indexPath.section][indexPath.row];
         JPLog(@"%@ - %@ - %@", model.tenantsNumber, model.orderNumber, model.transactionTime);
         [JPPushHelper modifyUnreadWithNewsModel:model];

@@ -279,6 +279,8 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
             [JP_UserDefults removeObjectForKey:@"tq_gesturesPassword"];
             // 移除手机账户
             [JP_UserDefults removeObjectForKey:@"appPhone"];
+            //
+            [JP_UserDefults removeObjectForKey:@"firstIn"];
             // 本地同步
             [JP_UserDefults synchronize];
             

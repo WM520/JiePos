@@ -31,6 +31,8 @@ JPNewsViewControllerDelegate>
 @property (nonatomic, strong) JPCodeModel *codeModel;
 @property (nonatomic, assign) BOOL selected;
 @property (nonatomic, assign) NSInteger badgeNumber;
+@property (nonatomic, strong) UILabel * unreadLabel;
+
 @end
 
 @implementation JPPersonViewController
@@ -78,20 +80,32 @@ JPNewsViewControllerDelegate>
     NSDictionary *configDic = self.dataSource[indexPath.section][indexPath.row];
     cell.imageView.image = [UIImage imageNamed:configDic[imageName]];
     cell.textLabel.text = configDic[configName];
-//    if (![cell.textLabel.text isEqualToString:@"客服电话"]) {
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//    } else {
-        if ([cell.textLabel.text isEqualToString:@"消息中心"]) {
-//            cell.accessoryType = UITableViewCellAccessoryNone;
-            if ([JPPushHelper badgeNumber] > 0) {
-                cell.detailTextLabel.textColor = [UIColor redColor];
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    if ([cell.textLabel.text isEqualToString:@"消息中心"]) {
+        if ([JPPushHelper badgeNumber] > 0) {
+            if (!_unreadLabel) {
+                UILabel * unreadLabel = [[UILabel alloc] init];
+                unreadLabel.backgroundColor = [UIColor redColor];
+                unreadLabel.text = [NSString stringWithFormat:@"%ld", [JPPushHelper badgeNumber]];
+                unreadLabel.textAlignment = NSTextAlignmentCenter;
+                unreadLabel.textColor = [UIColor whiteColor];
+                unreadLabel.layer.masksToBounds = YES;
+                unreadLabel.layer.cornerRadius = 13;
+                [cell.contentView addSubview:unreadLabel];
+                [unreadLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.centerY.equalTo(cell.contentView);
+                    make.right.equalTo(cell.contentView.mas_right).offset(-5);
+                    make.height.equalTo(@25);
+                    make.width.equalTo(@35);
+                }];
+                _unreadLabel = unreadLabel;
+            } else {
+                _unreadLabel.text = [NSString stringWithFormat:@"%ld", [JPPushHelper badgeNumber]];
             }
         } else {
-            cell.detailTextLabel.text = @"";
+            [_unreadLabel removeFromSuperview];
         }
-        
-//    }
+    }
     return cell;
 }
 

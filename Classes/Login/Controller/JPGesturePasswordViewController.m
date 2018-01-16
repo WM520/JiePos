@@ -63,6 +63,15 @@
 - (void)subviewsInitialization
 {
     weakSelf_declare;
+    
+    CGFloat interval = 30;
+    
+    if (kScreenWidth == 375) {
+        interval = 30;
+    } else if (kScreenWidth == 414) {
+        interval = 40;
+    }
+    
     self.view.backgroundColor = [UIColor whiteColor];
     UIImageView * imageview = [[UIImageView alloc] init];
     imageview.image = [UIImage imageNamed:@"jbb_loginBg"];
@@ -79,10 +88,10 @@
     CGFloat diameter = (screenSize.width - spacing * 4) / 3;
     CGFloat bottom1 = JPRealValue(55);
     CGFloat width1 = kScreenWidth;
-    CGFloat top1 = kScreenHeight - width1 - bottom1 - 40;
+    CGFloat top1 = kScreenHeight - width1 - bottom1 - interval;
     CGRect rect1 = CGRectMake(0, top1, width1, width1);
     
-    UILabel * userNameLable = [[UILabel alloc] initWithFrame:CGRectMake(0, top1 - 40, kScreenWidth, 30)];
+    UILabel * userNameLable = [[UILabel alloc] initWithFrame:CGRectMake(0, top1 - interval, kScreenWidth, 30)];
     userNameLable.textColor = RGB(122, 147, 245);
     userNameLable.textAlignment = NSTextAlignmentCenter;
     userNameLable.font = [UIFont systemFontOfSize:18 weight:300];
