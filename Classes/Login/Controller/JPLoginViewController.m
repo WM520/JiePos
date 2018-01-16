@@ -452,7 +452,7 @@
                 [JP_UserDefults setObject:_userNameTextField.text forKey:@"userLogin"];
                 if ([keys containsObject:@"appPhone"]) {
                     NSLog(@"------%@", [resp objectForKey:@"appPhone"]);
-                    if (![[resp objectForKey:@"appPhone"] isEqual:[NSNull null]]) {
+                    if (![[resp objectForKey:@"appPhone"] isEqual:[NSNull null]] && ![[resp objectForKey:@"appPhone"] isEqualToString:@""]) {
                         [JP_UserDefults setObject:[resp objectForKey:@"appPhone"] forKey:@"appPhone"];
                     }
                 }

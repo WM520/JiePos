@@ -17,6 +17,7 @@
 #import <ShareSDK/ShareSDK.h>
 #import "WMCustomAlert.h"
 #import "JPBindingPhoneNumberViewController.h"
+#import "JPNewsViewController.h"
 //  背景音乐
 #import "YUAudio.h"
 #import "LXAlertView.h"
@@ -29,8 +30,11 @@
 @property (nonatomic, strong) UIImageView *navImageView;
 @property (nonatomic, strong) UILabel *titleLb;
 @property (nonatomic, strong) UIButton *leftBtn;
+@property (nonatomic, strong) UIButton * rightBtn;
 @property (nonatomic, strong) UIImageView *backImg;
 @property (nonatomic, strong) UIImageView *backImgs;
+@property (nonatomic, strong) UIImageView *backImg2;
+@property (nonatomic, strong) UIImageView *backImgs2;
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) SDCycleScrollView *cycleScrollView;
@@ -385,6 +389,13 @@
     }];
 }
 
+- (void)rightClick
+{
+    JPNewsViewController * newsvc = [[JPNewsViewController alloc] init];
+    newsvc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:newsvc animated:YES];
+}
+
 #pragma mark - SDCycleScrollViewDelegate
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
 //    IBAdvertisementModel *model = self.adertisementList[index];
@@ -629,7 +640,7 @@
     
     if ([JPUserEntity sharedUserEntity].applyType == 2) {
         _leftBtn = [[UIButton alloc] init];
-        _leftBtn.frame = CGRectMake(kScreenWidth - 50, 20, 40, 40);
+        _leftBtn.frame = CGRectMake(10, 20, 40, 40);
         [_leftBtn addTarget:self action:@selector(leftClick) forControlEvents:UIControlEventTouchUpInside];
         _backImg = [[UIImageView alloc] init];
         _backImg.frame = CGRectMake(10, 7, 25, 25);
@@ -641,6 +652,21 @@
         [_leftBtn addSubview:_backImgs];
         _backImgs.alpha = 0;
         [self.view addSubview:_leftBtn];
+        
+        _rightBtn = [[UIButton alloc] init];
+        _rightBtn.frame = CGRectMake(kScreenWidth - 50, 20, 40, 40);
+        [_rightBtn addTarget:self action:@selector(rightClick) forControlEvents:UIControlEventTouchUpInside];
+        _backImg2 = [[UIImageView alloc] init];
+        _backImg2.frame = CGRectMake(10, 7, 25, 25);
+        _backImg2.image = [UIImage imageNamed:@"jp_home_news"];
+        [_rightBtn addSubview:_backImg2];
+        _backImgs2 = [[UIImageView alloc] init];
+        _backImgs2.frame = CGRectMake(10, 7, 25, 25);
+        _backImgs2.image = [UIImage imageNamed:@"jp_home_news1"];
+        [_rightBtn addSubview:_backImgs2];
+        _backImgs2.alpha = 0;
+        [self.view addSubview:_rightBtn];
+        
     }
 }
 
@@ -650,15 +676,20 @@
         _navImageView.alpha = scrollView.contentOffset.y / 180.0;
         _titleLb.alpha = scrollView.contentOffset.y / 180.0;
         _backImg.alpha = 1 - scrollView.contentOffset.y / 180.0;
+        _backImg.alpha = 1 - scrollView.contentOffset.y / 180.0;
 //        _shareImg.alpha = 1 - scrollView.contentOffset.y / 180.0;
         _backImgs.alpha = scrollView.contentOffset.y / 180.0;
+        _backImgs2.alpha = scrollView.contentOffset.y / 180.0;
 //        _shareImgs.alpha = scrollView.contentOffset.y / 180.0;
     } else if (scrollView.contentOffset.y >= 180.0) {
         _navImageView.alpha = 1.0;
         _titleLb.alpha = 1.0;
         _backImg.alpha = 0;
+        _backImg2.alpha = 0;
+        
 //        _shareImg.alpha = 0;
         _backImgs.alpha = 1;
+        _backImgs2.alpha = 1;
 //        _shareImgs.alpha = 1;
     }
 }

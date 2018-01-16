@@ -291,8 +291,9 @@ UIPopoverPresentationControllerDelegate> {
                     badge = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
                 }
                 weakSelf.tabBarItem.badgeValue = badge;
-                
                 [weakSelf.ctntView.mj_header beginRefreshing];
+                [weakSelf.delegate reload];
+                
             } else {
                 [IBProgressHUD showInfoWithStatus:@"暂无未读消息"];
             }

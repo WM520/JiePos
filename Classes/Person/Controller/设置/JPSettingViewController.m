@@ -64,7 +64,8 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
     };
     item1.img = [UIImage imageNamed:@"jp_person_phone"];
     item1.accessoryType = XBSettingAccessoryTypeDisclosureIndicator;
-    if ([JP_UserDefults objectForKey:@"appPhone"]) {
+    NSLog(@"-----------%@", [JP_UserDefults objectForKey:@"appPhone"]);
+    if (![[JP_UserDefults objectForKey:@"appPhone"] isEqualToString:@""] && ![[JP_UserDefults objectForKey:@"appPhone"] isKindOfClass:[NSNull class]] && [JP_UserDefults objectForKey:@"appPhone"] != NULL) {
         item1.detailText = [NSString stringWithFormat:@"%@****%@", [[JP_UserDefults objectForKey:@"appPhone"] substringToIndex:3], [[JP_UserDefults objectForKey:@"appPhone"] substringFromIndex:7]];
     } else {
         item1.detailText = @"请绑定手机号";
@@ -280,7 +281,7 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
             // 移除手机账户
             [JP_UserDefults removeObjectForKey:@"appPhone"];
             //
-            [JP_UserDefults removeObjectForKey:@"firstIn"];
+            [JP_UserDefults removeObjectForKey:@"TQLogin"];
             // 本地同步
             [JP_UserDefults synchronize];
             
