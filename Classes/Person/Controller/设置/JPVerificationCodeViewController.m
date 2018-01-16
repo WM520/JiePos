@@ -43,9 +43,9 @@
     [super viewWillAppear:animated];
     [IBPersonRequest sendSmsPhoneCode:self.numberPhone account:[JPUserEntity sharedUserEntity].account callback:^(NSString *code, NSString *msg, id resp) {
         if (code.integerValue == 0) {
-            [IBProgressHUD showInfoWithStatus:msg];
+            [IBProgressHUD showInfoWithStatus:@"验证码发送成功"];
         } else {
-            [IBProgressHUD showInfoWithStatus:msg];
+            [IBProgressHUD showInfoWithStatus:@"验证码发送失败"];
         }
     }];
 }
@@ -176,7 +176,6 @@
             } else {
                 [IBProgressHUD showInfoWithStatus:msg];
             }
-    
         }];
         return 6;
     }else
@@ -193,9 +192,9 @@
     self.timer.fireDate = [NSDate distantPast];
     [IBPersonRequest sendSmsPhoneCode:self.numberPhone account:[JPUserEntity sharedUserEntity].account callback:^(NSString *code, NSString *msg, id resp) {
         if (code.integerValue == 0) {
-            [IBProgressHUD showInfoWithStatus:msg];
+            [IBProgressHUD showInfoWithStatus:@"验证码发送成功"];
         } else {
-            [IBProgressHUD showInfoWithStatus:msg];
+            [IBProgressHUD showInfoWithStatus:@"验证码发送失败"];
         }
     }];
     

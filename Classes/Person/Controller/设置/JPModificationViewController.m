@@ -13,6 +13,7 @@
 #import "TQGestureLockHintLabel.h"
 #import "TQGestureLockToast.h"
 #import "TQViewController1.h"
+#import "LXAlertView.h"
 
 @interface JPModificationViewController () <TQGestureLockViewDelegate>
 
@@ -109,10 +110,10 @@
     NSString * oldCodeString = [self.passwordManager getEventuallyPassword];
     if ([oldCodeString isEqualToString:securityCodeSting]) {
         gestureLockView.userInteractionEnabled = NO;
-        [gestureLockView setNeedsDisplayGestureLockErrorState:YES];
-//            [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:TQGesturesPasswordStorageKey];
+        [IBProgressHUD showSuccessWithStatus:@"验证成功"];
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            
             TQViewController1 * vc = [[TQViewController1 alloc] init];
             vc.isModification = YES;
             vc.title = @"手势密码设置";
@@ -123,6 +124,17 @@
         [gestureLockView setNeedsDisplayGestureLockErrorState:YES];
         self.count--;
         [_hintLabel setWarningText:[NSString stringWithFormat:@"密码错误，您还可以输入%ld次", self.count] shakeAnimated:YES];
+        if (_count <= 0) {
+            LXAlertView * alert = [[LXAlertView alloc] initWithTitle:@"提醒" message:@"你已经连续5次输错手势密码，手势登录失效，请使用登录密码重新登录，点击确认跳转到账号密码登录页面" cancelBtnTitle:nil otherBtnTitle:@"我知道了" clickIndexBlock:^(NSInteger clickIndex) {
+                if (clickIndex == 0) {
+                    [JP_UserDefults removeObjectForKey:@"passLogin"];
+                    [JP_UserDefults removeObjectForKey:@"tq_gesturesPassword"];
+                    JPNavigationController *loginNav = [[JPNavigationController alloc] initWithRootViewController:[JPLoginViewController new]];
+                    [weakSelf presentViewController:loginNav animated:YES completion:nil];
+                }
+            }];
+            [alert showLXAlertView];
+        }
     }
 }
 
@@ -150,6 +162,7 @@
     [_preview redraw];
     self.passwordManager.firstPassword = nil;
 }
+
 
 #pragma mark - setter or getter
 - (UIBarButtonItem *)rightButtonItem

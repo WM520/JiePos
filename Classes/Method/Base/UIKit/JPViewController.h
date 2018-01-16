@@ -12,4 +12,6 @@
 - (void)changeNavigationBarBackgroundColor:(UIColor *)barBackgroundColor;
 /** 隐藏NavigationBar*/
 - (BOOL)navigationBarHidden;
+- (void)onBackItemClicked:(id)sender;
+
 @end

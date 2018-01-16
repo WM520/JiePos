@@ -61,6 +61,17 @@
     [alert showLXAlertView];
 }
 
+- (void)onBackItemClicked:(id)sender
+{
+//    [super onBackItemClicked:sender];
+    if (self.isModification) {
+        NSArray * controllers = self.navigationController.childViewControllers;
+        [self.navigationController popToViewController:controllers[2] animated:YES];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
