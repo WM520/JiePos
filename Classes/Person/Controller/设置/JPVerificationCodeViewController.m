@@ -42,7 +42,11 @@
 {
     [super viewWillAppear:animated];
     [IBPersonRequest sendSmsPhoneCode:self.numberPhone account:[JPUserEntity sharedUserEntity].account callback:^(NSString *code, NSString *msg, id resp) {
-        
+        if (code.integerValue == 0) {
+            [IBProgressHUD showInfoWithStatus:msg];
+        } else {
+            [IBProgressHUD showInfoWithStatus:msg];
+        }
     }];
 }
 
@@ -62,7 +66,6 @@
     self.fourNumberField.delegate = self;
     self.fiveNumberField.delegate = self;
     self.sixNumberField.delegate = self;
-    self.getCodeButton.enabled = NO;
 }
 
 
@@ -172,7 +175,6 @@
                 [self.navigationController pushViewController:bindingSuccessVC animated:YES];
             } else {
                 [IBProgressHUD showInfoWithStatus:msg];
-                self.getCodeButton.enabled = YES;
             }
     
         }];
@@ -189,13 +191,14 @@
     }
     _getCodeButton.userInteractionEnabled = NO;
     self.timer.fireDate = [NSDate distantPast];
-    [IBPersonRequest checkIsOnlyPhone:self.numberPhone account:[JPUserEntity sharedUserEntity].account callback:^(NSString *code, NSString *msg, id resp) {
+    [IBPersonRequest sendSmsPhoneCode:self.numberPhone account:[JPUserEntity sharedUserEntity].account callback:^(NSString *code, NSString *msg, id resp) {
         if (code.integerValue == 0) {
             [IBProgressHUD showInfoWithStatus:msg];
         } else {
             [IBProgressHUD showInfoWithStatus:msg];
         }
     }];
+    
 }
 
 - (void)timeUp
