@@ -192,6 +192,7 @@
         LXAlertView * alert = [[LXAlertView alloc] initWithTitle:@"提醒" message:@"您还没有绑定手机号，请绑定手机号" cancelBtnTitle:@"取消" otherBtnTitle:@"设置" clickIndexBlock:^(NSInteger clickIndex) {
             if (clickIndex == 1) {
                 JPBindingPhoneNumberViewController * vc = [[JPBindingPhoneNumberViewController alloc] init];
+                vc.hidesBottomBarWhenPushed = YES;
                 [weakSelf.navigationController pushViewController:vc animated:YES];
 
             }

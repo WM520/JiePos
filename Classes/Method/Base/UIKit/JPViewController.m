@@ -242,7 +242,7 @@
             
             [JP_UserDefults synchronize];
             
-            [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            [weakSelf dismissViewControllerClass:[JPLoginViewController class]];
         }];
         UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             
