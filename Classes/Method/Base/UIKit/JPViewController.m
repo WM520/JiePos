@@ -246,7 +246,7 @@
         }];
         UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             
-            [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            [weakSelf dismissViewControllerClass:[JPLoginViewController class]];
         }];
         [alertController addAction:cancelAction];
         [alertController addAction:confirmAction];
@@ -328,6 +328,18 @@
 
 - (BOOL)navigationBarHidden {
     return NO;
+}
+
+// 模态退到指定的控制器
+- (void)dismissViewControllerClass:(Class)class {
+    UIViewController *vc = self;
+    while (![vc isKindOfClass:class] && vc != nil) {
+        vc = vc.presentingViewController;
+        if ([vc isKindOfClass:[UINavigationController class]]) {
+            vc = ((UINavigationController *)vc).viewControllers.lastObject;
+        }
+    }
+    [vc dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

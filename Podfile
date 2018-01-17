@@ -26,4 +26,5 @@ pod 'mob_sharesdk/ShareSDKPlatforms/QQ'
 pod 'mob_sharesdk/ShareSDKExtension'
 pod 'TQGestureLockView'
 pod 'SDAutoLayout'
+pod 'Bugly'
 end

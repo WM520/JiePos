@@ -26,6 +26,8 @@
 #import <TencentOpenAPI/QQApiInterface.h>
 #import "WXApi.h"
 
+#import <Bugly/Bugly.h>
+
 #import "JPGesturePasswordViewController.h"
 
 #import <AVFoundation/AVFoundation.h>
@@ -56,6 +58,8 @@
     [self handleUMMobClick];
     // !!!: 初始化shareSDK
     [self handleShareSDK];
+    // !!!: 初始化bugly
+    [Bugly startWithAppId:@"1010aff0dd"];
     // !!!: 测试数据
     /*******************************************************/
 //    [self addTestDataWithMerchantNo:@"998320179320003"];
