@@ -286,7 +286,7 @@
                 
                 if ([_segmentTitleArray[i] isEqualToString:@"qqpay"]) {
                     [dataArray addObject:model.qqpay];
-                    [titleArray addObject:@"qq钱包"];
+                    [titleArray addObject:@"QQ钱包"];
                     [colorArray addObject:[UIColor colorWithHexString:@"#57E191"]];
                 }
                 if ([_segmentTitleArray[i] isEqualToString:@"jdpay"]) {
@@ -296,7 +296,7 @@
                 }
                 
                 if ([_segmentTitleArray[i] isEqualToString:@"unionpay"]) {
-                    [dataArray addObject:model.unionpay];
+                    [dataArray addObject:@"111111"];
                     [titleArray addObject:@"银联二维码"];
                     [colorArray addObject:[UIColor colorWithHexString:@"FDD55A"]];
                 }

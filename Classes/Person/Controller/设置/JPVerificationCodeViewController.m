@@ -134,6 +134,7 @@
 - (NSInteger)forinArr:(NSInteger )j{
     NSInteger k = 0;
     BOOL isChang = NO;
+    weakSelf_declare;
     for (NSInteger i = j; i < _textFieldArr.count; i++) {
         if([_textFieldArr[i] text].length == 0)
         {
@@ -171,8 +172,10 @@
         [IBPersonRequest checkIsOKPhoneCode:_codeID appPhone:self.numberPhone userId:[JPUserEntity sharedUserEntity].userId account:[JPUserEntity sharedUserEntity].account callback:^(NSString *code, NSString *msg, id resp) {
 //            id obj = [IBAnalysis analysisWithEncryptString:resp privateKey:[JPUserEntity sharedUserEntity].privateKey];
             if ([code isEqualToString:@"0"]) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"bindSuccess" object:nil userInfo:nil];
                 JPBindingSuccessViewController * bindingSuccessVC = [[JPBindingSuccessViewController alloc] init];
-                [self.navigationController pushViewController:bindingSuccessVC animated:YES];
+                bindingSuccessVC.numberPhone = weakSelf.numberPhone;
+                [weakSelf.navigationController pushViewController:bindingSuccessVC animated:YES];
             } else {
                 [IBProgressHUD showInfoWithStatus:msg];
             }

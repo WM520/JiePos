@@ -36,6 +36,7 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadPhone) name:@"bindSuccess" object:nil];
     // 初始化数据源
     [self configData];
     // 初始化UI
@@ -56,6 +57,7 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
 // 初始化数据源
 - (void)configData
 {
+    
     XBSettingItemModel *item1 = [[XBSettingItemModel alloc]init];
     item1.funcName = @"手机号";
     item1.executeCode = ^{
@@ -316,6 +318,17 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
         }
     }
     [vc dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)reloadPhone
+{
+    [self configData];
+    [self.ctntView reloadData];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - setter or getter

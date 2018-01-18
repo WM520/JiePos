@@ -37,10 +37,69 @@
 }
 // 跳转登录页
 - (IBAction)backAction:(id)sender {
-//    NSArray * controllers = self.navigationController.viewControllers;
-//    [self.navigationController popToViewController:controllers[1] animated:YES];
-    JPLoginViewController * login = [[JPLoginViewController alloc] init];
-    [self presentViewController:login animated:YES completion:nil];
+    [MobClick event:@"phone_logout"];
+    weakSelf_declare;
+    if ([JPUserEntity sharedUserEntity].isLogin) {
+        if ([JPUserEntity sharedUserEntity].merchantNo) {
+            NSMutableDictionary *params = @{}.mutableCopy;
+            [params setObject:[JPUserEntity sharedUserEntity].merchantNo forKey:@"alias"];
+            if ([JP_UserDefults objectForKey:@"deviceToken"]) {
+                [params setObject:[JP_UserDefults objectForKey:@"deviceToken"] forKey:@"deviceTokens"];
+            }
+            //  appType 1：安卓飞燕，2：安卓杰宝宝，3：iOS杰宝宝，4：iOS飞燕
+            [params setObject:@"3" forKey:@"appType"];
+            //获取当前版本号
+            NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+            NSString *currentAppVersion = infoDic[@"CFBundleShortVersionString"];
+            [params setObject:currentAppVersion forKey:@"versionNo"];
+            [JPNetworking postUrl:jp_UMessage_logout_url params:params progress:nil callback:^(id resp) {
+                JPLog(@"resp - %@", resp);
+            }];
+        }
+        // 友盟解绑
+        [UMessage removeAlias:[JPUserEntity sharedUserEntity].merchantNo type:JP_UMessageAliasType response:^(id  _Nonnull responseObject, NSError * _Nonnull error) {
+            if(responseObject) {
+                JPLog(@"解绑成功！");
+            } else {
+                JPLog(@"解绑失败！ - %@", error.localizedDescription);
+            }
+            [[JPPushManager sharedManager] makeIsBindAlias:NO];
+        }];
+        
+        //  本地账户置空
+        [[JPUserEntity sharedUserEntity] setIsLogin:NO account:@"" merchantNo:nil merchantId:0 merchantName:@"" applyType:0 privateKey:@"" publicKey:@"" userId:@""];
+        
+        [JP_UserDefults setObject:weakSelf.numberPhone forKey:@"userLogin"];
+        // 移除保存的密码
+        [JP_UserDefults removeObjectForKey:@"passLogin"];
+        //            [JP_UserDefults removeObjectForKey:@"deviceToken"];
+        //  首页跑马灯
+        [JP_UserDefults removeObjectForKey:@"isRolling"];
+        [JP_UserDefults removeObjectForKey:@"roll"];
+        // 移除手势密码
+        [JP_UserDefults removeObjectForKey:@"tq_gesturesPassword"];
+        // 移除手机账户
+        [JP_UserDefults removeObjectForKey:@"appPhone"];
+        //
+        [JP_UserDefults removeObjectForKey:@"TQLogin"];
+        // 本地同步
+        [JP_UserDefults synchronize];
+    
+        [self dismissViewControllerClass:[JPLoginViewController class]];
+    }
+}
+
+
+// 模态退到指定的控制器
+- (void)dismissViewControllerClass:(Class)class {
+    UIViewController *vc = self;
+    while (![vc isKindOfClass:class] && vc != nil) {
+        vc = vc.presentingViewController;
+        if ([vc isKindOfClass:[UINavigationController class]]) {
+            vc = ((UINavigationController *)vc).viewControllers.lastObject;
+        }
+    }
+    [vc dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

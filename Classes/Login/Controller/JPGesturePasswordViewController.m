@@ -159,18 +159,29 @@
     weakSelf_declare;
     NSString * oldCodeString = [self.passwordManager getEventuallyPassword];
     if ([oldCodeString isEqualToString:securityCodeSting]) { // 手势验证成功，直接登录
-        
-        gestureLockView.userInteractionEnabled = NO;
+        [gestureLockView setNeedsDisplayGestureLockErrorState:NO];
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            JPLoginViewController * vc = [JPLoginViewController new];
-            JPNavigationController *loginNav = [[JPNavigationController alloc] initWithRootViewController:vc];
-            vc.view.hidden = YES;
-            [weakSelf presentViewController:loginNav animated:YES completion:nil];
+            [JPNetworkUtils netWorkState:^(NSInteger netState) {
+                switch (netState) {
+                    case 1: case 2:{
+                        JPLoginViewController * vc = [JPLoginViewController new];
+                        JPNavigationController *loginNav = [[JPNavigationController alloc] initWithRootViewController:vc];
+                        vc.view.hidden = YES;
+                        [weakSelf presentViewController:loginNav animated:YES completion:nil];
+                    }
+                        
+                        break;
+                        
+                    default:{
+                        [weakSelf.preview redraw];
+                    }
+                        break;
+                }
+            }];
+            
         });
-        
     } else { // 手势验证失败5次，清除保存的密码，用户重新登录
-        
         [gestureLockView setNeedsDisplayGestureLockErrorState:YES];
         self.count--;
         [_hintLabel setWarningText:[NSString stringWithFormat:@"密码错误，您还可以输入%ld次", self.count] shakeAnimated:YES];
@@ -186,7 +197,6 @@
             }];
             [alert showLXAlertView];
         }
-        
     }
 }
 

@@ -163,13 +163,14 @@
     weakSelf_declare;
     //  注册省份
     self.registerProvinceView.block = ^(IBOneSelectView *blockView) {
-        
+        [weakSelf.view endEditing:YES];
         NSMutableArray *data = @[].mutableCopy;
         for (JPCityModel *model in weakSelf.provinces) {
             [data addObject:model.name];
         }
         if (data.count > 0) {
             [KYSNormalPickerView KYSShowWithDataArray:@[data] completeBlock:^(NSArray *selectArray) {
+                [weakSelf.view endEditing:YES];
                 NSInteger index = [[selectArray lastObject] integerValue];
                 NSString *selectStr = [data objectAtIndex:index];
                 blockView.textLab.text = selectStr;
@@ -193,6 +194,7 @@
     __block IBOneSelectView *provinceView = self.registerProvinceView;
     //  选择市
     self.registerAreaView.ib_leftBlock = ^(IBOnlyTwoSelectView *blockView, UIButton *leftButton, UILabel *leftLab) {
+        [weakSelf.view endEditing:YES];
         if (![provinceView.textLab.text isEqualToString:@"选择省/直辖市/自治区"]) {
             //  已选择省/直辖市/自治区
             NSMutableArray *provinceData = @[].mutableCopy;
@@ -247,6 +249,7 @@
     __block IBOnlyTwoSelectView *citiView = self.registerAreaView;
     //  选择区县
     self.registerAreaView.ib_rightBlock = ^(IBOnlyTwoSelectView *blockView, UIButton *rightButton, UILabel *rightLab) {
+        [weakSelf.view endEditing:YES];
         if (![provinceView.textLab.text isEqualToString:@"选择省/直辖市/自治区"]) {
             if (![citiView.leftLab.text isEqualToString:@"选择市"]) {
                 
@@ -293,6 +296,7 @@
     
     //  行业类型
     self.indusView.block = ^(IBOneSelectView *blockView) {
+        [weakSelf.view endEditing:YES];
         NSMutableArray *data = @[].mutableCopy;
         for (JPIndustryModel *model in weakSelf.indusList) {
             [data addObject:model.name];
@@ -316,6 +320,7 @@
     //  行业编号
     __block IBOneSelectView *indusView = self.indusView;
     self.indusNoView.block = ^(IBOnlyOneSelectView *blockView) {
+        [weakSelf.view endEditing:YES];
         JPLog(@"选择了行业编号");
         if (![indusView.textLab.text isEqualToString:@"选择行业类型"]) {
             //  已选择行业类型

@@ -172,7 +172,7 @@ typedef void(^ClickBlock)(NSInteger clickIndex);
 - (void)loadFinalText{
     self.realTextHeight = [self preferGetUserSetValue:self.textHeight withDefaultValue:20];
     
-    self.realTextFont = [self preferGetUserSetValue:self.textFontSize withDefaultValue:14];
+    self.realTextFont = [self preferGetUserSetValue:self.textFontSize withDefaultValue:12];
     
     self.realTextSpace = [self preferGetUserSetValue:self.textSpace withDefaultValue:10];
     //数据总值
