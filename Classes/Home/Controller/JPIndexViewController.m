@@ -255,20 +255,20 @@
             NSMutableArray * titleArray = [NSMutableArray array];
             for (int i = 0; i < self.segmentTitleArray.count; i++) {
                 if ([_segmentTitleArray[i] isEqualToString:@"bank"]) {
-                    [dataArray addObject:model.bank];
+                    [dataArray addObject:model.bank == nil ? @"0.00" : model.bank];
                     [titleArray addObject:@"贷记卡"];
                     [colorArray addObject:[UIColor colorWithHexString:@"c87af5"]];
                 }
                 if ([_segmentTitleArray[i] isEqualToString:@"jieji"]) {
-                    [dataArray addObject:model.jieji];
+                    [dataArray addObject:model.jieji == nil ? @"0.00" : model.jieji];
                     [titleArray addObject:@"借记卡"];
                     [colorArray addObject:[UIColor colorWithHexString:@"f5b87a"]];
                 }
                 if ([_segmentTitleArray[i] isEqualToString:@"alipay"]) {
                     if ([JPUserEntity sharedUserEntity].applyType == 1) {
-                        [dataArray addObject:model.alipay];
+                        [dataArray addObject:model.alipay== nil ? @"0.00" : model.alipay];
                     } else {
-                        [dataArray addObject:model.apqrcode];
+                        [dataArray addObject:model.apqrcode == nil ? @"0.00" : model.apqrcode];
                     }
                     
                     [titleArray addObject:@"支付宝"];
@@ -276,27 +276,27 @@
                 }
                 if ([_segmentTitleArray[i] isEqualToString:@"weixin"]) {
                     if ([JPUserEntity sharedUserEntity].applyType == 1) {
-                        [dataArray addObject:model.weixin];
+                        [dataArray addObject:model.weixin == nil ? @"0.00" : model.weixin];
                     } else {
-                        [dataArray addObject:model.wxqrcode];
+                        [dataArray addObject:model.wxqrcode == nil ? @"0.00" : model.wxqrcode];
                     }
                     [titleArray addObject:@"微信"];
                     [colorArray addObject:[UIColor colorWithHexString:@"0ddddd"]];
                 }
                 
                 if ([_segmentTitleArray[i] isEqualToString:@"qqpay"]) {
-                    [dataArray addObject:model.qqpay];
+                    [dataArray addObject:model.qqpay == nil ? @"0.00" : model.qqpay];
                     [titleArray addObject:@"QQ钱包"];
                     [colorArray addObject:[UIColor colorWithHexString:@"#57E191"]];
                 }
                 if ([_segmentTitleArray[i] isEqualToString:@"jdpay"]) {
-                    [dataArray addObject:model.jdpay];
+                    [dataArray addObject:model.jdpay == nil ? @"0.00" : model.jdpay];
                     [titleArray addObject:@"京东钱包"];
                     [colorArray addObject:[UIColor colorWithHexString:@"FC6074"]];
                 }
                 
                 if ([_segmentTitleArray[i] isEqualToString:@"unionpay"]) {
-                    [dataArray addObject:@"111111"];
+                    [dataArray addObject:model.unionpay == nil ? @"0.00" : model.unionpay];
                     [titleArray addObject:@"银联二维码"];
                     [colorArray addObject:[UIColor colorWithHexString:@"FDD55A"]];
                 }
@@ -307,7 +307,7 @@
             weakSelf.pieView.segmentColorArray = colorArray;
         } else {
             //  一码付商户
-            weakSelf.pieView.segmentDataArray = @[model.wxqrcode, model.apqrcode].mutableCopy;
+            weakSelf.pieView.segmentDataArray = @[model.wxqrcode == nil ? @"0.00" : model.wxqrcode, model.apqrcode == nil ? @"0.00" : model.apqrcode].mutableCopy;
             weakSelf.pieView.segmentTitleArray = @[@"微信", @"支付宝"].mutableCopy;
             weakSelf.pieView.segmentColorArray = @[[UIColor colorWithHexString:@"0ddddd"], [UIColor colorWithHexString:@"7a93f5"]].mutableCopy;
         }
