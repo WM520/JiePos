@@ -172,7 +172,7 @@ typedef void(^ClickBlock)(NSInteger clickIndex);
 - (void)loadFinalText{
     self.realTextHeight = [self preferGetUserSetValue:self.textHeight withDefaultValue:20];
     
-    self.realTextFont = [self preferGetUserSetValue:self.textFontSize withDefaultValue:12];
+    self.realTextFont = [self preferGetUserSetValue:self.textFontSize withDefaultValue:10];
     
     self.realTextSpace = [self preferGetUserSetValue:self.textSpace withDefaultValue:10];
     //数据总值
@@ -190,8 +190,14 @@ typedef void(^ClickBlock)(NSInteger clickIndex);
         if (i < self.segmentTitleArray.count) {
             titleString = self.segmentTitleArray[i];
         }
-        NSString *finalString = [NSString stringWithFormat:@" %@ %.2f元",titleString,value];
-        [self.finalTextArray addObject:finalString];
+        if (value < 10000) {
+            NSString *finalString = [NSString stringWithFormat:@" %@ %.2f元",titleString,value];
+            [self.finalTextArray addObject:finalString];
+        } else {
+            CGFloat currentVaule = value / 10000;
+            NSString *finalString = [NSString stringWithFormat:@" %@ %.2f万元",titleString,currentVaule];
+            [self.finalTextArray addObject:finalString];
+        }
     }
 }
 #pragma mark - 计算右侧显示文本的frame
