@@ -807,6 +807,8 @@
                 
                 if ([code isEqualToString:@"00"]) {
                     if ([resp isKindOfClass:[NSDictionary class]]) {
+                        NSLog(@"%@", resp);
+                        
                         BOOL isExist = [resp[@"isExist"] boolValue];
                         if (isExist) {
                             [SVProgressHUD showInfoWithStatus:@"商户名已存在！"];

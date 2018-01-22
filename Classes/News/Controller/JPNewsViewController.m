@@ -185,6 +185,7 @@ UIPopoverPresentationControllerDelegate> {
         JPLog(@"%@ - %@ - %@", model.tenantsNumber, model.orderNumber, model.transactionTime);
         [JPPushHelper modifyUnreadWithNewsModel:model];
         [weakSelf.delegate reload];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"haveReadAction" object:nil];
     }];
 }
 

@@ -32,8 +32,13 @@
 
 #pragma mark - Action
 - (void)rightBarItemClicked {
-    NSArray * controllers = self.navigationController.viewControllers;
-    [self.navigationController popToViewController:controllers[1] animated:YES];
+//    NSArray * controllers = self.navigationController.viewControllers;
+    JPNavigationController *nav = self.tabBarController.viewControllers[2];
+    if (nav.viewControllers.count > 1) {
+        [nav popToRootViewControllerAnimated:NO];
+    }
+    nav.tabBarController.selectedIndex = 0;
+//    [self.navigationController popToViewController:controllers[1] animated:YES];
 }
 // 跳转登录页
 - (IBAction)backAction:(id)sender {

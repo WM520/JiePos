@@ -260,6 +260,7 @@
     }
     JPNewsModel *newsModel = [JPNewsModel yy_modelWithDictionary:info];
     [self playVoice:newsModel unread:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kCFUMMessageClickNotification object:nil userInfo:info];
     
     // 系统会根据UIBackgroundFetchResult来判断后台处理的有效性,如果后台处理效率较低,会延迟发送后台推送通知
     completionHandler (UIBackgroundFetchResultNewData);

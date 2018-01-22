@@ -31,11 +31,11 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    NSString *badge = nil;
-    if ([JPPushHelper badgeNumber] > 0) {
-        badge = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
-    }
-    [[self.tabBar.items objectAtIndex:1] setBadgeValue:badge];
+//    NSString *badge = nil;
+//    if ([JPPushHelper badgeNumber] > 0) {
+//        badge = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+//    }
+//    [[self.tabBar.items objectAtIndex:1] setBadgeValue:badge];
 }
 
 - (void)viewDidLoad {

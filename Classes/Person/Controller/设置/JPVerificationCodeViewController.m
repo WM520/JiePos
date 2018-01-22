@@ -59,6 +59,8 @@
 {
     _numberLabel.text = [NSString stringWithFormat:@"+86  %@", self.numberPhone];
     self.time = 60;
+    self.timer.fireDate = [NSDate distantPast];
+    _getCodeButton.enabled = NO;
     _textFieldArr = @[self.firstNumberField, self.secondNumberFiled, self.threeNumberField, self.fourNumberField, self.fiveNumberField, self.sixNumberField];
     self.firstNumberField.delegate = self;
     self.secondNumberFiled.delegate = self;
@@ -172,6 +174,7 @@
         [IBPersonRequest checkIsOKPhoneCode:_codeID appPhone:self.numberPhone userId:[JPUserEntity sharedUserEntity].userId account:[JPUserEntity sharedUserEntity].account callback:^(NSString *code, NSString *msg, id resp) {
 //            id obj = [IBAnalysis analysisWithEncryptString:resp privateKey:[JPUserEntity sharedUserEntity].privateKey];
             if ([code isEqualToString:@"0"]) {
+                [IBProgressHUD showInfoWithStatus:@"设置成功"];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"bindSuccess" object:nil userInfo:nil];
                 JPBindingSuccessViewController * bindingSuccessVC = [[JPBindingSuccessViewController alloc] init];
                 bindingSuccessVC.numberPhone = weakSelf.numberPhone;
@@ -191,7 +194,7 @@
         UITextField * textField = _textFieldArr[i];
         textField.text = @"";
     }
-    _getCodeButton.userInteractionEnabled = NO;
+    _getCodeButton.enabled = NO;
     self.timer.fireDate = [NSDate distantPast];
     [IBPersonRequest sendSmsPhoneCode:self.numberPhone account:[JPUserEntity sharedUserEntity].account callback:^(NSString *code, NSString *msg, id resp) {
         if (code.integerValue == 0) {
@@ -206,11 +209,11 @@
 - (void)timeUp
 {
     _time = _time - 1;
-    [_getCodeButton setTitle:[NSString stringWithFormat:@"%ld秒后重发",(long)_time] forState:UIControlStateNormal];
+    [_getCodeButton setTitle:[NSString stringWithFormat:@"重新获取%ld秒",(long)_time] forState:UIControlStateNormal];
     if (_time <= 0) {
         //结束计时
         _timer.fireDate = [NSDate distantFuture];
-        _getCodeButton.userInteractionEnabled = YES;
+        _getCodeButton.enabled = YES;
         [_getCodeButton setTitle:@"重新获取" forState:UIControlStateNormal];
         self.time = 60;
     }

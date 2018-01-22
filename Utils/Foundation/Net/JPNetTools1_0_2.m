@@ -283,8 +283,11 @@
     [data setObject:checkCode forKey:@"checkCode"];
     [data setObject:content forKey:@"content"];
     [data setObject:qrcodeFlag forKey:@"qrcodeFlag"];
-//    [params setObject:@"JBB06" forKey:@"serviceCode"];
-    [params setObject:@"JBB46" forKey:@"serviceCode"];
+//    if ([qrcodeFlag isEqualToString:@"1"]) {
+//        [params setObject:@"JBB06" forKey:@"serviceCode"];
+//    } else {
+        [params setObject:@"JBB46" forKey:@"serviceCode"];
+//    }
     [params setObject:data forKey:@"data"];
     
     [JPNetworking postUrl_V1_0_2:JPNewServerUrl params:params callback:^(NSString *resultCode, NSString *msg, id resp) {

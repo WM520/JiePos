@@ -56,6 +56,9 @@
 @property (nonatomic, assign) BOOL isShow;
 // 消费形式list
 @property (nonatomic, strong) NSArray * segmentTitleArray;
+// 未读消息红色提示
+@property (nonatomic, strong) UILabel * redLabel;
+
 @end
 
 @implementation JPIndexViewController
@@ -238,6 +241,51 @@
     self.view.backgroundColor = JP_viewBackgroundColor;
     
     weakSelf_declare;
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:kCFUMMessageClickNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        if (!weakSelf.redLabel) {
+            if ([JPPushHelper badgeNumber] > 0) {
+                weakSelf.redLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 0, 15, 15)];
+                weakSelf.redLabel.backgroundColor = [UIColor redColor];
+                weakSelf.redLabel.textColor = [UIColor whiteColor];
+                weakSelf.redLabel.textAlignment = NSTextAlignmentCenter;
+                weakSelf.redLabel.font = [UIFont systemFontOfSize:12];
+                weakSelf.redLabel.layer.masksToBounds = YES;
+                weakSelf.redLabel.layer.cornerRadius = 7.5;
+                weakSelf.redLabel.text = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+                [weakSelf.rightBtn addSubview:_redLabel];
+            }
+        } else {
+            if ([JPPushHelper badgeNumber] > 0) {
+                weakSelf.redLabel.text = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+            } else {
+                [weakSelf.redLabel removeFromSuperview];
+            }
+        }
+    }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"haveReadAction" object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        if (!weakSelf.redLabel) {
+            if ([JPPushHelper badgeNumber] > 0) {
+                weakSelf.redLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 0, 15, 15)];
+                weakSelf.redLabel.backgroundColor = [UIColor redColor];
+                weakSelf.redLabel.textColor = [UIColor whiteColor];
+                weakSelf.redLabel.textAlignment = NSTextAlignmentCenter;
+                weakSelf.redLabel.font = [UIFont systemFontOfSize:12];
+                weakSelf.redLabel.layer.masksToBounds = YES;
+                weakSelf.redLabel.layer.cornerRadius = 7.5;
+                weakSelf.redLabel.text = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+                [weakSelf.rightBtn addSubview:_redLabel];
+            }
+        } else {
+            if ([JPPushHelper badgeNumber] > 0) {
+                weakSelf.redLabel.text = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+            } else {
+                [weakSelf.redLabel removeFromSuperview];
+            }
+        }
+    }];
+    
     [[NSNotificationCenter defaultCenter] addObserverForName:kCFNewNoticeNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
         
         JPHomeModel *model = (JPHomeModel *)note.object;
@@ -653,21 +701,30 @@
         [_leftBtn addSubview:_backImgs];
         _backImgs.alpha = 0;
         [self.view addSubview:_leftBtn];
-        
-        _rightBtn = [[UIButton alloc] init];
-        _rightBtn.frame = CGRectMake(kScreenWidth - 50, 20, 40, 40);
-        [_rightBtn addTarget:self action:@selector(rightClick) forControlEvents:UIControlEventTouchUpInside];
-        _backImg2 = [[UIImageView alloc] init];
-        _backImg2.frame = CGRectMake(10, 7, 25, 25);
-        _backImg2.image = [UIImage imageNamed:@"jp_home_news"];
-        [_rightBtn addSubview:_backImg2];
-        _backImgs2 = [[UIImageView alloc] init];
-        _backImgs2.frame = CGRectMake(10, 7, 25, 25);
-        _backImgs2.image = [UIImage imageNamed:@"jp_home_news1"];
-        [_rightBtn addSubview:_backImgs2];
-        _backImgs2.alpha = 0;
-        [self.view addSubview:_rightBtn];
-        
+    }
+    _rightBtn = [[UIButton alloc] init];
+    _rightBtn.frame = CGRectMake(kScreenWidth - 50, 20, 40, 40);
+    [_rightBtn addTarget:self action:@selector(rightClick) forControlEvents:UIControlEventTouchUpInside];
+    _backImg2 = [[UIImageView alloc] init];
+    _backImg2.frame = CGRectMake(10, 7, 25, 25);
+    _backImg2.image = [UIImage imageNamed:@"jp_home_news"];
+    [_rightBtn addSubview:_backImg2];
+    _backImgs2 = [[UIImageView alloc] init];
+    _backImgs2.frame = CGRectMake(10, 7, 25, 25);
+    _backImgs2.image = [UIImage imageNamed:@"jp_home_news1"];
+    [_rightBtn addSubview:_backImgs2];
+    _backImgs2.alpha = 0;
+    [self.view addSubview:_rightBtn];
+    if ([JPPushHelper badgeNumber] > 0) {
+        _redLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 0, 15, 15)];
+        _redLabel.backgroundColor = [UIColor redColor];
+        _redLabel.textColor = [UIColor whiteColor];
+        _redLabel.textAlignment = NSTextAlignmentCenter;
+        _redLabel.font = [UIFont systemFontOfSize:12];
+        _redLabel.layer.masksToBounds = YES;
+        _redLabel.layer.cornerRadius = 7.5;
+        _redLabel.text = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+        [_rightBtn addSubview:_redLabel];
     }
 }
 

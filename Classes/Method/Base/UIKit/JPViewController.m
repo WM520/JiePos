@@ -168,7 +168,7 @@
 //            if (nav.viewControllers.count > 1) {
 //                [nav popToRootViewControllerAnimated:NO];
 //            }
-            nav.tabBarController.selectedIndex = 3;
+            nav.tabBarController.selectedIndex = 2;
 //
 //            JPNavigationController *newsNav = self.tabBarController.viewControllers[1];
 //            NSString *badge = nil;

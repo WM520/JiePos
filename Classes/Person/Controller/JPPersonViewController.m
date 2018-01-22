@@ -54,6 +54,13 @@ JPNewsViewControllerDelegate>
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    weakSelf_declare;
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:kCFUMMessageClickNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        [weakSelf.ctntView reloadData];
+    }];
+    
     // 初始化数据
     [self configData];
     // 添加view
@@ -86,21 +93,21 @@ JPNewsViewControllerDelegate>
             if (!_unreadLabel) {
                 UILabel * unreadLabel = [[UILabel alloc] init];
                 unreadLabel.backgroundColor = [UIColor redColor];
-                unreadLabel.text = [NSString stringWithFormat:@"%ld", [JPPushHelper badgeNumber]];
+                unreadLabel.text = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
                 unreadLabel.textAlignment = NSTextAlignmentCenter;
                 unreadLabel.textColor = [UIColor whiteColor];
                 unreadLabel.layer.masksToBounds = YES;
-                unreadLabel.layer.cornerRadius = 13;
+                unreadLabel.layer.cornerRadius = 10;
                 [cell.contentView addSubview:unreadLabel];
                 [unreadLabel mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.centerY.equalTo(cell.contentView);
                     make.right.equalTo(cell.contentView.mas_right).offset(-5);
-                    make.height.equalTo(@25);
+                    make.height.equalTo(@20);
                     make.width.equalTo(@35);
                 }];
                 _unreadLabel = unreadLabel;
             } else {
-                _unreadLabel.text = [NSString stringWithFormat:@"%ld", [JPPushHelper badgeNumber]];
+                _unreadLabel.text = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
             }
         } else {
             [_unreadLabel removeFromSuperview];
