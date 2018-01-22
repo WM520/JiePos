@@ -55,6 +55,7 @@
 + (void)vaildBusinessInfoWithCheckCode:(NSString *)checkCode
                                content:(NSString *)content
                             qrcodeFlag:(NSString *)qrcodeFlag
+                              qrCodeId:(NSString *)qrCodeId
                               callback:(JPNetCallback)callback;
 
 /** 银行名称获取*/

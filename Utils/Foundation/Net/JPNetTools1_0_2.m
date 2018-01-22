@@ -276,6 +276,7 @@
 + (void)vaildBusinessInfoWithCheckCode:(NSString *)checkCode
                                content:(NSString *)content
                             qrcodeFlag:(NSString *)qrcodeFlag
+                              qrCodeId:(NSString *)qrCodeId
                               callback:(JPNetCallback)callback {
     NSMutableDictionary *params = @{}.mutableCopy;
     NSMutableDictionary *data = @{}.mutableCopy;
@@ -283,11 +284,10 @@
     [data setObject:checkCode forKey:@"checkCode"];
     [data setObject:content forKey:@"content"];
     [data setObject:qrcodeFlag forKey:@"qrcodeFlag"];
-//    if ([qrcodeFlag isEqualToString:@"1"]) {
-//        [params setObject:@"JBB06" forKey:@"serviceCode"];
-//    } else {
-        [params setObject:@"JBB46" forKey:@"serviceCode"];
-//    }
+    [data setObject:qrCodeId forKey:@"qrCodeId"];
+
+    
+    [params setObject:@"JBB06" forKey:@"serviceCode"];
     [params setObject:data forKey:@"data"];
     
     [JPNetworking postUrl_V1_0_2:JPNewServerUrl params:params callback:^(NSString *resultCode, NSString *msg, id resp) {

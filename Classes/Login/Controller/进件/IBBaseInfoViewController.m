@@ -801,14 +801,17 @@
             // !!!: 查询商户名称是否存在
             dispatch_group_enter(group);
             [SVProgressHUD showWithStatus:@"验证商户名称，请稍后..."];
+            NSLog(@"%@", weakSelf.qrcodeFlag);
+            NSLog(@"%@", businessName);
+            NSLog(@"%@", weakSelf.qrcodeid);
             
-            [JPNetTools1_0_2 vaildBusinessInfoWithCheckCode:@"01" content:businessName qrcodeFlag:weakSelf.qrcodeFlag callback:^(NSString *code, NSString *msg, id resp) {
+            [JPNetTools1_0_2 vaildBusinessInfoWithCheckCode:@"01" content:businessName qrcodeFlag:weakSelf.qrcodeFlag qrCodeId:weakSelf.qrcodeid callback:^(NSString *code, NSString *msg, id resp) {
                 JPLog(@"查询商户名称是否存在 %@ - %@ - %@", code, msg, resp);
-                
+
                 if ([code isEqualToString:@"00"]) {
                     if ([resp isKindOfClass:[NSDictionary class]]) {
                         NSLog(@"%@", resp);
-                        
+
                         BOOL isExist = [resp[@"isExist"] boolValue];
                         if (isExist) {
                             [SVProgressHUD showInfoWithStatus:@"商户名已存在！"];
@@ -847,7 +850,7 @@
             // !!!: 查询用户名是否存在
             dispatch_group_enter(group);
             [SVProgressHUD showWithStatus:@"验证用户名，请稍后..."];
-            [JPNetTools1_0_2 vaildBusinessInfoWithCheckCode:@"02" content:userName qrcodeFlag:weakSelf.qrcodeFlag callback:^(NSString *code, NSString *msg, id resp) {
+            [JPNetTools1_0_2 vaildBusinessInfoWithCheckCode:@"02" content:userName qrcodeFlag:weakSelf.qrcodeFlag qrCodeId:weakSelf.qrcodeid callback:^(NSString *code, NSString *msg, id resp) {
                 JPLog(@"查询用户名是否存在 %@ - %@ - %@", code, msg, resp);
                 
                 if ([code isEqualToString:@"00"]) {
