@@ -142,7 +142,7 @@
         {
             k = i;
             [_textFieldArr[i] becomeFirstResponder];
-            NSLog(@"%lu",k);
+            NSLog(@"%lu",(long)k);
             isChang = YES;
             break;
         };
@@ -174,7 +174,6 @@
         [IBPersonRequest checkIsOKPhoneCode:_codeID appPhone:self.numberPhone userId:[JPUserEntity sharedUserEntity].userId account:[JPUserEntity sharedUserEntity].account callback:^(NSString *code, NSString *msg, id resp) {
 //            id obj = [IBAnalysis analysisWithEncryptString:resp privateKey:[JPUserEntity sharedUserEntity].privateKey];
             if ([code isEqualToString:@"0"]) {
-                [IBProgressHUD showInfoWithStatus:@"设置成功"];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"bindSuccess" object:nil userInfo:nil];
                 JPBindingSuccessViewController * bindingSuccessVC = [[JPBindingSuccessViewController alloc] init];
                 bindingSuccessVC.numberPhone = weakSelf.numberPhone;
@@ -209,7 +208,7 @@
 - (void)timeUp
 {
     _time = _time - 1;
-    [_getCodeButton setTitle:[NSString stringWithFormat:@"重新获取%ld秒",(long)_time] forState:UIControlStateNormal];
+    [_getCodeButton setTitle:[NSString stringWithFormat:@"重新获取(%ld秒)",(long)_time] forState:UIControlStateNormal];
     if (_time <= 0) {
         //结束计时
         _timer.fireDate = [NSDate distantFuture];

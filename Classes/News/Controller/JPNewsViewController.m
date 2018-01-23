@@ -45,8 +45,6 @@ UIPopoverPresentationControllerDelegate> {
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCFUMMessageClickNotification object:nil];
 }
 
 - (void)viewDidLoad {
@@ -75,13 +73,13 @@ UIPopoverPresentationControllerDelegate> {
     }];
     self.ctntView.mj_header.hidden = YES;
     
-    [[NSNotificationCenter defaultCenter] addObserverForName:kCFUMMessageClickNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+    [[NSNotificationCenter defaultCenter] addObserverForName:kCFUMMessageReceiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
         [weakSelf.ctntView.mj_header beginRefreshing];
     }];
 }
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCFUMMessageClickNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCFUMMessageReceiveNotification object:nil];
 }
 
 #pragma mark - 获取DataBase数据

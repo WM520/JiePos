@@ -81,12 +81,11 @@
         //  首页跑马灯
         [JP_UserDefults removeObjectForKey:@"isRolling"];
         [JP_UserDefults removeObjectForKey:@"roll"];
-        // 移除手势密码
-        [JP_UserDefults removeObjectForKey:@"tq_gesturesPassword"];
+        
         // 移除手机账户
         [JP_UserDefults removeObjectForKey:@"appPhone"];
-        //
-        [JP_UserDefults removeObjectForKey:@"TQLogin"];
+        // 移除第一次登录没有绑定手机提示
+        [JP_UserDefults removeObjectForKey:@"FirstRemind"];
         // 本地同步
         [JP_UserDefults synchronize];
     

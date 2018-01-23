@@ -32,6 +32,8 @@
 
 #import <AVFoundation/AVFoundation.h>
 
+#import "LXAlertView.h"
+
 
 @interface AppDelegate () <UNUserNotificationCenterDelegate,IFlySpeechSynthesizerDelegate>
 @property (nonatomic, strong) PcmPlayer *audioPlayer;
@@ -239,7 +241,7 @@
 
 #pragma mark - 推送过来的消息进行处理的方法
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    
+
     // 系统会根据UIBackgroundFetchResult来判断后台处理的有效性,如果后台处理效率较低,会延迟发送后台推送通知
     completionHandler (UIBackgroundFetchResultNewData);
 }
@@ -253,29 +255,30 @@
  *  @param completionHandler 完成回调
  */
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    
+
     NSDictionary *info = [self dictionaryWithUserInfo:userInfo];
     if (!info || info.count <= 0) {
         return;
     }
+
     JPNewsModel *newsModel = [JPNewsModel yy_modelWithDictionary:info];
     [self playVoice:newsModel unread:YES];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kCFUMMessageClickNotification object:nil userInfo:info];
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kCFUMMessageReceiveNotification object:nil userInfo:info];
+
     // 系统会根据UIBackgroundFetchResult来判断后台处理的有效性,如果后台处理效率较低,会延迟发送后台推送通知
     completionHandler (UIBackgroundFetchResultNewData);
 }
 
 // !!!: iOS10以下：处理前台收到通知的代理方法
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    
+
     NSDictionary *transInfo = [self dictionaryWithUserInfo:userInfo];
     //  关闭友盟自带的弹出框
     [UMessage setAutoAlert:NO];
-    
+
     //  统计点击数   也可以不交给友盟处理 自己处理消息【不要删除】
     [UMessage didReceiveRemoteNotification:userInfo];
-    
+
     //  定制自定的的弹出框
     if (transInfo.count > 0) {
         // 是否震动
@@ -284,23 +287,24 @@
         }
         JPNewsModel *model = [JPNewsModel yy_modelWithDictionary:transInfo];
         [self playVoice:model unread:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kCFUMMessageReceiveNotification object:nil userInfo:transInfo];
     }
 }
 
 // !!!: iOS10新增：处理前台收到通知的代理方法
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
-    
+
     NSDictionary * userInfo = notification.request.content.userInfo;
     NSDictionary *transInfo = [self dictionaryWithUserInfo:userInfo];
-    
+
     if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         if (transInfo.count > 0) {
             //  关闭U-Push自带的弹出框
             [UMessage setAutoAlert:NO];
-            
+
             JPNewsModel *model = [JPNewsModel yy_modelWithDictionary:transInfo];
             [self playVoice:model unread:YES];
-            
+
             [[NSNotificationCenter defaultCenter] postNotificationName:kCFUMMessageClickNotification object:nil userInfo:transInfo];
         }
         //应用处于前台时的远程推送接受    必须加这句代码
@@ -319,35 +323,35 @@
 
 // !!!: iOS10以下：处理后台点击通知的代理方法
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
-    
+
     NSDictionary *transInfo = [self dictionaryWithUserInfo:userInfo];
     if (transInfo.count > 0) {
-        
+
         [[NSNotificationCenter defaultCenter] postNotificationName:kCFUMMessageClickNotification object:nil userInfo:transInfo];
-        
+
         //  关闭U-Push自带的弹出框
         [UMessage setAutoAlert:NO];
-        
+
         JPNewsModel *model = [JPNewsModel yy_modelWithDictionary:transInfo];
         [self playVoice:model unread:YES];
     }
     //这个方法用来做action点击的统计
     [UMessage sendClickReportForRemoteNotification:userInfo];
-    
+
     completionHandler (UNNotificationPresentationOptionSound | UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionAlert);
 }
 
 // !!!: iOS10新增：处理后台点击通知的代理方法
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
-    
+
     NSDictionary *userInfo = response.notification.request.content.userInfo;
     NSDictionary *transInfo = [self dictionaryWithUserInfo:userInfo];
-    
+
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         if (transInfo.count > 0) {
-            
+
             [[NSNotificationCenter defaultCenter] postNotificationName:kCFUMMessageClickNotification object:nil userInfo:transInfo];
-            
+
             JPNewsModel *model = [JPNewsModel yy_modelWithDictionary:transInfo];
             [self playVoice:model unread:YES];
         }

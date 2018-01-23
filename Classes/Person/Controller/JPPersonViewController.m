@@ -61,6 +61,9 @@ JPNewsViewControllerDelegate>
         [weakSelf.ctntView reloadData];
     }];
     
+    [[NSNotificationCenter defaultCenter] addObserverForName:kCFUMMessageReceiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        [weakSelf.ctntView reloadData];
+    }];
     // 初始化数据
     [self configData];
     // 添加view

@@ -189,15 +189,16 @@
         [self.rollingView.horizontalMarquee marqueeOfSettingWithState:MarqueeStart_H];
     }
     
-    if (([JP_UserDefults objectForKey:@"appPhone"] == NULL) && _isShow != YES) {
-        _isShow = YES;
+  
+    if ([JP_UserDefults objectForKey:@"FirstRemind"] == NULL) {
+        [JP_UserDefults setObject:@"FirstRemind" forKey:@"FirstRemind"];
         weakSelf_declare;
         LXAlertView * alert = [[LXAlertView alloc] initWithTitle:@"提醒" message:@"您还没有绑定手机号，请绑定手机号" cancelBtnTitle:@"取消" otherBtnTitle:@"设置" clickIndexBlock:^(NSInteger clickIndex) {
             if (clickIndex == 1) {
                 JPBindingPhoneNumberViewController * vc = [[JPBindingPhoneNumberViewController alloc] init];
                 vc.hidesBottomBarWhenPushed = YES;
                 [weakSelf.navigationController pushViewController:vc animated:YES];
-
+                
             }
         }];
         [alert showLXAlertView];
@@ -243,6 +244,28 @@
     weakSelf_declare;
     
     [[NSNotificationCenter defaultCenter] addObserverForName:kCFUMMessageClickNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        if (!weakSelf.redLabel) {
+            if ([JPPushHelper badgeNumber] > 0) {
+                weakSelf.redLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 0, 15, 15)];
+                weakSelf.redLabel.backgroundColor = [UIColor redColor];
+                weakSelf.redLabel.textColor = [UIColor whiteColor];
+                weakSelf.redLabel.textAlignment = NSTextAlignmentCenter;
+                weakSelf.redLabel.font = [UIFont systemFontOfSize:12];
+                weakSelf.redLabel.layer.masksToBounds = YES;
+                weakSelf.redLabel.layer.cornerRadius = 7.5;
+                weakSelf.redLabel.text = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+                [weakSelf.rightBtn addSubview:_redLabel];
+            }
+        } else {
+            if ([JPPushHelper badgeNumber] > 0) {
+                weakSelf.redLabel.text = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+            } else {
+                [weakSelf.redLabel removeFromSuperview];
+            }
+        }
+    }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:kCFUMMessageReceiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
         if (!weakSelf.redLabel) {
             if ([JPPushHelper badgeNumber] > 0) {
                 weakSelf.redLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 0, 15, 15)];

@@ -186,18 +186,22 @@
             }
             gestureLockView.userInteractionEnabled = NO;
             
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC));
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC));
             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                
                 // 第一次登录时候提醒设置手势密码
                 if (_isFirstLogin) {
+                    [IBProgressHUD showSuccessWithStatus:@"设置成功"];
                     JPTabBarController * tabVc = [[JPTabBarController alloc] init];
                     [self presentViewController:tabVc animated:YES completion:nil];
                 } else {
                     // 是否是修改手势密码
                     if (_isModification) {
+                        [IBProgressHUD showSuccessWithStatus:@"修改成功"];
                         NSArray * controllers = self.navigationController.viewControllers;
                         [self.navigationController popToViewController:controllers[2] animated:YES];
                     } else {
+                        [IBProgressHUD showSuccessWithStatus:@"设置成功"];
                         [self.navigationController popViewControllerAnimated:YES];
                     }
                 }

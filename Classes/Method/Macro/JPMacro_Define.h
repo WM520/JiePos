@@ -140,6 +140,8 @@ static NSString *const kCFNewNoticeNotification = @"kCFNewNoticeNotification";
 static NSString *const kCFDownLineNotification = @"kCFDownLineNotification";
 //  推送消息
 static NSString *const kCFUMMessageClickNotification = @"kCFUMMessageClick";
+
+static NSString *const kCFUMMessageReceiveNotification = @"kCFUMMessageReceive";
 //  图片数量通知
 static NSString *const kCFCredentialsNotification = @"kCFCredentialsInfo";
 
