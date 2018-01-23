@@ -188,11 +188,31 @@
         // 开启跑马灯
         [self.rollingView.horizontalMarquee marqueeOfSettingWithState:MarqueeStart_H];
     }
-    
+    weakSelf_declare;
+//    if (!self.redLabel) {
+//        if ([JPPushHelper badgeNumber] > 0) {
+//            self.redLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 0, 15, 15)];
+//            self.redLabel.backgroundColor = [UIColor redColor];
+//            self.redLabel.textColor = [UIColor whiteColor];
+//            self.redLabel.textAlignment = NSTextAlignmentCenter;
+//            self.redLabel.font = [UIFont systemFontOfSize:12];
+//            self.redLabel.layer.masksToBounds = YES;
+//            self.redLabel.layer.cornerRadius = 7.5;
+//            self.redLabel.text = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+//            [self.rightBtn addSubview:_redLabel];
+//        }
+//    } else {
+//        if ([JPPushHelper badgeNumber] > 0) {
+//            weakSelf.redLabel.text = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+//        } else {
+//            [weakSelf.redLabel removeFromSuperview];
+//            weakSelf.redLabel = nil;
+//        }
+//    }
   
     if ([JP_UserDefults objectForKey:@"FirstRemind"] == NULL) {
         [JP_UserDefults setObject:@"FirstRemind" forKey:@"FirstRemind"];
-        weakSelf_declare;
+        
         LXAlertView * alert = [[LXAlertView alloc] initWithTitle:@"提醒" message:@"您还没有绑定手机号，请绑定手机号" cancelBtnTitle:@"取消" otherBtnTitle:@"设置" clickIndexBlock:^(NSInteger clickIndex) {
             if (clickIndex == 1) {
                 JPBindingPhoneNumberViewController * vc = [[JPBindingPhoneNumberViewController alloc] init];
@@ -261,6 +281,7 @@
                 weakSelf.redLabel.text = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
             } else {
                 [weakSelf.redLabel removeFromSuperview];
+                weakSelf.redLabel = nil;
             }
         }
     }];
@@ -283,6 +304,7 @@
                 weakSelf.redLabel.text = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
             } else {
                 [weakSelf.redLabel removeFromSuperview];
+                weakSelf.redLabel = nil;
             }
         }
     }];
@@ -305,6 +327,7 @@
                 weakSelf.redLabel.text = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
             } else {
                 [weakSelf.redLabel removeFromSuperview];
+                weakSelf.redLabel = nil;
             }
         }
     }];
@@ -757,7 +780,7 @@
         _navImageView.alpha = scrollView.contentOffset.y / 180.0;
         _titleLb.alpha = scrollView.contentOffset.y / 180.0;
         _backImg.alpha = 1 - scrollView.contentOffset.y / 180.0;
-        _backImg.alpha = 1 - scrollView.contentOffset.y / 180.0;
+        _backImg2.alpha = 1 - scrollView.contentOffset.y / 180.0;
 //        _shareImg.alpha = 1 - scrollView.contentOffset.y / 180.0;
         _backImgs.alpha = scrollView.contentOffset.y / 180.0;
         _backImgs2.alpha = scrollView.contentOffset.y / 180.0;
@@ -767,7 +790,6 @@
         _titleLb.alpha = 1.0;
         _backImg.alpha = 0;
         _backImg2.alpha = 0;
-        
 //        _shareImg.alpha = 0;
         _backImgs.alpha = 1;
         _backImgs2.alpha = 1;

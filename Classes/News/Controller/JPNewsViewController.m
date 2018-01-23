@@ -173,18 +173,14 @@ UIPopoverPresentationControllerDelegate> {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [MobClick event:@"news_detailed"];
+    JPNewsModel *model = self.dataSource[indexPath.section][indexPath.row];
+    [JPPushHelper modifyUnreadWithNewsModel:model];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"haveReadAction" object:nil];
+    
     JPNewsDetailViewController *dealDetailVC = [[JPNewsDetailViewController alloc] init];
 //    dealDetailVC.hidesBottomBarWhenPushed = YES;
     dealDetailVC.newsModel = self.dataSource[indexPath.section][indexPath.row];
-//    [self.navigationController pushViewController:dealDetailVC animated:YES];
-    weakSelf_declare;
-    [self presentViewController:dealDetailVC animated:YES completion:^{
-        JPNewsModel *model = weakSelf.dataSource[indexPath.section][indexPath.row];
-        JPLog(@"%@ - %@ - %@", model.tenantsNumber, model.orderNumber, model.transactionTime);
-        [JPPushHelper modifyUnreadWithNewsModel:model];
-        [weakSelf.delegate reload];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"haveReadAction" object:nil];
-    }];
+    [self.navigationController pushViewController:dealDetailVC animated:YES];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -290,8 +286,8 @@ UIPopoverPresentationControllerDelegate> {
                     badge = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
                 }
                 weakSelf.tabBarItem.badgeValue = badge;
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"haveReadAction" object:nil];
                 [weakSelf.ctntView.mj_header beginRefreshing];
-                [weakSelf.delegate reload];
                 
             } else {
                 [IBProgressHUD showInfoWithStatus:@"暂无未读消息"];

@@ -193,9 +193,7 @@ static NSString *const headerReuseIdentifier = @"header";
 
 #pragma mark - Action
 - (void)backButtonClicked:(UIButton *)sender {
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (BOOL)navigationBarHidden {

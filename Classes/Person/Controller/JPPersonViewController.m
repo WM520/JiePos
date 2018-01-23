@@ -23,8 +23,7 @@ static NSString *const headerReuseIdentifier = @"headerReuseIdentifier";
 
 @interface JPPersonViewController ()
 <UITableViewDataSource,
-UITableViewDelegate,
-JPNewsViewControllerDelegate>
+UITableViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray <NSArray *>*dataSource;
 @property (nonatomic, strong) UITableView *ctntView;
@@ -40,16 +39,6 @@ JPNewsViewControllerDelegate>
 #pragma mark - View
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-//    JPNavigationController *newsNav = self.tabBarController.viewControllers[1];
-//    NSString *badge = nil;
-//    if ([JPPushHelper badgeNumber] > 0) {
-//        badge = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
-//    }
-//    [newsNav.tabBarItem setBadgeValue:badge];
-    if ([JPPushHelper badgeNumber] != _badgeNumber) {
-        [self.ctntView reloadData];
-    }
 }
 
 - (void)viewDidLoad {
@@ -64,10 +53,20 @@ JPNewsViewControllerDelegate>
     [[NSNotificationCenter defaultCenter] addObserverForName:kCFUMMessageReceiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
         [weakSelf.ctntView reloadData];
     }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"haveReadAction" object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        [weakSelf.ctntView reloadData];
+    }];
+    
     // 初始化数据
     [self configData];
     // 添加view
     [self.view addSubview:self.ctntView];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - tableViewDataSource
@@ -114,6 +113,7 @@ JPNewsViewControllerDelegate>
             }
         } else {
             [_unreadLabel removeFromSuperview];
+            _unreadLabel = nil;
         }
     }
     return cell;
@@ -219,7 +219,6 @@ JPNewsViewControllerDelegate>
         } else if ([cell.textLabel.text isEqualToString:@"消息中心"]) {
             // 联系方式
             JPNewsViewController * newsVC = [JPNewsViewController new];
-            newsVC.delegate = self;
             newsVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:newsVC animated:YES];
         }
@@ -262,13 +261,6 @@ JPNewsViewControllerDelegate>
     [self.dataSource addObject:configs1];
     [self.dataSource addObject:configs2];
     [self.dataSource addObject:@[@{ imageName : @"jp_person_setting", configName : @"设置" }]];
-}
-
-#pragma mark - JPNewsViewControllerDelegate
-// 点击消息的回调
-- (void)reload
-{
-    [self.ctntView reloadData];
 }
 
 #pragma mark - Lazy
