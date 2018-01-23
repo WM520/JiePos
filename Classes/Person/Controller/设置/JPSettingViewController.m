@@ -289,9 +289,6 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
             // 本地同步
             [JP_UserDefults synchronize];
             
-//            [weakSelf dismissViewControllerAnimated:YES completion:^{
-//
-//            }];
             [weakSelf dismissViewControllerClass:[JPLoginViewController class]];
         }
     }];

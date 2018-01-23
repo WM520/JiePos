@@ -32,6 +32,7 @@
 
 #pragma mark - Action
 - (void)rightBarItemClicked {
+    [JP_UserDefults setObject:self.numberPhone forKey:@"appPhone"];
 //    NSArray * controllers = self.navigationController.viewControllers;
     JPNavigationController *nav = self.tabBarController.viewControllers[2];
     if (nav.viewControllers.count > 1) {
@@ -40,6 +41,13 @@
     nav.tabBarController.selectedIndex = 0;
 //    [self.navigationController popToViewController:controllers[1] animated:YES];
 }
+
+- (void)onBackItemClicked:(id)sender
+{
+    NSArray * controllers = self.navigationController.childViewControllers;
+    [self.navigationController popToViewController:controllers[1] animated:YES];
+}
+
 // 跳转登录页
 - (IBAction)backAction:(id)sender {
     [MobClick event:@"phone_logout"];
