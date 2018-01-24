@@ -535,6 +535,8 @@
                     //                [weakSelf.view.window setRootViewController:tabBarController];
                     [weakSelf presentViewController:tabBarController animated:YES completion:nil];
                 }
+            } else {
+                self.view.hidden = NO;
             }
             return;
         }

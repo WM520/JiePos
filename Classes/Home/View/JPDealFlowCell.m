@@ -280,7 +280,7 @@
         finalColor = JP_Content_Color;
     }
     
-    if (![dealModel.body isEqualToString:@""] && dealModel.body != NULL) {
+    if (![dealModel.body isEqualToString:@""] && dealModel.body != NULL && [JPUserEntity sharedUserEntity].applyType == 2) {
         if (!self.note) {
             self.note = [YYLabel new];
             self.note.font = [UIFont fontWithName:@"HelveticaNeueLTCom-Th" size:JPRealValue(24)];
