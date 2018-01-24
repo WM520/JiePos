@@ -800,7 +800,7 @@
             dispatch_group_t group = dispatch_group_create();
             // !!!: 查询商户名称是否存在
             dispatch_group_enter(group);
-            [SVProgressHUD showWithStatus:@"验证商户名称，请稍后..."];
+//            [SVProgressHUD showWithStatus:@"验证商户名称，请稍后..."];
             NSLog(@"%@", weakSelf.qrcodeFlag);
             NSLog(@"%@", businessName);
             NSLog(@"%@", weakSelf.qrcodeid);
@@ -826,7 +826,7 @@
 //                    sender.backgroundColor = JPBaseColor;
                     return;
                 }
-                [SVProgressHUD dismiss];
+//                [SVProgressHUD dismiss];
                 dispatch_group_leave(group);
             }];
 //            [IBPersonRequest checkUserInfoAccount:[JPUserEntity sharedUserEntity].account merchantId:0 isUserName:false content:businessName qrCodeId:weakSelf.qrcodeid callback:^(NSString *code, NSString *msg, id resp) {
@@ -849,7 +849,7 @@
             
             // !!!: 查询用户名是否存在
             dispatch_group_enter(group);
-            [SVProgressHUD showWithStatus:@"验证用户名，请稍后..."];
+//            [SVProgressHUD showWithStatus:@"验证用户名，请稍后..."];
             [JPNetTools1_0_2 vaildBusinessInfoWithCheckCode:@"02" content:userName qrcodeFlag:weakSelf.qrcodeFlag qrCodeId:weakSelf.qrcodeid callback:^(NSString *code, NSString *msg, id resp) {
                 JPLog(@"查询用户名是否存在 %@ - %@ - %@", code, msg, resp);
                 
@@ -869,7 +869,7 @@
 //                    sender.backgroundColor = JPBaseColor;
                     return;
                 }
-                [SVProgressHUD dismiss];
+//                [SVProgressHUD dismiss];
                 dispatch_group_leave(group);
             }];
 //            [IBPersonRequest checkUserInfoAccount:[JPUserEntity sharedUserEntity].account merchantId:0 isUserName:true content:userName qrCodeId:weakSelf.qrcodeid callback:^(NSString *code, NSString *msg, id resp) {
