@@ -10,6 +10,7 @@
 #import "JPNewsTitleView.h"
 
 @interface JPNewsCell ()
+
 @property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, strong) JPNewsTitleView *titleView;
 @property (nonatomic, strong) UILabel *titleLab;
@@ -35,7 +36,9 @@
 @property (nonatomic, strong) UIImageView *indicatorView;
 /** 未读*/
 @property (nonatomic, strong) UILabel *unreadLab;
+
 @end
+
 @implementation JPNewsCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {

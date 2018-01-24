@@ -11,18 +11,20 @@
 NSString *__nonnull const kCFDatePickerValueNotification = @"kCFDatePickerValueNotification";
 
 @interface IBDatePicker () <UIPickerViewDataSource,UIPickerViewDelegate>
+
 @property (strong, nonatomic) UIPickerView *datePicker;
 @property (strong, nonatomic) NSMutableArray *yearArray;
 @property (strong, nonatomic) NSMutableArray *monthArray;
 @property (strong, nonatomic) NSString *year;
 @property (strong, nonatomic) NSString *month;
+
 @end
+
 @implementation IBDatePicker
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        
         //初始时间选择文字
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"MM月"];
@@ -81,15 +83,12 @@ NSString *__nonnull const kCFDatePickerValueNotification = @"kCFDatePickerValueN
     if (component == 0) {
         self.year = self.yearArray[row];
         year = [self pickerView:pickerView titleForRow:row forComponent:component];
-        
         //  比较选择的年月和当前时间
     } else {
         self.month = self.monthArray[row];
         month = [self pickerView:pickerView titleForRow:row forComponent:component];
-        
         //  比较选择的年月和当前时间
     }
-    
     //  获取选择的年月
     NSString *selectYear = nil;
     NSString *selectMonth = nil;
@@ -102,10 +101,8 @@ NSString *__nonnull const kCFDatePickerValueNotification = @"kCFDatePickerValueN
     }
 //    JPLog(@"%@%@", selectYear, selectMonth);
     NSInteger select = [[NSDate stringFromDate:[NSDate dateFromString:[NSString stringWithFormat:@"%@%@", selectYear, selectMonth] withFormat:@"yyyy年MM月"] withFormat:@"yyyyMM"] integerValue];
-    
     NSInteger now = [[NSDate stringFromDate:[NSDate date] withFormat:@"yyyyMM"] integerValue];
 //    JPLog(@"%ld ---- %ld", select, now);
-    
     if (select < now) {
         //  选择的时间在现在之前
     } else if (select == now) {
@@ -130,9 +127,7 @@ NSString *__nonnull const kCFDatePickerValueNotification = @"kCFDatePickerValueN
     [[NSNotificationCenter defaultCenter] postNotificationName:kCFDatePickerValueNotification object:[NSString stringWithFormat:@"%@%@", selectYear, selectMonth]];
 }
 
-#pragma mark - Setter
-
-#pragma mark - Getter
+#pragma mark - Setter or Getter
 - (int)startYear {
     if (!_startYear) {
         _startYear = 2000;

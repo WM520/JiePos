@@ -91,14 +91,24 @@ typedef void (^jp_passForgetBlock)();
 
 @implementation JPModifyPayPassViewController
 
+#pragma mark - lifestyle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    // 初始化UI
+    [self configUI];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - init
+- (void)configUI
+{
     self.navigationItem.title = @"提现密码修改";
-    
     [self.view addSubview:self.headerView];
     [self.view addSubview:self.payView];
-    
     weakSelf_declare;
     self.headerView.block = ^{
         JPFogetPayPassViewController *forgetVC = [JPFogetPayPassViewController new];
@@ -221,20 +231,5 @@ typedef void (^jp_passForgetBlock)();
     }
     return _dataSource;
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

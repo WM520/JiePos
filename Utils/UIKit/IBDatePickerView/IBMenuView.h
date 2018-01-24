@@ -10,8 +10,10 @@
 
 typedef void (^IBSelectBlock)(BOOL isLeft);
 @interface IBMenuView : UIView
+
 @property (nonatomic, assign) BOOL isLeft;
 @property (nonatomic, copy) IBSelectBlock selectBlock;
 @property (nonatomic, copy) NSString *leftDate;
 @property (nonatomic, copy) NSString *rightDate;
+
 @end

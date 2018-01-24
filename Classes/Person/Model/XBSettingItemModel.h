@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, XBSettingAccessoryType) {
 @property (nonatomic,strong) UIImage *img;          /**< 功能图片  */
 @property (nonatomic,copy) NSString *detailText;    /**< 更多信息-提示文字  */
 @property (nonatomic,strong) UIImage *detailImage;  /**< 更多信息-提示图片  */
-
+@property (nonatomic, assign) BOOL isOn;
 
 @property (nonatomic,assign) XBSettingAccessoryType  accessoryType;    /**< accessory */
 @property (nonatomic,copy) void (^executeCode)(); /**<      点击item要执行的代码*/

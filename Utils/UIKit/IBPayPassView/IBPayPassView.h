@@ -36,4 +36,5 @@
 @property (weak, nonatomic) id<IBPayPassViewDelegate> delegate;
 //  清空输入框
 - (void)deleteAll;
+
 @end

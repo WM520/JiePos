@@ -17,4 +17,5 @@
 + (instancetype)sharedManager;
 - (void)makeIsBindAlias:(BOOL)isBindAlias;
 - (void)makeIsBindService:(BOOL)isBindService;
+
 @end

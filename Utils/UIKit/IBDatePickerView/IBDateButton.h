@@ -10,6 +10,8 @@
 
 typedef void (^IBDateBlock)(BOOL isDay);
 @interface IBDateButton : UIButton
+
 @property (nonatomic, assign) BOOL isDay;
 @property (nonatomic, copy) IBDateBlock dateBlock;
+
 @end

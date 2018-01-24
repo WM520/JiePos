@@ -154,11 +154,18 @@
         //右侧的文本颜色是否等同于模块的颜色
         _chartView.isSameColor = NO;
         //文本的行间距
-        _chartView.textSpace = JPRealValue(20);
+        _chartView.textSpace = JPRealValue(10);
         //文本的字号
-        _chartView.textFontSize = JPRealValue(28);
+        if (kScreenWidth == 320) {
+            _chartView.textFontSize = JPRealValue(22);
+        } else if (kScreenWidth == 375) {
+            _chartView.textFontSize = JPRealValue(24);
+        } else if (kScreenWidth == 414) {
+            _chartView.textFontSize = JPRealValue(28);
+        }
+        
         //文本的高度
-        _chartView.textHeight = JPRealValue(60);
+        _chartView.textHeight = JPRealValue(40);
         //文本前的颜色块的高度
         _chartView.colorHeight = JPRealValue(20);
         //文本前的颜色块是否为圆

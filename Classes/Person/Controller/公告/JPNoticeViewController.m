@@ -148,14 +148,44 @@ static NSString *noticeCell = @"noticeCell";
 
 @implementation JPNoticeViewController
 
-- (void)setLoading:(BOOL)loading {
-    if (self.isLoading == loading) {
-        return;
-    }
+#pragma mark - lifestyle
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    [self.view addSubview:self.ctntView];
     
-    _loading = loading;
+    self.ctntView.emptyDataSetSource = self;
+    self.ctntView.emptyDataSetDelegate = self;
     
-    [self.ctntView reloadEmptyDataSet];
+    weakSelf_declare;
+    //  下拉刷新
+    self.ctntView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        weakSelf.pageNo = 0;
+        [weakSelf.dataSource removeAllObjects];
+        [weakSelf outsideNetworkWithStartRow:weakSelf.pageNo];
+    }];
+    self.ctntView.mj_header.hidden = YES;
+    
+    //  上拉加载
+    self.ctntView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        weakSelf.pageNo ++;
+        [weakSelf outsideNetworkWithStartRow:weakSelf.pageNo * 10];
+    }];
+    self.ctntView.mj_footer.hidden = YES;
+    
+    [self.ctntView.mj_header beginRefreshing];
+    
+    self.tempCell = [[JPNoticeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:noticeCell];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - 断网
@@ -178,6 +208,7 @@ static NSString *noticeCell = @"noticeCell";
         }
     }];
 }
+
 #pragma mark - request
 - (void)getInfoWithStartRow:(NSInteger)startRow {
     
@@ -209,41 +240,6 @@ static NSString *noticeCell = @"noticeCell";
         [weakSelf.ctntView.mj_header endRefreshing];
         [weakSelf.ctntView.mj_footer endRefreshing];
     }];
-}
-
-#pragma mark - View
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    self.navigationController.navigationBarHidden = NO;
-}
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    [self.view addSubview:self.ctntView];
-    
-    self.ctntView.emptyDataSetSource = self;
-    self.ctntView.emptyDataSetDelegate = self;
-    
-    weakSelf_declare;
-    //  下拉刷新
-    self.ctntView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        weakSelf.pageNo = 0;
-        [weakSelf.dataSource removeAllObjects];
-        [weakSelf outsideNetworkWithStartRow:weakSelf.pageNo];
-    }];
-    self.ctntView.mj_header.hidden = YES;
-    
-    //  上拉加载
-    self.ctntView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        weakSelf.pageNo ++;
-        [weakSelf outsideNetworkWithStartRow:weakSelf.pageNo * 10];
-    }];
-    self.ctntView.mj_footer.hidden = YES;
-    
-    [self.ctntView.mj_header beginRefreshing];
-    
-    self.tempCell = [[JPNoticeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:noticeCell];
 }
 
 #pragma mark - tableViewDataSource
@@ -298,6 +294,16 @@ static NSString *noticeCell = @"noticeCell";
     UIView *headerView = [UIView new];
     headerView.backgroundColor = JP_viewBackgroundColor;
     return headerView;
+}
+
+- (void)setLoading:(BOOL)loading {
+    if (self.isLoading == loading) {
+        return;
+    }
+    
+    _loading = loading;
+    
+    [self.ctntView reloadEmptyDataSet];
 }
 
 #pragma mark - Lazy
@@ -386,20 +392,5 @@ static NSString *noticeCell = @"noticeCell";
     
     return self.loading ? [[NSAttributedString alloc] initWithString:text attributes:attributes] : nil;
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

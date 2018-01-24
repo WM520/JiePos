@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface JPNewsHeaderView : UITableViewHeaderFooterView
+
 @property (nonatomic, strong) NSString *timeString;
+
 @end

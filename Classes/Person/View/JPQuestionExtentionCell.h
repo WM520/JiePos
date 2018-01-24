@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface JPQuestionExtentionCell : UITableViewCell
+
 @property (nonatomic, strong) YYTextView *textView;
+
 @end

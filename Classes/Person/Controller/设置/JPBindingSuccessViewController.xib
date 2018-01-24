@@ -20,10 +20,10 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="brX-aq-Vwh">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jp_person_success_bg" translatesAutoresizingMaskIntoConstraints="NO" id="brX-aq-Vwh">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jp_login_resetPsw_suc" translatesAutoresizingMaskIntoConstraints="NO" id="Gxq-se-hao">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jp_person_success" translatesAutoresizingMaskIntoConstraints="NO" id="Gxq-se-hao">
                     <rect key="frame" x="137" y="50" width="100" height="100"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="100" id="Nqo-v2-aWa"/>
@@ -45,12 +45,13 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wwV-gt-f7e">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wwV-gt-f7e">
                     <rect key="frame" x="30" y="308.5" width="315" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="j8U-aZ-b7Z"/>
                     </constraints>
                     <state key="normal" title="去试试" backgroundImage="jp_merchants_through_bg1"/>
+                    <state key="highlighted" backgroundImage="jp_button_highlighted"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                             <integer key="value" value="10"/>
@@ -83,7 +84,9 @@
         </view>
     </objects>
     <resources>
-        <image name="jp_login_resetPsw_suc" width="47" height="47"/>
+        <image name="jp_button_highlighted" width="310" height="45"/>
         <image name="jp_merchants_through_bg1" width="375" height="228"/>
+        <image name="jp_person_success" width="70" height="70"/>
+        <image name="jp_person_success_bg" width="317" height="637"/>
     </resources>
 </document>

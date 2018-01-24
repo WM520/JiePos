@@ -11,6 +11,7 @@
 @interface JPQuestionExtentionCell ()
 
 @end
+
 @implementation JPQuestionExtentionCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {

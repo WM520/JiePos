@@ -31,11 +31,11 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    NSString *badge = nil;
-    if ([JPPushHelper badgeNumber] > 0) {
-        badge = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
-    }
-    [[self.tabBar.items objectAtIndex:1] setBadgeValue:badge];
+//    NSString *badge = nil;
+//    if ([JPPushHelper badgeNumber] > 0) {
+//        badge = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+//    }
+//    [[self.tabBar.items objectAtIndex:1] setBadgeValue:badge];
 }
 
 - (void)viewDidLoad {
@@ -69,16 +69,16 @@
             if (nav.viewControllers.count > 1) {
                 [nav popToRootViewControllerAnimated:NO];
             }
-            nav.tabBarController.selectedIndex = 1;
+            nav.tabBarController.selectedIndex = 2;
 //            JPNavigationController *newsNav = self.tabBarController.viewControllers[1];
 //            newsNav.tabBarItem.badgeValue = @"1";
             
-            JPNavigationController *newsNav = self.tabBarController.viewControllers[1];
-            NSString *badge = nil;
-            if ([JPPushHelper badgeNumber] > 0) {
-                badge = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
-            }
-            [newsNav.tabBarItem setBadgeValue:badge];
+//            JPNavigationController *newsNav = self.tabBarController.viewControllers[1];
+//            NSString *badge = nil;
+//            if ([JPPushHelper badgeNumber] > 0) {
+//                badge = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+//            }
+//            [newsNav.tabBarItem setBadgeValue:badge];
         }
     }];
 }

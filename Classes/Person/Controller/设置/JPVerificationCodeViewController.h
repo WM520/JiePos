@@ -10,4 +10,6 @@
 
 @interface JPVerificationCodeViewController : JPViewController
 
+@property (nonatomic, copy) NSString * numberPhone;
+
 @end

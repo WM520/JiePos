@@ -14,7 +14,9 @@ typedef NS_ENUM(NSUInteger, JP_DealType) {
 };
 
 @interface JPDealStateView : UITableViewHeaderFooterView
+
 @property (nonatomic, copy) NSString *ammount;
 @property (nonatomic, assign) JP_DealType type;
+
 @end
 

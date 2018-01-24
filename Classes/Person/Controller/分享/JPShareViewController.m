@@ -20,6 +20,7 @@
 
 @implementation JPShareViewController
 
+#pragma mark - liftstyle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -31,11 +32,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Init
 - (void)configUI
 {
     weakSelf_declare;
     self.title = @"推荐分享";
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"jp_news_allread"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(rightClick:)];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"jp_news_share"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(rightClick:)];
     self.navigationItem.rightBarButtonItem = rightItem;
     _backgroundImageView = [[UIImageView alloc] init];
     _backgroundImageView.image = [UIImage imageNamed:@"shareBG"];
@@ -47,60 +49,56 @@
     }];
 }
 
-
+#pragma mark - Methods
 - (void)rightClick:(UIBarButtonItem *)rightItem
 {
-    
     NSArray *titlearr = @[@"微信朋友圈", @"微信好友",@"QQ好友", @"QQ空间"];
     NSArray *imageArr = @[@"wechatquan", @"wechat", @"link",@"kongjian"];
     ActionSheetView *actionsheet = [[ActionSheetView alloc] initWithShareHeadOprationWith:titlearr andImageArry:imageArr andProTitle:@"测试" and:ShowTypeIsShareStyle];
     [actionsheet setBtnClick:^(NSInteger btnTag) {
-        
+        NSArray *imageArray = @[[UIImage imageNamed:@"shareBG"]];
         if (btnTag == 0) {
-            NSArray *imageArray = @[[UIImage imageNamed:@"AppIcon"]];
+            
             if (imageArray) {
                 NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
                 //通用参数设置
-                [parameters SSDKSetupShareParamsByText:@"Share SDK"
+                [parameters SSDKSetupShareParamsByText:@"杰宝宝"
                                                 images:imageArray
-                                                   url:nil
-                                                 title:nil
+                                                   url:[NSURL URLWithString:@"http://wx.jiepos.com/jpay-spmp/jbbDownload.html"]
+                                                 title:@"杰宝宝App"
                                                   type:SSDKContentTypeImage];
                 [self shareWithParameters:parameters platformType:SSDKPlatformSubTypeWechatTimeline];
             }
         } else if (btnTag == 1) {
-            NSArray *imageArray = @[[UIImage imageNamed:@"AppIcon"]];
             if (imageArray) {
                 NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
                 //通用参数设置
-                [parameters SSDKSetupShareParamsByText:@"Share SDK"
+                [parameters SSDKSetupShareParamsByText:@"杰宝宝"
                                                 images:imageArray
-                                                   url:nil
-                                                 title:nil
+                                                   url:[NSURL URLWithString:@"http://wx.jiepos.com/jpay-spmp/jbbDownload.html"]
+                                                 title:@"杰宝宝App"
                                                   type:SSDKContentTypeImage];
                 [self shareWithParameters:parameters platformType:SSDKPlatformSubTypeWechatSession];
             }
         } else if (btnTag == 2) {
-            NSArray *imageArray = @[[UIImage imageNamed:@"AppIcon"]];
             if (imageArray) {
                 NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
                 //通用参数设置
-                [parameters SSDKSetupShareParamsByText:@"Share SDK"
+                [parameters SSDKSetupShareParamsByText:@"杰宝宝"
                                                 images:imageArray
-                                                   url:nil
-                                                 title:nil
+                                                   url:[NSURL URLWithString:@"http://wx.jiepos.com/jpay-spmp/jbbDownload.html"]
+                                                 title:@"杰宝宝App"
                                                   type:SSDKContentTypeImage];
                 [self shareWithParameters:parameters platformType:SSDKPlatformSubTypeQQFriend];
             }
         } else if (btnTag == 3) {
-            NSArray *imageArray = @[[UIImage imageNamed:@"AppIcon"]];
             if (imageArray) {
                 NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
                 //通用参数设置
-                [parameters SSDKSetupShareParamsByText:@"Share SDK"
+                [parameters SSDKSetupShareParamsByText:@"杰宝宝"
                                                 images:imageArray
-                                                   url:nil
-                                                 title:nil
+                                                   url:[NSURL URLWithString:@"http://wx.jiepos.com/jpay-spmp/jbbDownload.html"]
+                                                 title:@"杰宝宝App"
                                                   type:SSDKContentTypeImage];
                 [self shareWithParameters:parameters platformType:SSDKPlatformSubTypeQZone];
             }
@@ -108,6 +106,7 @@
     }];
     [[UIApplication sharedApplication].keyWindow addSubview:actionsheet];
 }
+
 - (void)shareWithParameters:(NSMutableDictionary *)parameters platformType:(SSDKPlatformType) platformType
 {
     if (_isShare) {

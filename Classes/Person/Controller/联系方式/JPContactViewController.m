@@ -8,13 +8,21 @@
 
 #import "JPContactViewController.h"
 
+static NSString *const mobileCell = @"mobileCell";
+static NSString *const weixinCell = @"weixinCell";
+
 @interface JPMobileCell : UITableViewCell
+
 @property (nonatomic, strong) UIButton *headerView;
 @property (nonatomic, strong) UIView *currentView;
 @property (nonatomic, strong) UIButton *mobileButton;
 @property (nonatomic, strong) UILabel *workTime;
+@property (nonatomic, copy) NSString * mobileNumber;
+
 @end
+
 @implementation JPMobileCell
+
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
@@ -27,6 +35,7 @@
     }
     return self;
 }
+
 #pragma mark - Method
 - (void)layoutSubviews {
     [super layoutSubviews];
@@ -55,7 +64,11 @@
 }
 
 #pragma mark - Setter
-
+- (void)setMobileNumber:(NSString *)mobileNumber
+{
+    _mobileNumber = mobileNumber;
+    [_mobileButton setAttributedTitle:[self attributrStringWithString:mobileNumber color:JPBaseColor] forState:UIControlStateNormal];
+}
 
 #pragma mark - Getter
 - (UIView *)currentView {
@@ -98,7 +111,6 @@
 //        [tncString addAttribute:NSUnderlineColorAttributeName value:JPBaseColor range:(NSRange){0,[tncString length]}];
 //        [tncString addAttribute:NSFontAttributeName value:JP_DefaultsFont range:(NSRange){0,[tncString length]}];
 //        [_mobileButton setAttributedTitle:tncString forState:UIControlStateNormal];
-        [_mobileButton setAttributedTitle:[self attributrStringWithString:@"4008-4008-57" color:JPBaseColor] forState:UIControlStateNormal];
         
         [_mobileButton addTarget:self action:@selector(callServiceTelephone:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -120,7 +132,7 @@
 - (void)callServiceTelephone:(UIButton *)sender {
     sender.enabled = NO;
     
-    NSString *callPhone = [NSString stringWithFormat:@"telprompt://%@", @"4008400857"];
+    NSString *callPhone = [NSString stringWithFormat:@"telprompt://%@", _mobileNumber];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:callPhone]]) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone]];
@@ -152,6 +164,7 @@
 @end
 
 @interface JPWeixinCell : UITableViewCell
+
 @property (nonatomic, strong) UIButton *headerView;
 @property (nonatomic, strong) UIView *currentView;
 @property (nonatomic, strong) UILabel *weixinNo;
@@ -160,7 +173,11 @@
 @property (nonatomic, strong) UIButton *openWeixinButton;
 @property (nonatomic, strong) UIView *lineView;
 @property (nonatomic, strong) YYTextView *textView;
+@property (nonatomic, copy) NSString * weixinNumber;
+@property (nonatomic, copy) NSString * mobileNumber;
+
 @end
+
 @implementation JPWeixinCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -269,7 +286,7 @@
 - (UILabel *)weixinNo {
     if (!_weixinNo) {
         _weixinNo = [UILabel new];
-        _weixinNo.text = @"15850548165";
+//        _weixinNo.text = @"15850548165";
         _weixinNo.font = JP_DefaultsFont;
         _weixinNo.textColor = JP_NoticeText_Color;
         _weixinNo.textAlignment = NSTextAlignmentCenter;
@@ -322,16 +339,16 @@
         _textView.showsVerticalScrollIndicator = NO;
         _textView.editable = NO;
         
-        //创建最主要的attribute文本
-        NSMutableAttributedString *contentText = [NSMutableAttributedString new];
-        
-        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-        paragraphStyle.lineSpacing = JPRealValue(16);// 字体的行间距
-        paragraphStyle.paragraphSpacing = JPRealValue(5);
-        
-        [contentText appendAttributedString:[[NSAttributedString alloc] initWithString:@"1、复制微信号：15850548165\n2、打开微信，点击右上角“+”【添加好友】\n3、在搜索框中，粘贴微信号，与微信客服沟通" attributes:@{NSForegroundColorAttributeName : JP_NoticeText_Color, NSFontAttributeName : [UIFont systemFontOfSize:JPRealValue(24)], NSParagraphStyleAttributeName : paragraphStyle}]];
-        
-        _textView.attributedText = contentText;
+//        //创建最主要的attribute文本
+//        NSMutableAttributedString *contentText = [NSMutableAttributedString new];
+//
+//        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+//        paragraphStyle.lineSpacing = JPRealValue(16);// 字体的行间距
+//        paragraphStyle.paragraphSpacing = JPRealValue(5);
+//
+//        [contentText appendAttributedString:[[NSAttributedString alloc] initWithString:@"1、复制微信号：15850548165\n2、打开微信，点击右上角“+”【添加好友】\n3、在搜索框中，粘贴微信号，与微信客服沟通" attributes:@{NSForegroundColorAttributeName : JP_NoticeText_Color, NSFontAttributeName : [UIFont systemFontOfSize:JPRealValue(24)], NSParagraphStyleAttributeName : paragraphStyle}]];
+//
+//        _textView.attributedText = contentText;
     }
     return _textView;
 }
@@ -339,7 +356,7 @@
 #pragma mark - Action
 - (void)cutWeixinNoClick:(UIButton *)sender {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-    pasteboard.string = @"15850548165";
+    pasteboard.string = _weixinNumber;
     [IBProgressHUD showSuccessWithStatus:@"已复制微信号到剪贴板"];
 }
 
@@ -347,18 +364,37 @@
     [JPTool openWeixin];
 }
 
+- (void)setWeixinNumber:(NSString *)weixinNumber
+{
+    _weixinNumber = weixinNumber;
+    _weixinNo.text = weixinNumber;
+    NSMutableAttributedString *contentText = [NSMutableAttributedString new];
+    
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = JPRealValue(16);// 字体的行间距
+    paragraphStyle.paragraphSpacing = JPRealValue(5);
+    [contentText appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"1、复制微信号：%@\n2、打开微信，点击右上角“+”【添加好友】\n3、在搜索框中，粘贴微信号，与微信客服沟通", weixinNumber] attributes:@{NSForegroundColorAttributeName : JP_NoticeText_Color, NSFontAttributeName : [UIFont systemFontOfSize:JPRealValue(24)], NSParagraphStyleAttributeName : paragraphStyle}]];
+    _textView.attributedText = contentText;
+}
+
 @end
 
 @interface JPContactViewController () <UITableViewDataSource, UITableViewDelegate>
+
 @property (nonatomic, strong) UITableView *ctntView;
+@property (nonatomic, strong) JPMobileCell *cell1;
+@property (nonatomic, strong) JPWeixinCell *cell2;
+
 @end
 
 @implementation JPContactViewController
 
+#pragma mark - lifestyle
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     self.navigationController.navigationBarHidden = NO;
+
 }
 
 - (void)viewDidLoad {
@@ -366,11 +402,25 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"联系方式";
     [self.view addSubview:self.ctntView];
+    weakSelf_declare;
+    [IBPersonRequest getCustomerServiceNumberAccount:[JPUserEntity sharedUserEntity].account merchantId:[JPUserEntity sharedUserEntity].merchantId callback:^(NSString *code, NSString *msg, id resp) {
+        if ([code isEqualToString:@"0"]) {
+            NSDictionary *obj = [IBAnalysis analysisWithEncryptString:resp privateKey:[JPUserEntity sharedUserEntity].privateKey];
+            NSLog(@"%@", obj);
+            weakSelf.cell2.weixinNumber = [obj objectForKey:@"serviceWX"];
+            weakSelf.cell1.mobileNumber = [obj objectForKey:@"servicePhone"];
+        } else {
+            [IBProgressHUD showErrorWithStatus:msg];
+        }
+    }];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - tableViewDataSource
-static NSString *const mobileCell = @"mobileCell";
-static NSString *const weixinCell = @"weixinCell";
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
 }
@@ -382,9 +432,11 @@ static NSString *const weixinCell = @"weixinCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         JPMobileCell *cell = [tableView dequeueReusableCellWithIdentifier:mobileCell forIndexPath:indexPath];
+        _cell1 = cell;
         return cell;
     } else {
         JPWeixinCell *cell = [tableView dequeueReusableCellWithIdentifier:weixinCell forIndexPath:indexPath];
+        _cell2 = cell;
         cell.canOpen = [JPTool canOpenWeixin];
         return cell;
     }
@@ -419,20 +471,5 @@ static NSString *const weixinCell = @"weixinCell";
     }
     return _ctntView;
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

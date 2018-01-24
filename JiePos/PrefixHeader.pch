@@ -35,6 +35,7 @@
 #import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
 #import <UMMobClick/MobClick.h>
 #import <UMessage_NOIDFA/UMessage.h>
+#import <SDAutoLayout/SDAutoLayout.h>
 #import <SDCycleScrollView/SDCycleScrollView.h>
 #import <FrameAccessor/FrameAccessor.h>
 
@@ -83,6 +84,7 @@
 #import "GBEncodeTool.h"
 #import "IBAnalysis.h"
 #import "IBProgressHUD.h"
+#import "UIColor+Extensions.h"
 
 //  singleton
 #import "JPUserEntity.h"

@@ -29,4 +29,5 @@
  @return 值
  */
 + (id)objectForKey:(NSString *)key;
+
 @end

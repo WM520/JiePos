@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		810517E91FEB571C007B91E7 /* JPCustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 810517E81FEB571C007B91E7 /* JPCustomButton.m */; };
+		810517EC1FEB60B2007B91E7 /* UIColor+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 810517EA1FEB60B2007B91E7 /* UIColor+Extensions.m */; };
+		810517F01FEB89F4007B91E7 /* JPPhoneRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 810517EE1FEB89F4007B91E7 /* JPPhoneRegisterViewController.m */; };
+		810517F11FEB89F4007B91E7 /* JPPhoneRegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 810517EF1FEB89F4007B91E7 /* JPPhoneRegisterViewController.xib */; };
+		810517F71FEB9C04007B91E7 /* UIButton+JPEnlargeTouchArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 810517F61FEB9C04007B91E7 /* UIButton+JPEnlargeTouchArea.m */; };
+		811466A31FFC768B0049305F /* LXAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 811466A21FFC768A0049305F /* LXAlertView.m */; };
+		811466A61FFC769C0049305F /* UILabel+LXAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 811466A51FFC769C0049305F /* UILabel+LXAdd.m */; };
 		815427FC1FD12447000EB2B9 /* JPMerchantRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 815427FA1FD12447000EB2B9 /* JPMerchantRegisterViewController.m */; };
 		815427FD1FD12447000EB2B9 /* JPMerchantRegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 815427FB1FD12447000EB2B9 /* JPMerchantRegisterViewController.xib */; };
 		815C53D01FE8E26F00DD8A23 /* XBSettingSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 815C53CE1FE8E26F00DD8A23 /* XBSettingSectionModel.m */; };
@@ -23,6 +30,11 @@
 		817D06431FEA04B400EBB660 /* TQGesturesPasswordManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 817D063F1FEA04B400EBB660 /* TQGesturesPasswordManager.m */; };
 		817D06441FEA04B400EBB660 /* TQGestureLockHintLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 817D06411FEA04B400EBB660 /* TQGestureLockHintLabel.m */; };
 		817D06471FEA04E900EBB660 /* CALayer+TQAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 817D06461FEA04E900EBB660 /* CALayer+TQAnimated.m */; };
+		81A953B11FEC94760009DC27 /* JPManageGesticulationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A953AF1FEC94760009DC27 /* JPManageGesticulationViewController.m */; };
+		81A953B21FEC94760009DC27 /* JPManageGesticulationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81A953B01FEC94760009DC27 /* JPManageGesticulationViewController.xib */; };
+		81A953B51FECD57E0009DC27 /* JPModificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A953B41FECD57E0009DC27 /* JPModificationViewController.m */; };
+		81A953B81FECEC350009DC27 /* JPGesturePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A953B71FECEC350009DC27 /* JPGesturePasswordViewController.m */; };
+		81A953BB1FF094710009DC27 /* WMCustomAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A953B91FF094710009DC27 /* WMCustomAlert.m */; };
 		81B9225E1FE7AD14009B5ABB /* JPShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B9225C1FE7AD14009B5ABB /* JPShareViewController.m */; };
 		81B922671FE7B105009B5ABB /* ActionSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B922611FE7B105009B5ABB /* ActionSheetView.m */; };
 		81B922681FE7B105009B5ABB /* VerButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B922621FE7B105009B5ABB /* VerButton.m */; };
@@ -221,6 +233,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		810517E71FEB571C007B91E7 /* JPCustomButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPCustomButton.h; sourceTree = "<group>"; };
+		810517E81FEB571C007B91E7 /* JPCustomButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPCustomButton.m; sourceTree = "<group>"; };
+		810517EA1FEB60B2007B91E7 /* UIColor+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Extensions.m"; sourceTree = "<group>"; };
+		810517EB1FEB60B2007B91E7 /* UIColor+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Extensions.h"; sourceTree = "<group>"; };
+		810517ED1FEB89F4007B91E7 /* JPPhoneRegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPPhoneRegisterViewController.h; sourceTree = "<group>"; };
+		810517EE1FEB89F4007B91E7 /* JPPhoneRegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPPhoneRegisterViewController.m; sourceTree = "<group>"; };
+		810517EF1FEB89F4007B91E7 /* JPPhoneRegisterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JPPhoneRegisterViewController.xib; sourceTree = "<group>"; };
+		810517F51FEB9C04007B91E7 /* UIButton+JPEnlargeTouchArea.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+JPEnlargeTouchArea.h"; sourceTree = "<group>"; };
+		810517F61FEB9C04007B91E7 /* UIButton+JPEnlargeTouchArea.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+JPEnlargeTouchArea.m"; sourceTree = "<group>"; };
+		811466A11FFC768A0049305F /* LXAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXAlertView.h; sourceTree = "<group>"; };
+		811466A21FFC768A0049305F /* LXAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXAlertView.m; sourceTree = "<group>"; };
+		811466A41FFC769C0049305F /* UILabel+LXAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+LXAdd.h"; sourceTree = "<group>"; };
+		811466A51FFC769C0049305F /* UILabel+LXAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+LXAdd.m"; sourceTree = "<group>"; };
 		815427F91FD12447000EB2B9 /* JPMerchantRegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPMerchantRegisterViewController.h; sourceTree = "<group>"; };
 		815427FA1FD12447000EB2B9 /* JPMerchantRegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPMerchantRegisterViewController.m; sourceTree = "<group>"; };
 		815427FB1FD12447000EB2B9 /* JPMerchantRegisterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JPMerchantRegisterViewController.xib; sourceTree = "<group>"; };
@@ -250,6 +275,15 @@
 		817D06411FEA04B400EBB660 /* TQGestureLockHintLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TQGestureLockHintLabel.m; sourceTree = "<group>"; };
 		817D06451FEA04E800EBB660 /* CALayer+TQAnimated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+TQAnimated.h"; sourceTree = "<group>"; };
 		817D06461FEA04E900EBB660 /* CALayer+TQAnimated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+TQAnimated.m"; sourceTree = "<group>"; };
+		81A953AE1FEC94760009DC27 /* JPManageGesticulationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPManageGesticulationViewController.h; sourceTree = "<group>"; };
+		81A953AF1FEC94760009DC27 /* JPManageGesticulationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPManageGesticulationViewController.m; sourceTree = "<group>"; };
+		81A953B01FEC94760009DC27 /* JPManageGesticulationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JPManageGesticulationViewController.xib; sourceTree = "<group>"; };
+		81A953B31FECD57E0009DC27 /* JPModificationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPModificationViewController.h; sourceTree = "<group>"; };
+		81A953B41FECD57E0009DC27 /* JPModificationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPModificationViewController.m; sourceTree = "<group>"; };
+		81A953B61FECEC350009DC27 /* JPGesturePasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPGesturePasswordViewController.h; sourceTree = "<group>"; };
+		81A953B71FECEC350009DC27 /* JPGesturePasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPGesturePasswordViewController.m; sourceTree = "<group>"; };
+		81A953B91FF094710009DC27 /* WMCustomAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMCustomAlert.m; sourceTree = "<group>"; };
+		81A953BA1FF094710009DC27 /* WMCustomAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMCustomAlert.h; sourceTree = "<group>"; };
 		81B9225B1FE7AD14009B5ABB /* JPShareViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPShareViewController.h; sourceTree = "<group>"; };
 		81B9225C1FE7AD14009B5ABB /* JPShareViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPShareViewController.m; sourceTree = "<group>"; };
 		81B922611FE7B105009B5ABB /* ActionSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetView.m; sourceTree = "<group>"; };
@@ -678,6 +712,9 @@
 				815427F91FD12447000EB2B9 /* JPMerchantRegisterViewController.h */,
 				815427FA1FD12447000EB2B9 /* JPMerchantRegisterViewController.m */,
 				815427FB1FD12447000EB2B9 /* JPMerchantRegisterViewController.xib */,
+				810517ED1FEB89F4007B91E7 /* JPPhoneRegisterViewController.h */,
+				810517EE1FEB89F4007B91E7 /* JPPhoneRegisterViewController.m */,
+				810517EF1FEB89F4007B91E7 /* JPPhoneRegisterViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -692,6 +729,8 @@
 		815427F31FD10B38000EB2B9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				810517E71FEB571C007B91E7 /* JPCustomButton.h */,
+				810517E81FEB571C007B91E7 /* JPCustomButton.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -721,11 +760,11 @@
 		81B922601FE7B105009B5ABB /* ZPActionsheet */ = {
 			isa = PBXGroup;
 			children = (
+				81B922641FE7B105009B5ABB /* ActionSheetView.h */,
 				81B922611FE7B105009B5ABB /* ActionSheetView.m */,
+				81B922651FE7B105009B5ABB /* VerButton.h */,
 				81B922621FE7B105009B5ABB /* VerButton.m */,
 				81B922631FE7B105009B5ABB /* ActionButton.h */,
-				81B922641FE7B105009B5ABB /* ActionSheetView.h */,
-				81B922651FE7B105009B5ABB /* VerButton.h */,
 				81B922661FE7B105009B5ABB /* ActionButton.m */,
 			);
 			path = ZPActionsheet;
@@ -832,6 +871,11 @@
 				817D063B1FEA04A800EBB660 /* corelock */,
 				817D06381FEA043000EBB660 /* TQViewController1.h */,
 				817D06371FEA042F00EBB660 /* TQViewController1.m */,
+				81A953AE1FEC94760009DC27 /* JPManageGesticulationViewController.h */,
+				81A953AF1FEC94760009DC27 /* JPManageGesticulationViewController.m */,
+				81A953B01FEC94760009DC27 /* JPManageGesticulationViewController.xib */,
+				81A953B31FECD57E0009DC27 /* JPModificationViewController.h */,
+				81A953B41FECD57E0009DC27 /* JPModificationViewController.m */,
 				961BF3271EE8DCFD00D962ED /* JPSettingViewController.h */,
 				961BF3281EE8DCFD00D962ED /* JPSettingViewController.m */,
 				BE2039951F4548A20073C809 /* JPModifyPayPassViewController.h */,
@@ -974,6 +1018,8 @@
 		96E024C11E9F5DE800802EDD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				81A953B61FECEC350009DC27 /* JPGesturePasswordViewController.h */,
+				81A953B71FECEC350009DC27 /* JPGesturePasswordViewController.m */,
 				96D20B8A1EC3F432000FC686 /* JPLoginViewController.h */,
 				96D20B8B1EC3F432000FC686 /* JPLoginViewController.m */,
 				96FE19921EA0A36800BA5FE5 /* JPForgetPswViewController.h */,
@@ -1354,6 +1400,12 @@
 		BE3C15341F5E85FE00692B28 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				811466A41FFC769C0049305F /* UILabel+LXAdd.h */,
+				811466A51FFC769C0049305F /* UILabel+LXAdd.m */,
+				811466A11FFC768A0049305F /* LXAlertView.h */,
+				811466A21FFC768A0049305F /* LXAlertView.m */,
+				81A953BA1FF094710009DC27 /* WMCustomAlert.h */,
+				81A953B91FF094710009DC27 /* WMCustomAlert.m */,
 				BE3C15351F5E862700692B28 /* IBTextView.h */,
 				BE3C15361F5E862700692B28 /* IBTextView.m */,
 				BE37AF811F5FE41E00283D60 /* IBPopView.h */,
@@ -1711,6 +1763,8 @@
 		BE7A6EB71F69333800340870 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				810517EB1FEB60B2007B91E7 /* UIColor+Extensions.h */,
+				810517EA1FEB60B2007B91E7 /* UIColor+Extensions.m */,
 				817D06451FEA04E800EBB660 /* CALayer+TQAnimated.h */,
 				817D06461FEA04E900EBB660 /* CALayer+TQAnimated.m */,
 				BE7A6EB81F69339000340870 /* UIImage+JPExtention.h */,
@@ -1719,6 +1773,8 @@
 				BE7A6EBB1F69339000340870 /* UITextField+Helper.m */,
 				BE7A6EBC1F69339000340870 /* UIView+JPExtention.h */,
 				BE7A6EBD1F69339000340870 /* UIView+JPExtention.m */,
+				810517F51FEB9C04007B91E7 /* UIButton+JPEnlargeTouchArea.h */,
+				810517F61FEB9C04007B91E7 /* UIButton+JPEnlargeTouchArea.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -1866,6 +1922,8 @@
 				815C53E41FE901EE00DD8A23 /* JPBindingSuccessViewController.xib in Resources */,
 				815C53DA1FE8EF5300DD8A23 /* JPBindingPhoneNumberViewController.xib in Resources */,
 				815C53DF1FE8F68A00DD8A23 /* JPVerificationCodeViewController.xib in Resources */,
+				810517F11FEB89F4007B91E7 /* JPPhoneRegisterViewController.xib in Resources */,
+				81A953B21FEC94760009DC27 /* JPManageGesticulationViewController.xib in Resources */,
 				96F9D1861EB2ECA8002D7A44 /* LaunchScreen.storyboard in Resources */,
 				BE2869E91F6908B20002B0D8 /* jiepos_loading.gif in Resources */,
 				815427FD1FD12447000EB2B9 /* JPMerchantRegisterViewController.xib in Resources */,
@@ -1954,6 +2012,7 @@
 				BE8DABD71F665B320060D033 /* JPBillingInfoViewController.m in Sources */,
 				BE7A6EE51F69344E00340870 /* IBNetworking.m in Sources */,
 				BE524C341F5D47B600C8E098 /* QRCodeScanningVC.m in Sources */,
+				811466A61FFC769C0049305F /* UILabel+LXAdd.m in Sources */,
 				960FB9EC1F15D50600A737A8 /* JP_HomeCell.m in Sources */,
 				960FB9AD1F15C27000A737A8 /* JPCredentialsHelper.m in Sources */,
 				96156FB81F17256700CF0CF6 /* JPNewsDetailViewController.m in Sources */,
@@ -2030,6 +2089,7 @@
 				BE7A6EB01F69330E00340870 /* YUAudioPlayer.m in Sources */,
 				BE7A6EC01F69339000340870 /* UIView+JPExtention.m in Sources */,
 				BE0157C01F6A2ACD00D409C0 /* IBMenuView.m in Sources */,
+				81A953B81FECEC350009DC27 /* JPGesturePasswordViewController.m in Sources */,
 				BE7A6EB11F69330E00340870 /* YUAudioPlayList.m in Sources */,
 				BE7A6E721F69330700340870 /* SGQRCodeScanningVC.m in Sources */,
 				BE0157BB1F6A2ACD00D409C0 /* JPLaunchIntroView.m in Sources */,
@@ -2042,6 +2102,7 @@
 				BE7A6ECC1F69339800340870 /* UIColor+JPFormHex.m in Sources */,
 				BE7A6EA81F69330E00340870 /* NSData+AES.m in Sources */,
 				81B922671FE7B105009B5ABB /* ActionSheetView.m in Sources */,
+				81A953B11FEC94760009DC27 /* JPManageGesticulationViewController.m in Sources */,
 				BEF39C701F57DF4A008E70D8 /* JPDealFlowCell.m in Sources */,
 				969FF7D91EA6174000A32D85 /* JPQuestionExtentionCell.m in Sources */,
 				960FB9BE1F15C28700A737A8 /* JPSelectButton.m in Sources */,
@@ -2049,22 +2110,26 @@
 				964A821E1E9F02970088C000 /* main.m in Sources */,
 				BE7A6E7E1F69330700340870 /* XWScanImage.m in Sources */,
 				BE7A6EE61F69344E00340870 /* JPNetworking.m in Sources */,
+				81A953B51FECD57E0009DC27 /* JPModificationViewController.m in Sources */,
 				960F4FDC1E9F47080035C9B2 /* JPPersonViewController.m in Sources */,
 				960FB9E31F15C39B00A737A8 /* JPMerchantsModel.m in Sources */,
 				960FB9DF1F15C37A00A737A8 /* JPMerchantsSHViewController.m in Sources */,
 				96F723A71EA72A530082D973 /* KYSDatePickerView.m in Sources */,
 				BE3C15371F5E862700692B28 /* IBTextView.m in Sources */,
+				81A953BB1FF094710009DC27 /* WMCustomAlert.m in Sources */,
 				817D06431FEA04B400EBB660 /* TQGesturesPasswordManager.m in Sources */,
 				96F723A11EA72A4A0082D973 /* KYSNormalPickerView.m in Sources */,
 				BE7A6E2D1F69329500340870 /* IBUUIDManager.m in Sources */,
 				BEC387041F419B0900E5305C /* JPDealMoneyView.m in Sources */,
 				815C53DE1FE8F68A00DD8A23 /* JPVerificationCodeViewController.m in Sources */,
+				810517F71FEB9C04007B91E7 /* UIButton+JPEnlargeTouchArea.m in Sources */,
 				BE20399A1F454ADD0073C809 /* JPFogetPayPassViewController.m in Sources */,
 				BE187E141F42818D0027C6AA /* JPHomeView.m in Sources */,
 				BE7A6EAD1F69330E00340870 /* YUAudioDataNT.m in Sources */,
 				960FB9761F15B13D00A737A8 /* JP_LoginNoticeView.m in Sources */,
 				960B30021EE8E55E0060E082 /* JPDealType.m in Sources */,
 				960E68E31EA8876500630C4A /* JPDealFlowModel.m in Sources */,
+				811466A31FFC768B0049305F /* LXAlertView.m in Sources */,
 				961BF35F1EE8DDCA00D962ED /* JPRegisterModel.m in Sources */,
 				815C53D41FE8E28C00DD8A23 /* XBSettingCell.m in Sources */,
 				BE7A6EBF1F69339000340870 /* UITextField+Helper.m in Sources */,
@@ -2075,6 +2140,7 @@
 				817D06391FEA043000EBB660 /* TQViewController1.m in Sources */,
 				81B922681FE7B105009B5ABB /* VerButton.m in Sources */,
 				96F723BA1EA753C00082D973 /* JPDealPayWayModel.m in Sources */,
+				810517F01FEB89F4007B91E7 /* JPPhoneRegisterViewController.m in Sources */,
 				BE7A6EB21F69330E00340870 /* YUAudioProperty.m in Sources */,
 				960FB9E61F15C3AF00A737A8 /* JPMenuView.m in Sources */,
 				815C53D11FE8E26F00DD8A23 /* XBSettingItemModel.m in Sources */,
@@ -2105,6 +2171,7 @@
 				BE7A6EA61F69330E00340870 /* GBEncodeTool.m in Sources */,
 				BE7A6E291F69329500340870 /* IBSwitchManager.m in Sources */,
 				815427FC1FD12447000EB2B9 /* JPMerchantRegisterViewController.m in Sources */,
+				810517EC1FEB60B2007B91E7 /* UIColor+Extensions.m in Sources */,
 				960FB9BC1F15C28700A737A8 /* JPRegisterProgressView.m in Sources */,
 				BE7A6E271F69329500340870 /* JPNetTools1_0_2.m in Sources */,
 				96F723B71EA753B00082D973 /* JPDealStateModel.m in Sources */,
@@ -2116,6 +2183,7 @@
 				BE7A6E801F69330700340870 /* YYWeakProxy.m in Sources */,
 				960FB9BD1F15C28700A737A8 /* JPRequestLabel.m in Sources */,
 				BE7A6E771F69330700340870 /* SGQRCodeTool.m in Sources */,
+				810517E91FEB571C007B91E7 /* JPCustomButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2258,7 +2326,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = JiePos/JiePos.entitlements;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 201712121144;
+				CURRENT_PROJECT_VERSION = 201712121152;
 				DEVELOPMENT_TEAM = 26TF88AGYS;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2273,6 +2341,77 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Vendor/UIKit/JhtMarqueeSDK",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"DZNEmptyDataSet\"",
+					"-l\"FrameAccessor\"",
+					"-l\"IQKeyboardManager\"",
+					"-l\"MJRefresh\"",
+					"-l\"Masonry\"",
+					"-l\"SDAutoLayout\"",
+					"-l\"SDCycleScrollView\"",
+					"-l\"SDWebImage\"",
+					"-l\"SVProgressHUD\"",
+					"-l\"TQGestureLockView\"",
+					"-l\"UMessage_Sdk_1.4.0\"",
+					"-l\"WeChatSDK\"",
+					"-l\"YYModel\"",
+					"-l\"YYText\"",
+					"-l\"c++\"",
+					"-l\"sqlite3\"",
+					"-l\"stdc++\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"Bugly\"",
+					"-framework",
+					"\"CoreFoundation\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"JavaScriptCore\"",
+					"-framework",
+					"\"MOBFoundation\"",
+					"-framework",
+					"\"MOBFoundationEx\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QQConnector\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"ShareSDK\"",
+					"-framework",
+					"\"ShareSDKConnector\"",
+					"-framework",
+					"\"ShareSDKExtension\"",
+					"-framework",
+					"\"ShareSDKUI\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"TencentOpenAPI\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"UMMobClick\"",
+					"-framework",
+					"\"WechatConnector\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Jiepos.www.JiePos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2290,7 +2429,7 @@
 				CODE_SIGN_ENTITLEMENTS = JiePos/JiePos.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 201712121144;
+				CURRENT_PROJECT_VERSION = 201712121152;
 				DEVELOPMENT_TEAM = 26TF88AGYS;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2306,6 +2445,77 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Vendor/UIKit/JhtMarqueeSDK",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"DZNEmptyDataSet\"",
+					"-l\"FrameAccessor\"",
+					"-l\"IQKeyboardManager\"",
+					"-l\"MJRefresh\"",
+					"-l\"Masonry\"",
+					"-l\"SDAutoLayout\"",
+					"-l\"SDCycleScrollView\"",
+					"-l\"SDWebImage\"",
+					"-l\"SVProgressHUD\"",
+					"-l\"TQGestureLockView\"",
+					"-l\"UMessage_Sdk_1.4.0\"",
+					"-l\"WeChatSDK\"",
+					"-l\"YYModel\"",
+					"-l\"YYText\"",
+					"-l\"c++\"",
+					"-l\"sqlite3\"",
+					"-l\"stdc++\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"Bugly\"",
+					"-framework",
+					"\"CoreFoundation\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"JavaScriptCore\"",
+					"-framework",
+					"\"MOBFoundation\"",
+					"-framework",
+					"\"MOBFoundationEx\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QQConnector\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"ShareSDK\"",
+					"-framework",
+					"\"ShareSDKConnector\"",
+					"-framework",
+					"\"ShareSDKExtension\"",
+					"-framework",
+					"\"ShareSDKUI\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"TencentOpenAPI\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"UMMobClick\"",
+					"-framework",
+					"\"WechatConnector\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Jiepos.www.JiePos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "cb09f433-a5d5-47ec-887d-cf44e3678b3c";
@@ -2319,6 +2529,10 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 26TF88AGYS;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = JiePosTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Jiepos.www.JiePosTests;
@@ -2332,6 +2546,10 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 26TF88AGYS;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = JiePosTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Jiepos.www.JiePosTests;

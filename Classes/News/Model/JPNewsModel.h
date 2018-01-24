@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface JPNewsModel : NSObject
+
 @property (nonatomic, assign) NSInteger dealID;
 /** 交易结果*/
 @property (nonatomic, copy) NSString *transactionResult;
@@ -38,4 +39,5 @@
 @property (nonatomic, copy) NSString *totalAmt;
 /** 未读*/
 @property (nonatomic, assign) BOOL unread;
+
 @end

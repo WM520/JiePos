@@ -59,6 +59,8 @@
 @property (nonatomic, strong) NSMutableArray *indusList;
 /** 行业编号*/
 @property (nonatomic, strong) NSMutableArray *indusNoList;
+/** 进件类型 */
+@property (nonatomic, strong) NSString * qrcodeFlag;
 @end
 
 @implementation IBBaseInfoViewController
@@ -71,7 +73,7 @@
     
     // !!!: 注册省市区县
     dispatch_group_enter(group);
-    [JPNetTools1_0_2 getRegisterAddressWithParent:@"1" level:@"1" qrcodeId:self.qrcodeid callback:^(NSString *code, NSString *msg, id resp) {
+    [JPNetTools1_0_2 getRegisterAddressWithParent:@"1" level:@"1" qrcodeId:self.qrcodeid qrcodeFlag:self.qrcodeFlag callback:^(NSString *code, NSString *msg, id resp) {
         JPLog(@"注册省市区县 %@ - %@ - %@", code, msg, resp);
         if ([code isEqualToString:@"00"]) {
             if ([resp isKindOfClass:[NSArray class]]) {
@@ -117,6 +119,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    if ([self.qrcodeid isEqualToString:@""]) {
+        self.qrcodeFlag = @"2";
+    } else {
+        self.qrcodeFlag = @"1";
+    }
     self.isEnterprise = true;
     self.hasLicence = true;
     [self.view addSubview:self.scrollView];
@@ -156,13 +163,14 @@
     weakSelf_declare;
     //  注册省份
     self.registerProvinceView.block = ^(IBOneSelectView *blockView) {
-        
+        [weakSelf.view endEditing:YES];
         NSMutableArray *data = @[].mutableCopy;
         for (JPCityModel *model in weakSelf.provinces) {
             [data addObject:model.name];
         }
         if (data.count > 0) {
             [KYSNormalPickerView KYSShowWithDataArray:@[data] completeBlock:^(NSArray *selectArray) {
+                [weakSelf.view endEditing:YES];
                 NSInteger index = [[selectArray lastObject] integerValue];
                 NSString *selectStr = [data objectAtIndex:index];
                 blockView.textLab.text = selectStr;
@@ -186,6 +194,7 @@
     __block IBOneSelectView *provinceView = self.registerProvinceView;
     //  选择市
     self.registerAreaView.ib_leftBlock = ^(IBOnlyTwoSelectView *blockView, UIButton *leftButton, UILabel *leftLab) {
+        [weakSelf.view endEditing:YES];
         if (![provinceView.textLab.text isEqualToString:@"选择省/直辖市/自治区"]) {
             //  已选择省/直辖市/自治区
             NSMutableArray *provinceData = @[].mutableCopy;
@@ -195,7 +204,7 @@
             NSInteger i = [provinceData indexOfObject:provinceView.textLab.text];
             JPCityModel *model = weakSelf.provinces[i];
             
-            [JPNetTools1_0_2 getRegisterAddressWithParent:model.code level:@"2" qrcodeId:weakSelf.qrcodeid callback:^(NSString *code, NSString *msg, id resp) {
+            [JPNetTools1_0_2 getRegisterAddressWithParent:model.code level:@"2" qrcodeId:weakSelf.qrcodeid qrcodeFlag:weakSelf.qrcodeFlag callback:^(NSString *code, NSString *msg, id resp) {
                 JPLog(@"市 === %@", resp);
                 if ([code isEqualToString:@"00"]) {
                     if ([resp isKindOfClass:[NSArray class]]) {
@@ -240,6 +249,7 @@
     __block IBOnlyTwoSelectView *citiView = self.registerAreaView;
     //  选择区县
     self.registerAreaView.ib_rightBlock = ^(IBOnlyTwoSelectView *blockView, UIButton *rightButton, UILabel *rightLab) {
+        [weakSelf.view endEditing:YES];
         if (![provinceView.textLab.text isEqualToString:@"选择省/直辖市/自治区"]) {
             if (![citiView.leftLab.text isEqualToString:@"选择市"]) {
                 
@@ -251,7 +261,7 @@
                 NSInteger i = [cityData indexOfObject:citiView.leftLab.text];
                 JPCityModel *model = weakSelf.cities[i];
                 
-                [JPNetTools1_0_2 getRegisterAddressWithParent:model.code level:@"3" qrcodeId:weakSelf.qrcodeid callback:^(NSString *code, NSString *msg, id resp) {
+                [JPNetTools1_0_2 getRegisterAddressWithParent:model.code level:@"3" qrcodeId:weakSelf.qrcodeid qrcodeFlag:weakSelf.qrcodeFlag callback:^(NSString *code, NSString *msg, id resp) {
                     JPLog(@"区/县 === %@", resp);
                     if ([code isEqualToString:@"00"]) {
                         if ([resp isKindOfClass:[NSArray class]]) {
@@ -286,6 +296,7 @@
     
     //  行业类型
     self.indusView.block = ^(IBOneSelectView *blockView) {
+        [weakSelf.view endEditing:YES];
         NSMutableArray *data = @[].mutableCopy;
         for (JPIndustryModel *model in weakSelf.indusList) {
             [data addObject:model.name];
@@ -309,6 +320,7 @@
     //  行业编号
     __block IBOneSelectView *indusView = self.indusView;
     self.indusNoView.block = ^(IBOnlyOneSelectView *blockView) {
+        [weakSelf.view endEditing:YES];
         JPLog(@"选择了行业编号");
         if (![indusView.textLab.text isEqualToString:@"选择行业类型"]) {
             //  已选择行业类型
@@ -788,13 +800,18 @@
             dispatch_group_t group = dispatch_group_create();
             // !!!: 查询商户名称是否存在
             dispatch_group_enter(group);
-            [SVProgressHUD showWithStatus:@"验证商户名称，请稍后..."];
+//            [SVProgressHUD showWithStatus:@"验证商户名称，请稍后..."];
+            NSLog(@"%@", weakSelf.qrcodeFlag);
+            NSLog(@"%@", businessName);
+            NSLog(@"%@", weakSelf.qrcodeid);
             
-            [JPNetTools1_0_2 vaildBusinessInfoWithCheckCode:@"01" content:businessName callback:^(NSString *code, NSString *msg, id resp) {
+            [JPNetTools1_0_2 vaildBusinessInfoWithCheckCode:@"01" content:businessName qrcodeFlag:weakSelf.qrcodeFlag qrCodeId:weakSelf.qrcodeid callback:^(NSString *code, NSString *msg, id resp) {
                 JPLog(@"查询商户名称是否存在 %@ - %@ - %@", code, msg, resp);
-                
+
                 if ([code isEqualToString:@"00"]) {
                     if ([resp isKindOfClass:[NSDictionary class]]) {
+                        NSLog(@"%@", resp);
+
                         BOOL isExist = [resp[@"isExist"] boolValue];
                         if (isExist) {
                             [SVProgressHUD showInfoWithStatus:@"商户名已存在！"];
@@ -809,7 +826,7 @@
 //                    sender.backgroundColor = JPBaseColor;
                     return;
                 }
-                [SVProgressHUD dismiss];
+//                [SVProgressHUD dismiss];
                 dispatch_group_leave(group);
             }];
 //            [IBPersonRequest checkUserInfoAccount:[JPUserEntity sharedUserEntity].account merchantId:0 isUserName:false content:businessName qrCodeId:weakSelf.qrcodeid callback:^(NSString *code, NSString *msg, id resp) {
@@ -832,8 +849,8 @@
             
             // !!!: 查询用户名是否存在
             dispatch_group_enter(group);
-            [SVProgressHUD showWithStatus:@"验证用户名，请稍后..."];
-            [JPNetTools1_0_2 vaildBusinessInfoWithCheckCode:@"02" content:userName callback:^(NSString *code, NSString *msg, id resp) {
+//            [SVProgressHUD showWithStatus:@"验证用户名，请稍后..."];
+            [JPNetTools1_0_2 vaildBusinessInfoWithCheckCode:@"02" content:userName qrcodeFlag:weakSelf.qrcodeFlag qrCodeId:weakSelf.qrcodeid callback:^(NSString *code, NSString *msg, id resp) {
                 JPLog(@"查询用户名是否存在 %@ - %@ - %@", code, msg, resp);
                 
                 if ([code isEqualToString:@"00"]) {
@@ -852,7 +869,7 @@
 //                    sender.backgroundColor = JPBaseColor;
                     return;
                 }
-                [SVProgressHUD dismiss];
+//                [SVProgressHUD dismiss];
                 dispatch_group_leave(group);
             }];
 //            [IBPersonRequest checkUserInfoAccount:[JPUserEntity sharedUserEntity].account merchantId:0 isUserName:true content:userName qrCodeId:weakSelf.qrcodeid callback:^(NSString *code, NSString *msg, id resp) {
@@ -886,6 +903,9 @@
                 billInfoVC.userName = userName;
                 billInfoVC.IDCardNumber = idcardNumber;
                 billInfoVC.remark = remark;
+                billInfoVC.phoneNumber = weakSelf.phoneNumber;
+                billInfoVC.qrcodeFlag = weakSelf.qrcodeFlag;
+                
                 for (JPCityModel *model in weakSelf.provinces) {
                     if ([model.name isEqualToString:registerProvidence]) {
                         billInfoVC.registerProvince = model.code;

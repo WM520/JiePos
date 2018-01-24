@@ -20,7 +20,20 @@
 + (void)getBusinessSelfHelpBusinessInfoWithUserName:(NSString *)userName callback:(JPNetCallback)callback;
 
 /** 图片上传*/
-+ (void)uploadImage:(UIImage *)image isUpdate:(BOOL)isUpdate checkContent:(NSString *)checkContent tagStr:(NSString *)tagStr progress:(ZJNetProgress)progress callback:(JPNetCallback)callback;
++ (void)uploadImage:(UIImage *)image
+           isUpdate:(BOOL)isUpdate
+       checkContent:(NSString *)checkContent
+         qrcodeFlag:(NSString *)qrcodeFlag
+             tagStr:(NSString *)tagStr
+           progress:(ZJNetProgress)progress
+           callback:(JPNetCallback)callback;
+
++ (void)uploadImageold:(UIImage *)image
+           isUpdate:(BOOL)isUpdate
+       checkContent:(NSString *)checkContent
+             tagStr:(NSString *)tagStr
+           progress:(ZJNetProgress)progress
+           callback:(JPNetCallback)callback;
 
 /** 证件资料列表信息获取*/
 + (void)getInfoListWithType:(NSString *)type callback:(JPNetCallback)callback;
@@ -29,13 +42,21 @@
 + (void)getOpenAccountCityWithParent:(NSString *)parent level:(NSString *)level callback:(JPNetCallback)callback;
 
 /** 注册省市区县*/
-+ (void)getRegisterAddressWithParent:(NSString *)parent level:(NSString *)level qrcodeId:(NSString *)qrcodeId callback:(JPNetCallback)callback;
++ (void)getRegisterAddressWithParent:(NSString *)parent
+                               level:(NSString *)level
+                            qrcodeId:(NSString *)qrcodeId
+                          qrcodeFlag:(NSString *)qrcodeFlag
+                            callback:(JPNetCallback)callback;
 
 /** 行业类型获取*/
 + (void)getIndustryTypeWithName:(NSString *)name callback:(JPNetCallback)callback;
 
 /** 商户名称和用户名存在校验*/
-+ (void)vaildBusinessInfoWithCheckCode:(NSString *)checkCode content:(NSString *)content callback:(JPNetCallback)callback;
++ (void)vaildBusinessInfoWithCheckCode:(NSString *)checkCode
+                               content:(NSString *)content
+                            qrcodeFlag:(NSString *)qrcodeFlag
+                              qrCodeId:(NSString *)qrCodeId
+                              callback:(JPNetCallback)callback;
 
 /** 银行名称获取*/
 + (void)getBankNameWithProvince:(NSString *)province city:(NSString *)city bankName:(NSString *)bankName callback:(JPNetCallback)callback;
@@ -98,5 +119,14 @@
                         merchantId:(NSString *)merchantId
                               imgs:(id)imgs
                           callback:(JPNetCallback)callback;
-
+// 无码商户进件的手机唯一性验证
++ (void)checkIsOnlyPhone:(NSString *)phoneNumber
+                callback:(JPNetCallback)callback;
+// 无码商户进件的获取手机验证码
++ (void)sendSmsPhoneCode:(NSString *)phoneNumber
+                callback:(JPNetCallback)callback;
+// 检测验证码是否正确
++ (void)checkCodeIsOK:(NSString *)phoneNumber
+                 code:(NSString *)code
+             callback:(JPNetCallback)callback;
 @end

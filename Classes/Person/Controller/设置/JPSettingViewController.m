@@ -15,7 +15,7 @@
 #import "XBSettingSectionModel.h"
 #import "XBSettingCell.h"
 #import "JPBindingPhoneNumberViewController.h"
-#import "TQViewController1.h"
+#import "JPManageGesticulationViewController.h"
 
 static NSString *settingCellReuseIdentifier = @"settingCell";
 
@@ -36,6 +36,7 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadPhone) name:@"bindSuccess" object:nil];
     // 初始化数据源
     [self configData];
     // 初始化UI
@@ -56,6 +57,7 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
 // 初始化数据源
 - (void)configData
 {
+    
     XBSettingItemModel *item1 = [[XBSettingItemModel alloc]init];
     item1.funcName = @"手机号";
     item1.executeCode = ^{
@@ -63,8 +65,13 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
         [self.navigationController pushViewController:bingingVC animated:YES];
     };
     item1.img = [UIImage imageNamed:@"jp_person_phone"];
-    item1.accessoryType = XBSettingAccessoryTypeNone;
-    item1.detailText = @"13888888888";
+    item1.accessoryType = XBSettingAccessoryTypeDisclosureIndicator;
+    NSLog(@"-----------%@", [JP_UserDefults objectForKey:@"appPhone"]);
+    if (![[JP_UserDefults objectForKey:@"appPhone"] isEqualToString:@""] && ![[JP_UserDefults objectForKey:@"appPhone"] isKindOfClass:[NSNull class]] && [JP_UserDefults objectForKey:@"appPhone"] != NULL) {
+        item1.detailText = [NSString stringWithFormat:@"%@****%@", [[JP_UserDefults objectForKey:@"appPhone"] substringToIndex:3], [[JP_UserDefults objectForKey:@"appPhone"] substringFromIndex:7]];
+    } else {
+        item1.detailText = @"请绑定手机号";
+    }
     
     XBSettingSectionModel *section1 = [[XBSettingSectionModel alloc]init];
     section1.sectionHeaderHeight = 18;
@@ -88,9 +95,8 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
     item3.img = [UIImage imageNamed:@"jp_person_shoushi_password"];
     item3.accessoryType = XBSettingAccessoryTypeDisclosureIndicator;
     item3.executeCode = ^() {
-//        [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"tel://10010"]];
-        TQViewController1 * vc = [[TQViewController1 alloc] init];
-        vc.title = @"设置手势密码";
+        JPManageGesticulationViewController * vc = [[JPManageGesticulationViewController alloc] init];
+        vc.title = @"手势密码设置";
         [self.navigationController pushViewController:vc animated:YES];
     };
     
@@ -135,7 +141,6 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
 }
 
 #pragma mark - tableViewDataSource
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.dataSource.count;
 }
@@ -186,7 +191,7 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return JPRealValue(12);
+    return 20;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -227,9 +232,7 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
 #pragma mark - action
 - (void)logoutClick:(UIButton *)sender {
     weakSelf_declare;
-    
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"退出登录将删除本地推送消息记录，是否退出？" preferredStyle:UIAlertControllerStyleAlert];
-    
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"退出" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //  确认退出
@@ -238,27 +241,24 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
         [MobClick event:@"setting_logout"];
         
         if ([JPUserEntity sharedUserEntity].isLogin) {
-            
+
             if ([JPUserEntity sharedUserEntity].merchantNo) {
                 NSMutableDictionary *params = @{}.mutableCopy;
                 [params setObject:[JPUserEntity sharedUserEntity].merchantNo forKey:@"alias"];
                 if ([JP_UserDefults objectForKey:@"deviceToken"]) {
                     [params setObject:[JP_UserDefults objectForKey:@"deviceToken"] forKey:@"deviceTokens"];
                 }
-                
                 //  appType 1：安卓飞燕，2：安卓杰宝宝，3：iOS杰宝宝，4：iOS飞燕
                 [params setObject:@"3" forKey:@"appType"];
-                
                 //获取当前版本号
                 NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
                 NSString *currentAppVersion = infoDic[@"CFBundleShortVersionString"];
                 [params setObject:currentAppVersion forKey:@"versionNo"];
-                
                 [JPNetworking postUrl:jp_UMessage_logout_url params:params progress:nil callback:^(id resp) {
                     JPLog(@"resp - %@", resp);
                  }];
             }
-            
+            // 友盟解绑
             [UMessage removeAlias:[JPUserEntity sharedUserEntity].merchantNo type:JP_UMessageAliasType response:^(id  _Nonnull responseObject, NSError * _Nonnull error) {
                 if(responseObject) {
                     JPLog(@"解绑成功！");
@@ -268,29 +268,69 @@ static NSString *settingCellReuseIdentifier = @"settingCell";
                 [[JPPushManager sharedManager] makeIsBindAlias:NO];
             }];
             
-            [[JPUserEntity sharedUserEntity] setIsLogin:NO account:@"" merchantNo:nil merchantId:0 merchantName:@"" applyType:0 privateKey:@"" publicKey:@""];
+            //  本地账户置空
+            [[JPUserEntity sharedUserEntity] setIsLogin:NO account:@"" merchantNo:nil merchantId:0 merchantName:@"" applyType:0 privateKey:@"" publicKey:@"" userId:@""];
                         
 //            [JP_UserDefults removeObjectForKey:@"userLogin"];
+            // 移除保存的密码
             [JP_UserDefults removeObjectForKey:@"passLogin"];
 //            [JP_UserDefults removeObjectForKey:@"deviceToken"];
-            
             //  首页跑马灯
             [JP_UserDefults removeObjectForKey:@"isRolling"];
             [JP_UserDefults removeObjectForKey:@"roll"];
+            // 移除手势密码
+            [JP_UserDefults removeObjectForKey:@"tq_gesturesPassword"];
+            // 移除手机账户
+            [JP_UserDefults removeObjectForKey:@"appPhone"];
+            // 移除第一次登录手势密码提示
+            [JP_UserDefults removeObjectForKey:@"TQLogin"];
+            // 移除第一次登录没有绑定手机提示
+            [JP_UserDefults removeObjectForKey:@"FirstRemind"];
+            // 本地同步
             [JP_UserDefults synchronize];
             
-            [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            [weakSelf dismissViewControllerClass:[JPLoginViewController class]];
         }
     }];
     
     [alertController addAction:cancelAction];
     [alertController addAction:confirmAction];
-    
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+// 退到最顶层的控制器
+-(void)dismissModalStack {
+    UIViewController *vc = self.presentingViewController;
+    while (vc.presentingViewController) {
+        vc = vc.presentingViewController;
+    }
+    [vc dismissViewControllerAnimated:YES completion:NULL];
+}
 
+// 模态退到指定的控制器
+- (void)dismissViewControllerClass:(Class)class {
+    UIViewController *vc = self;
+    while (![vc isKindOfClass:class] && vc != nil) {
+        vc = vc.presentingViewController;
+        if ([vc isKindOfClass:[UINavigationController class]]) {
+            vc = ((UINavigationController *)vc).viewControllers.lastObject;
+        }
+    }
+    [vc dismissViewControllerAnimated:YES completion:nil];
+}
 
+- (void)reloadPhone
+{
+    [self configData];
+    [self.ctntView reloadData];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - setter or getter
 - (UITableView *)ctntView {
     if (!_ctntView) {
         _ctntView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];

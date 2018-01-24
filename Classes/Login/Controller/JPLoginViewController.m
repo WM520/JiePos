@@ -15,6 +15,8 @@
 #import <SDWebImage/UIImage+GIF.h>
 #import "XHToast.h"
 #import "JPMerchantRegisterViewController.h"
+#import "UIButton+JPEnlargeTouchArea.h"
+#import "TQViewController1.h"
 
 #define originMargin JPRealValue(502)
 
@@ -32,6 +34,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"tq_gesturesPassword"] isEqualToString:@""] || [[NSUserDefaults standardUserDefaults] stringForKey:@"tq_gesturesPassword"] == NULL) {
+        self.view.hidden = NO;
+    }
     //  密码输入框
     UITextField *passField = [self.view viewWithTag:106];
     //  用户名输入框
@@ -48,7 +53,11 @@
     }
     //  记住密码时自动登录
     if (_isRemember && [JP_UserDefults objectForKey:@"passLogin"] && [JP_UserDefults objectForKey:@"userLogin"]) {
-        [self handleLoginRequest:nil];
+        if (!_isGesturePush) {
+            [self handleLoginRequest:nil];
+        }
+    } else {
+        self.view.hidden = NO;
     }
 }
 
@@ -65,7 +74,6 @@
         [JP_UserDefults setBool:YES forKey:@"defaultRemember"];
     }
     _isRemember = [JP_UserDefults boolForKey:@"remember"];
-    
     [self handleUserInterface];
 }
 
@@ -114,7 +122,7 @@
     }];
 
     UIButton * questionButton = [[UIButton alloc] init];
-    questionButton.backgroundColor = [UIColor redColor];
+    [questionButton setBackgroundImage:[UIImage imageNamed:@"jp_login_question"] forState:UIControlStateNormal];
     [questionButton addTarget:self action:@selector(questionButtonAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:questionButton];
     [questionButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -176,13 +184,16 @@
     }];
     
     UIButton * secureSwitchButton = [[UIButton alloc] init];
-    secureSwitchButton.backgroundColor = [UIColor redColor];
+    secureSwitchButton.selected = NO;
+    [secureSwitchButton setEnlargeEdgeWithTop:10 right:10 bottom:10 left:20];
+    [secureSwitchButton setBackgroundImage:[UIImage imageNamed:@"jp_login_zhengyan"] forState:UIControlStateSelected];
+    [secureSwitchButton setBackgroundImage:[UIImage imageNamed:@"jp_login_biyan"] forState:UIControlStateNormal];
     [secureSwitchButton addTarget:self action:@selector(secureSwitchAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:secureSwitchButton];
     _secureSwitchButton = secureSwitchButton;
     [secureSwitchButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@20);
-        make.width.equalTo(@20);
+        make.height.equalTo(@11);
+        make.width.equalTo(@22);
         make.centerY.equalTo(weakSelf.passwordTextField.mas_centerY);
         make.right.equalTo(weakSelf.passwordTextField).offset(JPRealValue(10));
     }];
@@ -305,56 +316,55 @@
 //    return;
     JPMerchantRegisterViewController * registerVC = [[JPMerchantRegisterViewController alloc] init];
     [self.navigationController pushViewController:registerVC animated:YES];
-    return;
-    if ([JPUserInfoHelper dataSource].count > 0) {
-        [JPUserInfoHelper clearData];
-    }
-    
-    //  跳到二维码扫描界面
-    // 1、 获取摄像设备
-    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    if (device) {
-        AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-        if (status == AVAuthorizationStatusNotDetermined) {
-            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-                if (granted) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [MobClick event:@"login_register"];
-                        QRCodeScanningVC *vc = [[QRCodeScanningVC alloc] init];
-                        [self.navigationController pushViewController:vc animated:YES];
-                    });
-                    JPLog(@"用户第一次同意了访问相机权限");
-                    
-                } else {
-                    
-                    // 用户第一次拒绝了访问相机权限
-                    JPLog(@"用户第一次拒绝了访问相机权限");
-                    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您已关闭相机使用权限，请前往 -> [设置 - 杰宝宝] 打开开关" preferredStyle:(UIAlertControllerStyleAlert)];
-                    UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:nil];
-                    [alertC addAction:alertA];
-                    [self presentViewController:alertC animated:YES completion:nil];
-                }
-            }];
-        } else if (status == AVAuthorizationStatusAuthorized) { // 用户允许当前应用访问相机
-            [MobClick event:@"login_register"];
-            QRCodeScanningVC *vc = [[QRCodeScanningVC alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
-        } else if (status == AVAuthorizationStatusDenied) { // 用户拒绝当前应用访问相机
-            UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您已关闭相机使用权限，请前往 -> [设置 - 隐私 - 相机 - 杰宝宝] 打开开关" preferredStyle:(UIAlertControllerStyleAlert)];
-            UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:nil];
-            [alertC addAction:alertA];
-            [self presentViewController:alertC animated:YES completion:nil];
-            
-        } else if (status == AVAuthorizationStatusRestricted) {
-            JPLog(@"因为系统原因, 无法访问相册");
-        }
-    } else {
-        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"未检测到您的摄像头" preferredStyle:(UIAlertControllerStyleAlert)];
-        UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:nil];
-        
-        [alertC addAction:alertA];
-        [self presentViewController:alertC animated:YES completion:nil];
-    }
+//    if ([JPUserInfoHelper dataSource].count > 0) {
+//        [JPUserInfoHelper clearData];
+//    }
+//
+//    //  跳到二维码扫描界面
+//    // 1、 获取摄像设备
+//    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+//    if (device) {
+//        AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+//        if (status == AVAuthorizationStatusNotDetermined) {
+//            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+//                if (granted) {
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        [MobClick event:@"login_register"];
+//                        QRCodeScanningVC *vc = [[QRCodeScanningVC alloc] init];
+//                        [self.navigationController pushViewController:vc animated:YES];
+//                    });
+//                    JPLog(@"用户第一次同意了访问相机权限");
+//
+//                } else {
+//
+//                    // 用户第一次拒绝了访问相机权限
+//                    JPLog(@"用户第一次拒绝了访问相机权限");
+//                    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您已关闭相机使用权限，请前往 -> [设置 - 杰宝宝] 打开开关" preferredStyle:(UIAlertControllerStyleAlert)];
+//                    UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:nil];
+//                    [alertC addAction:alertA];
+//                    [self presentViewController:alertC animated:YES completion:nil];
+//                }
+//            }];
+//        } else if (status == AVAuthorizationStatusAuthorized) { // 用户允许当前应用访问相机
+//            [MobClick event:@"login_register"];
+//            QRCodeScanningVC *vc = [[QRCodeScanningVC alloc] init];
+//            [self.navigationController pushViewController:vc animated:YES];
+//        } else if (status == AVAuthorizationStatusDenied) { // 用户拒绝当前应用访问相机
+//            UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您已关闭相机使用权限，请前往 -> [设置 - 隐私 - 相机 - 杰宝宝] 打开开关" preferredStyle:(UIAlertControllerStyleAlert)];
+//            UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:nil];
+//            [alertC addAction:alertA];
+//            [self presentViewController:alertC animated:YES completion:nil];
+//
+//        } else if (status == AVAuthorizationStatusRestricted) {
+//            JPLog(@"因为系统原因, 无法访问相册");
+//        }
+//    } else {
+//        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"未检测到您的摄像头" preferredStyle:(UIAlertControllerStyleAlert)];
+//        UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:nil];
+//
+//        [alertC addAction:alertA];
+//        [self presentViewController:alertC animated:YES completion:nil];
+//    }
 }
 //  登录
 - (void)handleLoginRequest:(UIButton *)sender {
@@ -440,6 +450,12 @@
                 }
                 //  登录成功 先把用户名存到本地
                 [JP_UserDefults setObject:_userNameTextField.text forKey:@"userLogin"];
+                if ([keys containsObject:@"appPhone"]) {
+                    NSLog(@"------%@", [resp objectForKey:@"appPhone"]);
+                    if (![[resp objectForKey:@"appPhone"] isEqual:[NSNull null]] && ![[resp objectForKey:@"appPhone"] isEqualToString:@""]) {
+                        [JP_UserDefults setObject:[resp objectForKey:@"appPhone"] forKey:@"appPhone"];
+                    }
+                }
                 
                 NSString *merchantNo = nil;
                 
@@ -498,19 +514,33 @@
                 
                 NSString *userName = [keys containsObject:@"username"] ? dic[@"username"] : _userNameTextField.text;
                 
-                [[JPUserEntity sharedUserEntity] setIsLogin:YES account:userName merchantNo:merchantNo merchantId:[dic[@"merchantId"] integerValue] merchantName:dic[@"merchantName"] applyType:[dic[@"applyType"] integerValue] privateKey:dic[@"privateKey"] publicKey:dic[@"publicKey"]];
+                [[JPUserEntity sharedUserEntity] setIsLogin:YES account:userName merchantNo:merchantNo merchantId:[dic[@"merchantId"] integerValue] merchantName:dic[@"merchantName"] applyType:[dic[@"applyType"] integerValue] privateKey:dic[@"privateKey"] publicKey:dic[@"publicKey"] userId:dic[@"userId"]];
                                 
                 if (_isRemember) {
                     [JP_UserDefults setObject:_passwordTextField.text forKey:@"passLogin"];
                     [JP_UserDefults synchronize];
                 }
-                
-                //  跳转tabBarController首页
-                JPTabBarController *tabBarController = [[JPTabBarController alloc] init];
-//                [weakSelf.view.window setRootViewController:tabBarController];
-                [weakSelf presentViewController:tabBarController animated:YES completion:nil];
+                // 判断是否是第一次登录，是第一次登录，要其设置手势密码
+                if (([JP_UserDefults objectForKey:@"tq_gesturesPassword"] == NULL || [[JP_UserDefults objectForKey:@"tq_gesturesPassword"] isEqualToString:@""]) && ![[JP_UserDefults objectForKey:@"TQLogin"] isEqualToString:@"1"]) {
+                    
+                    TQViewController1 * vc = [[TQViewController1 alloc] init];
+                    vc.isFirstLogin = YES;
+                    JPNavigationController * nav = [[JPNavigationController alloc] initWithRootViewController:vc];
+                    [weakSelf presentViewController:nav animated:YES completion:^{
+                        [JP_UserDefults setObject:@"1" forKey:@"TQLogin"];
+                    }];
+                } else {
+                    //  跳转tabBarController首页
+                    JPTabBarController *tabBarController = [[JPTabBarController alloc] init];
+                    //                [weakSelf.view.window setRootViewController:tabBarController];
+                    [weakSelf presentViewController:tabBarController animated:YES completion:nil];
+                }
+            } else {
+                self.view.hidden = NO;
             }
             return;
+        } else {
+            self.view.hidden = NO;
         }
         [IBProgressHUD showInfoWithStatus:msg];
     }];
@@ -562,8 +592,8 @@
 #pragma mark - Methods
 - (void)secureSwitchAction
 {
+    _secureSwitchButton.selected = !_secureSwitchButton.selected;
     self.passwordTextField.secureTextEntry = !self.passwordTextField.secureTextEntry;
-    
     NSString* text = self.passwordTextField.text;
     self.passwordTextField.text = @" ";
     self.passwordTextField.text = text;

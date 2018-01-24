@@ -18,8 +18,6 @@
         self.titleLabel.font = [UIFont systemFontOfSize:11];
         [self setTitleColor:[UIColor colorWithRed:0.44f green:0.44f blue:0.44f alpha:1.00f] forState:UIControlStateNormal];
         [self setTitleColor:[UIColor colorWithRed:0.64f green:0.64f blue:0.64f alpha:1.00f] forState:UIControlStateHighlighted];
-        
-        
     }
     return self;
 }
@@ -43,11 +41,10 @@
 
 -(void)layoutSubviews {
     [super layoutSubviews];
-    
     // Center image
     CGPoint center = self.imageView.center;
-    center.x = self.frame.size.width/2;
-    center.y = self.imageView.frame.size.height/2+5;
+    center.x = self.frame.size.width / 2;
+    center.y = self.imageView.frame.size.height/2 + 5;
     self.imageView.center = center;
     
     //Center text

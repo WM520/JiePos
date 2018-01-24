@@ -26,6 +26,14 @@
 #import <TencentOpenAPI/QQApiInterface.h>
 #import "WXApi.h"
 
+#import <Bugly/Bugly.h>
+
+#import "JPGesturePasswordViewController.h"
+
+#import <AVFoundation/AVFoundation.h>
+
+#import "LXAlertView.h"
+
 
 @interface AppDelegate () <UNUserNotificationCenterDelegate,IFlySpeechSynthesizerDelegate>
 @property (nonatomic, strong) PcmPlayer *audioPlayer;
@@ -52,6 +60,8 @@
     [self handleUMMobClick];
     // !!!: 初始化shareSDK
     [self handleShareSDK];
+    // !!!: 初始化bugly
+    [Bugly startWithAppId:@"1010aff0dd"];
     // !!!: 测试数据
     /*******************************************************/
 //    [self addTestDataWithMerchantNo:@"998320179320003"];
@@ -67,7 +77,8 @@
     if (![JP_UserDefults boolForKey:@"firstIn"]) {
         [JP_UserDefults setBool:YES forKey:JP_Noti_Value];
         [JP_UserDefults setBool:YES forKey:JP_Voice_Value];
-        
+        [JP_UserDefults setBool:YES forKey:JP_Shake_Value];
+        // 第一次登录的时候提醒用户设置手势密码
         [JP_UserDefults setBool:YES forKey:@"firstIn"];
     }
     
@@ -230,7 +241,7 @@
 
 #pragma mark - 推送过来的消息进行处理的方法
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    
+
     // 系统会根据UIBackgroundFetchResult来判断后台处理的有效性,如果后台处理效率较低,会延迟发送后台推送通知
     completionHandler (UIBackgroundFetchResultNewData);
 }
@@ -244,50 +255,56 @@
  *  @param completionHandler 完成回调
  */
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    
+
     NSDictionary *info = [self dictionaryWithUserInfo:userInfo];
     if (!info || info.count <= 0) {
         return;
     }
+
     JPNewsModel *newsModel = [JPNewsModel yy_modelWithDictionary:info];
     [self playVoice:newsModel unread:YES];
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kCFUMMessageReceiveNotification object:nil userInfo:info];
+
     // 系统会根据UIBackgroundFetchResult来判断后台处理的有效性,如果后台处理效率较低,会延迟发送后台推送通知
     completionHandler (UIBackgroundFetchResultNewData);
 }
 
 // !!!: iOS10以下：处理前台收到通知的代理方法
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    
+
     NSDictionary *transInfo = [self dictionaryWithUserInfo:userInfo];
     //  关闭友盟自带的弹出框
     [UMessage setAutoAlert:NO];
-    
+
     //  统计点击数   也可以不交给友盟处理 自己处理消息【不要删除】
     [UMessage didReceiveRemoteNotification:userInfo];
-    
+
     //  定制自定的的弹出框
     if (transInfo.count > 0) {
-        
+        // 是否震动
+        if ([JP_UserDefults boolForKey:JP_Shake_Value]) {
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        }
         JPNewsModel *model = [JPNewsModel yy_modelWithDictionary:transInfo];
         [self playVoice:model unread:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kCFUMMessageReceiveNotification object:nil userInfo:transInfo];
     }
 }
 
 // !!!: iOS10新增：处理前台收到通知的代理方法
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
-    
+
     NSDictionary * userInfo = notification.request.content.userInfo;
     NSDictionary *transInfo = [self dictionaryWithUserInfo:userInfo];
-    
+
     if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         if (transInfo.count > 0) {
             //  关闭U-Push自带的弹出框
             [UMessage setAutoAlert:NO];
-            
+
             JPNewsModel *model = [JPNewsModel yy_modelWithDictionary:transInfo];
             [self playVoice:model unread:YES];
-            
+
             [[NSNotificationCenter defaultCenter] postNotificationName:kCFUMMessageClickNotification object:nil userInfo:transInfo];
         }
         //应用处于前台时的远程推送接受    必须加这句代码
@@ -295,40 +312,46 @@
     } else {
         //应用处于前台时的本地推送接受
     }
-    completionHandler (UNNotificationPresentationOptionSound | UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionAlert);
+    // 是否震动
+    if ([JP_UserDefults boolForKey:JP_Shake_Value]) {
+        completionHandler (UNNotificationPresentationOptionSound | UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionAlert);
+    } else {
+        completionHandler (UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionAlert);
+    }
+
 }
 
 // !!!: iOS10以下：处理后台点击通知的代理方法
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
-    
+
     NSDictionary *transInfo = [self dictionaryWithUserInfo:userInfo];
     if (transInfo.count > 0) {
-        
+
         [[NSNotificationCenter defaultCenter] postNotificationName:kCFUMMessageClickNotification object:nil userInfo:transInfo];
-        
+
         //  关闭U-Push自带的弹出框
         [UMessage setAutoAlert:NO];
-        
+
         JPNewsModel *model = [JPNewsModel yy_modelWithDictionary:transInfo];
         [self playVoice:model unread:YES];
     }
     //这个方法用来做action点击的统计
     [UMessage sendClickReportForRemoteNotification:userInfo];
-    
+
     completionHandler (UNNotificationPresentationOptionSound | UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionAlert);
 }
 
 // !!!: iOS10新增：处理后台点击通知的代理方法
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
-    
+
     NSDictionary *userInfo = response.notification.request.content.userInfo;
     NSDictionary *transInfo = [self dictionaryWithUserInfo:userInfo];
-    
+
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         if (transInfo.count > 0) {
-            
+
             [[NSNotificationCenter defaultCenter] postNotificationName:kCFUMMessageClickNotification object:nil userInfo:transInfo];
-            
+
             JPNewsModel *model = [JPNewsModel yy_modelWithDictionary:transInfo];
             [self playVoice:model unread:YES];
         }
@@ -397,9 +420,16 @@
 //    self.window.rootViewController = demoVC;
     
     //  设置登录界面为根视图
-    JPNavigationController *loginNav = [[JPNavigationController alloc] initWithRootViewController:[JPLoginViewController new]];
-    self.window.rootViewController = loginNav;
-
+    if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"tq_gesturesPassword"] isEqualToString:@""] || [[NSUserDefaults standardUserDefaults] stringForKey:@"tq_gesturesPassword"] == NULL) {
+        JPLoginViewController * vc = [JPLoginViewController new];
+        vc.isGesturePush = NO;
+        JPNavigationController *loginNav = [[JPNavigationController alloc] initWithRootViewController:vc];
+        self.window.rootViewController = loginNav;
+    } else { // 有手势密码走手势密码登录逻辑
+        JPGesturePasswordViewController * vc = [JPGesturePasswordViewController new];
+        self.window.rootViewController = vc;
+    }
+ 
     JPLaunchIntroView *launchView = [JPLaunchIntroView sharedWithImages:@[@"guide_01", @"guide_02", @"guide_03", @"guide_04"] buttonFrame:CGRectMake(kScreenWidth/2 - JPRealValue(112), kScreenHeight - JPRealValue(126), JPRealValue(224), JPRealValue(64))];
     [self.window bringSubviewToFront:launchView];
 }
@@ -445,7 +475,10 @@
             [model.transactionCode isEqualToString:JPAvailDealTypeW00003] ||
             [model.transactionCode isEqualToString:JPAvailDealTypeW00004] ||
             [model.transactionCode isEqualToString:JPAvailDealTypeA00003] ||
-            [model.transactionCode isEqualToString:JPAvailDealTypeA00004]) {
+            [model.transactionCode isEqualToString:JPAvailDealTypeA00004] ||
+            [model.transactionCode isEqualToString:JPAvailDealTypeJ00004] ||
+            [model.transactionCode isEqualToString:JPAvailDealTypeQ00004] ||
+            [model.transactionCode isEqualToString:JPAvailDealTypeU00004]) {
             [self playVoiceWithString:[NSString stringWithFormat:@"退款%@元！", voice]];
         } else {
             [self playVoiceWithString:[NSString stringWithFormat:@"收款%@元！", voice]];

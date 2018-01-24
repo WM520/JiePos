@@ -16,7 +16,6 @@ void *KVOContext;
 @implementation IBBaseViewController
 
 #pragma mark - 生命周期方法
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.navigationBar];
@@ -95,7 +94,6 @@ void *KVOContext;
 }
 
 #pragma mark - UIGestureRecognizerDelegate
-
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     if (gestureRecognizer == self.navigationController.interactivePopGestureRecognizer) {
         return self.navigationController.viewControllers.firstObject != self;
@@ -104,12 +102,10 @@ void *KVOContext;
 }
 
 #pragma mark - 抽象方法
-
 - (void)beginRefreshing:(id)sender {}
 - (void)beginLoadingMore:(id)sender {}
 
 #pragma mark - 私有方法
-
 - (void)adjustScrollViewInsets {
     __block UIScrollView *scrollView = nil;
     [self.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

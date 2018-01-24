@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface IBKeychainStore : NSObject
+
 + (void)save:(NSString *)service data:(id)data;
 + (id)load:(NSString *)service;
 + (void)deleteKeyData:(NSString *)service;
+
 @end

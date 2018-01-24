@@ -25,7 +25,6 @@
     [super viewDidDisappear:animated];
     
     [IBProgressHUD dismiss];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCFUMMessageClickNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -165,17 +164,17 @@
         
         if ([JPUserEntity sharedUserEntity].isLogin) {
             JPNavigationController *nav = self.tabBarController.viewControllers[0];
-            if (nav.viewControllers.count > 1) {
-                [nav popToRootViewControllerAnimated:NO];
-            }
-            nav.tabBarController.selectedIndex = 1;
-            
-            JPNavigationController *newsNav = self.tabBarController.viewControllers[1];
-            NSString *badge = nil;
-            if ([JPPushHelper badgeNumber] > 0) {
-                badge = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
-            }
-            [newsNav.tabBarItem setBadgeValue:badge];
+//            if (nav.viewControllers.count > 1) {
+//                [nav popToRootViewControllerAnimated:NO];
+//            }
+            nav.tabBarController.selectedIndex = 2;
+//
+//            JPNavigationController *newsNav = self.tabBarController.viewControllers[1];
+//            NSString *badge = nil;
+//            if ([JPPushHelper badgeNumber] > 0) {
+//                badge = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+//            }
+//            [newsNav.tabBarItem setBadgeValue:badge];
         }
     }];
     
@@ -213,7 +212,7 @@
                 [[JPPushManager sharedManager] makeIsBindAlias:NO];
             }];
             
-            [[JPUserEntity sharedUserEntity] setIsLogin:NO account:@"" merchantNo:nil merchantId:0 merchantName:@"" applyType:0 privateKey:@"" publicKey:@""];
+            [[JPUserEntity sharedUserEntity] setIsLogin:NO account:@"" merchantNo:nil merchantId:0 merchantName:@"" applyType:0 privateKey:@"" publicKey:@"" userId:@""];
         }
         
         NSString *message = (NSString *)note.object;
@@ -222,18 +221,29 @@
         
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"退出" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             
+//            [JP_UserDefults removeObjectForKey:@"passLogin"];
+//
+//            //  首页跑马灯
+//            [JP_UserDefults removeObjectForKey:@"isRolling"];
+//            [JP_UserDefults removeObjectForKey:@"roll"];
+            // 移除保存的密码
             [JP_UserDefults removeObjectForKey:@"passLogin"];
-            
+            //            [JP_UserDefults removeObjectForKey:@"deviceToken"];
             //  首页跑马灯
             [JP_UserDefults removeObjectForKey:@"isRolling"];
             [JP_UserDefults removeObjectForKey:@"roll"];
+            // 移除手机账户
+            [JP_UserDefults removeObjectForKey:@"appPhone"];
+            // 移除第一次登录没有绑定手机提示
+            [JP_UserDefults removeObjectForKey:@"FirstRemind"];
+            
             [JP_UserDefults synchronize];
             
-            [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            [weakSelf dismissViewControllerClass:[JPLoginViewController class]];
         }];
         UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"重新登录" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             
-            [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            [weakSelf dismissViewControllerClass:[JPLoginViewController class]];
         }];
         [alertController addAction:cancelAction];
         [alertController addAction:confirmAction];
@@ -317,14 +327,16 @@
     return NO;
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+// 模态退到指定的控制器
+- (void)dismissViewControllerClass:(Class)class {
+    UIViewController *vc = self;
+    while (![vc isKindOfClass:class] && vc != nil) {
+        vc = vc.presentingViewController;
+        if ([vc isKindOfClass:[UINavigationController class]]) {
+            vc = ((UINavigationController *)vc).viewControllers.lastObject;
+        }
+    }
+    [vc dismissViewControllerAnimated:YES completion:nil];
+}
 
 @end

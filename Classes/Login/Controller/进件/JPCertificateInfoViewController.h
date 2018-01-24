@@ -59,4 +59,8 @@
 @property (nonatomic, copy) NSString *accountUserName;
 /** 预留手机号*/
 @property (nonatomic, copy) NSString *contactMobilePhone;
+/** 无码注册的手机号 */
+@property (nonatomic, copy) NSString * phoneNumber;
+/** 商户进件的类型 */
+@property (nonatomic, copy) NSString * qrcodeFlag;
 @end

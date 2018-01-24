@@ -25,4 +25,6 @@ pod 'mob_sharesdk/ShareSDKPlatforms/QQ'
 # 扩展模块（在调用可以弹出我们UI分享方法的时候是必需的）
 pod 'mob_sharesdk/ShareSDKExtension'
 pod 'TQGestureLockView'
+pod 'SDAutoLayout'
+pod 'Bugly'
 end

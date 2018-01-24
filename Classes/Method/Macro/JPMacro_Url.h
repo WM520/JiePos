@@ -25,15 +25,16 @@ static NSString *const jp_UMessage_logout_url = @"http://59.56.101.183:11830/cpa
 
 #pragma mark - APIServer
 /** 生产服务器IP地址*/
-//static NSString *const JPServerUrl = @"http://wx.jiepos.com/jpay-spmp/";
+static NSString *const JPServerUrl = @"http://wx.jiepos.com/jpay-spmp/";
 /** 测试服务器IP地址*/
-static NSString *const JPServerUrl = @"http://139.196.226.55:8079/jpay-spmp/";
+//static NSString *const JPServerUrl = @"http://139.196.226.55:8079/jpay-spmp/";
 /** 本地测试IP地址*/
 //static NSString *const JPServerUrl = @"http://192.168.14.110:8080/jpay-spmp/";
 
 //  v1.0.2之后接口
 #define JPNewServerUrl [NSString stringWithFormat:@"%@app/jbb", JPServerUrl]
-#define JPImgServerUrl [NSString stringWithFormat:@"%@app/jbb/img", JPServerUrl]
+//#define JPImgServerUrl [NSString stringWithFormat:@"%@app/jbb/img", JPServerUrl]
+#define JPImgServerUrl [NSString stringWithFormat:@"%@app/jbb/img2", JPServerUrl]
 
 #pragma mark - 接口地址
 /** 登录*/

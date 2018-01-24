@@ -203,5 +203,57 @@
                                     merchantId:(NSString *)merchantId
                                           imgs:(id)imgs
                                         remark:(NSString *)remark
+                                    qrcodeFlag:(NSString *)qrcodeFlag
+                                      appPhone:(NSString *)appPhone
                                       callback:(JPNetCallback)callback;
+
++ (void)commitMerchantInfoWithMerchantCategory:(NSString *)merchantCategory
+                            certificateImgType:(NSString *)certificateImgType
+                                  merchantName:(NSString *)merchantName
+                             merchantShortName:(NSString *)merchantShortName
+                          registerProvinceCode:(NSString *)registerProvinceCode
+                              registerCityCode:(NSString *)registerCityCode
+                          registerDistrictCode:(NSString *)registerDistrictCode
+                               registerAddress:(NSString *)registerAddress
+                                  industryType:(NSString *)industryType
+                                           mcc:(NSString *)mcc
+                                    industryNo:(NSString *)industryNo
+                               legalPersonName:(NSString *)legalPersonName
+                                      username:(NSString *)username
+                                 accountIdcard:(NSString *)accountIdcard
+                                   accountType:(NSString *)accountType
+                           accountProvinceCode:(NSString *)accountProvinceCode
+                               accountCityCode:(NSString *)accountCityCode
+                             accountBankNameId:(NSString *)accountBankNameId
+                                alliedBankCode:(NSString *)alliedBankCode
+                         accountBankBranchName:(NSString *)accountBankBranchName
+                                       account:(NSString *)account
+                                   accountName:(NSString *)accountName
+                            contactMobilePhone:(NSString *)contactMobilePhone
+                                      qrcodeId:(NSString *)qrcodeId
+                                    merchantId:(NSString *)merchantId
+                                          imgs:(id)imgs
+                                        remark:(NSString *)remark
+                                      callback:(JPNetCallback)callback;
+
+// 检测号码唯一性
++ (void)checkIsOnlyPhone:(NSString *)phoneNumber
+                 account:(NSString *)account
+                callback:(JPNetCallback)callback;
+
+// 发送验证码
++ (void)sendSmsPhoneCode:(NSString *)phoneNumber
+                 account:(NSString *)account
+                callback:(JPNetCallback)callback;
+// 校验短信验证码
++ (void)checkIsOKPhoneCode:(NSString *)code
+                  appPhone:(NSString *)appPhone
+                    userId:(NSString *)userId
+                   account:(NSString *)account
+                  callback:(JPNetCallback)callback;
+
+// getCustomerServiceNumber
++ (void)getCustomerServiceNumberAccount:(NSString *)account
+                             merchantId:(NSInteger)merchantId
+                               callback:(JPNetCallback)callback;
 @end

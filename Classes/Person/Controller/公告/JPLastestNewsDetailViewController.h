@@ -10,7 +10,9 @@
 #import "JPInfoModel.h"
 
 @interface JPLastestNewsDetailViewController : JPViewController
+
 @property (nonatomic, copy) NSString *noticeTitle;
 @property (nonatomic, copy) NSString *date;
 @property (nonatomic, copy) NSString *content;
+
 @end

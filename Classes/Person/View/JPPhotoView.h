@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface JPPhotoView : UIView
+
 @property (nonatomic, copy) void (^jp_takePhotoBlock)();
 @property (nonatomic, copy) void (^jp_accessAlbumBlock)();
+
 @end

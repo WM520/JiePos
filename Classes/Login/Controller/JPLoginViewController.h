@@ -26,4 +26,6 @@
  "merchantName": "快乐健身会所"
  }
  */
+@property (nonatomic, assign) BOOL isGesturePush;
+
 @end

@@ -15,8 +15,12 @@
 #import "JPCodeViewController.h"
 #import "JPLastestNewsDetailViewController.h"
 #import <ShareSDK/ShareSDK.h>
+#import "WMCustomAlert.h"
+#import "JPBindingPhoneNumberViewController.h"
+#import "JPNewsViewController.h"
 //  背景音乐
 #import "YUAudio.h"
+#import "LXAlertView.h"
 
 @interface JPIndexViewController () <UIScrollViewDelegate, SDCycleScrollViewDelegate> {
     YUAudioPlayer *audioPlayer;
@@ -26,8 +30,11 @@
 @property (nonatomic, strong) UIImageView *navImageView;
 @property (nonatomic, strong) UILabel *titleLb;
 @property (nonatomic, strong) UIButton *leftBtn;
+@property (nonatomic, strong) UIButton * rightBtn;
 @property (nonatomic, strong) UIImageView *backImg;
 @property (nonatomic, strong) UIImageView *backImgs;
+@property (nonatomic, strong) UIImageView *backImg2;
+@property (nonatomic, strong) UIImageView *backImgs2;
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) SDCycleScrollView *cycleScrollView;
@@ -46,6 +53,12 @@
 @property (nonatomic, strong) NSMutableArray *adertisementList;
 /** 是否可提现*/
 //@property (nonatomic, assign) BOOL canGetCash;
+@property (nonatomic, assign) BOOL isShow;
+// 消费形式list
+@property (nonatomic, strong) NSArray * segmentTitleArray;
+// 未读消息红色提示
+@property (nonatomic, strong) UILabel * redLabel;
+
 @end
 
 @implementation JPIndexViewController
@@ -126,8 +139,8 @@
     // !!!: 首页金额数据
     dispatch_group_enter(group);
     
-    [IBHomeRequest getHomeDataWithAccount:[JPUserEntity sharedUserEntity].account callback:^(NSString *code, NSString *msg, id resp) {
-        
+
+    [IBHomeRequest getHomeDataWithAccount:[JPUserEntity sharedUserEntity].account applyType:[JPUserEntity sharedUserEntity].applyType merchantId:[JPUserEntity sharedUserEntity].merchantId merchantNo:[JPUserEntity sharedUserEntity].merchantNo callback:^(NSString *code, NSString *msg, id resp) {
         id obj = [IBAnalysis analysisWithEncryptString:resp privateKey:[JPUserEntity sharedUserEntity].privateKey];
         if ([obj isKindOfClass:[NSDictionary class]]) {
             if (code.integerValue == 0) {
@@ -135,11 +148,11 @@
                 if (dic.count > 0) {
                     JPLog(@"dic --- %@", dic);
                     JPHomeModel *model = [JPHomeModel yy_modelWithDictionary:dic];
-//                    weakSelf.lineView.dayNum = homeModel.todayTotal;
-                    
+                    //                    weakSelf.lineView.dayNum = homeModel.todayTotal;
+                
                     NSInteger curMonthTransAt = [model.curMonthTransAt doubleValue] * 100;
                     weakSelf.lineView.monthNum = [NSString stringWithFormat:@"%.2f", curMonthTransAt / 100.0];
-                    
+                    weakSelf.segmentTitleArray = [dic objectForKey:@"payList"];
                     [[NSNotificationCenter defaultCenter] postNotificationName:kCFNewNoticeNotification object:model];
                 }
             } else {
@@ -150,6 +163,7 @@
         }
         dispatch_group_leave(group);
     }];
+    
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
         //  请求完毕后的处理
         [weakSelf reloadScrollSubviews];
@@ -160,12 +174,12 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    JPNavigationController *newsNav = self.tabBarController.viewControllers[1];
-    NSString *badge = nil;
-    if ([JPPushHelper badgeNumber] > 0) {
-        badge = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
-    }
-    [newsNav.tabBarItem setBadgeValue:badge];
+//    JPNavigationController *newsNav = self.tabBarController.viewControllers[1];
+//    NSString *badge = nil;
+//    if ([JPPushHelper badgeNumber] > 0) {
+//        badge = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+//    }
+//    [newsNav.tabBarItem setBadgeValue:badge];
     
     
     [self.scrollView.mj_header beginRefreshing];
@@ -173,6 +187,42 @@
     if (self.isRolling) {
         // 开启跑马灯
         [self.rollingView.horizontalMarquee marqueeOfSettingWithState:MarqueeStart_H];
+    }
+    weakSelf_declare;
+//    if (!self.redLabel) {
+//        if ([JPPushHelper badgeNumber] > 0) {
+//            self.redLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 0, 15, 15)];
+//            self.redLabel.backgroundColor = [UIColor redColor];
+//            self.redLabel.textColor = [UIColor whiteColor];
+//            self.redLabel.textAlignment = NSTextAlignmentCenter;
+//            self.redLabel.font = [UIFont systemFontOfSize:12];
+//            self.redLabel.layer.masksToBounds = YES;
+//            self.redLabel.layer.cornerRadius = 7.5;
+//            self.redLabel.text = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+//            [self.rightBtn addSubview:_redLabel];
+//        }
+//    } else {
+//        if ([JPPushHelper badgeNumber] > 0) {
+//            weakSelf.redLabel.text = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+//        } else {
+//            [weakSelf.redLabel removeFromSuperview];
+//            weakSelf.redLabel = nil;
+//        }
+//    }
+  
+    if (![JP_UserDefults objectForKey:@"appPhone"]) {
+        if ([JP_UserDefults objectForKey:@"FirstRemind"] == NULL) {
+            [JP_UserDefults setObject:@"FirstRemind" forKey:@"FirstRemind"];
+            LXAlertView * alert = [[LXAlertView alloc] initWithTitle:@"提醒" message:@"您还没有绑定手机号，请绑定手机号" cancelBtnTitle:@"取消" otherBtnTitle:@"设置" clickIndexBlock:^(NSInteger clickIndex) {
+                if (clickIndex == 1) {
+                    JPBindingPhoneNumberViewController * vc = [[JPBindingPhoneNumberViewController alloc] init];
+                    vc.hidesBottomBarWhenPushed = YES;
+                    [weakSelf.navigationController pushViewController:vc animated:YES];
+                    
+                }
+            }];
+            [alert showLXAlertView];
+        }
     }
     
     //  播放背景音乐
@@ -213,22 +263,150 @@
     self.view.backgroundColor = JP_viewBackgroundColor;
     
     weakSelf_declare;
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:kCFUMMessageClickNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        if (!weakSelf.redLabel) {
+            if ([JPPushHelper badgeNumber] > 0) {
+                weakSelf.redLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 0, 15, 15)];
+                weakSelf.redLabel.backgroundColor = [UIColor redColor];
+                weakSelf.redLabel.textColor = [UIColor whiteColor];
+                weakSelf.redLabel.textAlignment = NSTextAlignmentCenter;
+                weakSelf.redLabel.font = [UIFont systemFontOfSize:12];
+                weakSelf.redLabel.layer.masksToBounds = YES;
+                weakSelf.redLabel.layer.cornerRadius = 7.5;
+                weakSelf.redLabel.text = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+                [weakSelf.rightBtn addSubview:_redLabel];
+            }
+        } else {
+            if ([JPPushHelper badgeNumber] > 0) {
+                weakSelf.redLabel.text = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+            } else {
+                [weakSelf.redLabel removeFromSuperview];
+                weakSelf.redLabel = nil;
+            }
+        }
+    }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:kCFUMMessageReceiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        if (!weakSelf.redLabel) {
+            if ([JPPushHelper badgeNumber] > 0) {
+                weakSelf.redLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 0, 15, 15)];
+                weakSelf.redLabel.backgroundColor = [UIColor redColor];
+                weakSelf.redLabel.textColor = [UIColor whiteColor];
+                weakSelf.redLabel.textAlignment = NSTextAlignmentCenter;
+                weakSelf.redLabel.font = [UIFont systemFontOfSize:12];
+                weakSelf.redLabel.layer.masksToBounds = YES;
+                weakSelf.redLabel.layer.cornerRadius = 7.5;
+                weakSelf.redLabel.text = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+                [weakSelf.rightBtn addSubview:_redLabel];
+            }
+        } else {
+            if ([JPPushHelper badgeNumber] > 0) {
+                weakSelf.redLabel.text = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+            } else {
+                [weakSelf.redLabel removeFromSuperview];
+                weakSelf.redLabel = nil;
+            }
+        }
+    }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"haveReadAction" object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        if (!weakSelf.redLabel) {
+            if ([JPPushHelper badgeNumber] > 0) {
+                weakSelf.redLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 0, 15, 15)];
+                weakSelf.redLabel.backgroundColor = [UIColor redColor];
+                weakSelf.redLabel.textColor = [UIColor whiteColor];
+                weakSelf.redLabel.textAlignment = NSTextAlignmentCenter;
+                weakSelf.redLabel.font = [UIFont systemFontOfSize:12];
+                weakSelf.redLabel.layer.masksToBounds = YES;
+                weakSelf.redLabel.layer.cornerRadius = 7.5;
+                weakSelf.redLabel.text = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+                [weakSelf.rightBtn addSubview:_redLabel];
+            }
+        } else {
+            if ([JPPushHelper badgeNumber] > 0) {
+                weakSelf.redLabel.text = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+            } else {
+                [weakSelf.redLabel removeFromSuperview];
+                weakSelf.redLabel = nil;
+            }
+        }
+    }];
+    
     [[NSNotificationCenter defaultCenter] addObserverForName:kCFNewNoticeNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
         
         JPHomeModel *model = (JPHomeModel *)note.object;
         
+        weakSelf.pieView.segmentTitleArray = [NSMutableArray arrayWithArray:self.segmentTitleArray];
         //  环状图
         if ([JPUserEntity sharedUserEntity].applyType == 1) {
             //  K9商户
-            weakSelf.pieView.segmentDataArray = @[model.weixin, model.alipay, model.jieji, model.bank].mutableCopy;
-            weakSelf.pieView.segmentTitleArray = @[@"微信", @"支付宝",@"借记卡", @"贷记卡"].mutableCopy;
-            weakSelf.pieView.segmentColorArray = @[[UIColor colorWithHexString:@"0ddddd"], [UIColor colorWithHexString:@"7a93f5"], [UIColor colorWithHexString:@"f5b87a"], [UIColor colorWithHexString:@"c87af5"]].mutableCopy;
+//            weakSelf.pieView.segmentDataArray = @[model.weixin, model.alipay, model.jieji, model.bank].mutableCopy;
+//            weakSelf.pieView.segmentTitleArray = @[@"微信", @"支付宝",@"借记卡", @"贷记卡"].mutableCopy;
+//            weakSelf.pieView.segmentColorArray = @[[UIColor colorWithHexString:@"0ddddd"], [UIColor colorWithHexString:@"7a93f5"], [UIColor colorWithHexString:@"f5b87a"], [UIColor colorWithHexString:@"c87af5"],[UIColor colorWithHexString:@"0ddddd"], [UIColor colorWithHexString:@"7a93f5"],[UIColor colorWithHexString:@"0ddddd"]].mutableCopy;
+            // 遍历商户支持的支付类型
+            NSMutableArray * dataArray = [NSMutableArray array];
+            NSMutableArray * colorArray = [NSMutableArray array];
+            NSMutableArray * titleArray = [NSMutableArray array];
+            for (int i = 0; i < self.segmentTitleArray.count; i++) {
+                if ([_segmentTitleArray[i] isEqualToString:@"bank"]) {
+                    [dataArray addObject:model.bank == nil ? @"0.00" : model.bank];
+                    [titleArray addObject:@"贷记卡"];
+                    [colorArray addObject:[UIColor colorWithHexString:@"c87af5"]];
+                }
+                if ([_segmentTitleArray[i] isEqualToString:@"jieji"]) {
+                    [dataArray addObject:model.jieji == nil ? @"0.00" : model.jieji];
+                    [titleArray addObject:@"借记卡"];
+                    [colorArray addObject:[UIColor colorWithHexString:@"f5b87a"]];
+                }
+                if ([_segmentTitleArray[i] isEqualToString:@"alipay"]) {
+                    if ([JPUserEntity sharedUserEntity].applyType == 1) {
+                        [dataArray addObject:model.alipay== nil ? @"0.00" : model.alipay];
+                    } else {
+                        [dataArray addObject:model.apqrcode == nil ? @"0.00" : model.apqrcode];
+                    }
+                    
+                    [titleArray addObject:@"支付宝"];
+                    [colorArray addObject:[UIColor colorWithHexString:@"7a93f5"]];
+                }
+                if ([_segmentTitleArray[i] isEqualToString:@"weixin"]) {
+                    if ([JPUserEntity sharedUserEntity].applyType == 1) {
+                        [dataArray addObject:model.weixin == nil ? @"0.00" : model.weixin];
+                    } else {
+                        [dataArray addObject:model.wxqrcode == nil ? @"0.00" : model.wxqrcode];
+                    }
+                    [titleArray addObject:@"微信"];
+                    [colorArray addObject:[UIColor colorWithHexString:@"0ddddd"]];
+                }
+                
+                if ([_segmentTitleArray[i] isEqualToString:@"qqpay"]) {
+                    [dataArray addObject:model.qqpay == nil ? @"0.00" : model.qqpay];
+                    [titleArray addObject:@"QQ钱包"];
+                    [colorArray addObject:[UIColor colorWithHexString:@"#57E191"]];
+                }
+                if ([_segmentTitleArray[i] isEqualToString:@"jdpay"]) {
+                    [dataArray addObject:model.jdpay == nil ? @"0.00" : model.jdpay];
+                    [titleArray addObject:@"京东钱包"];
+                    [colorArray addObject:[UIColor colorWithHexString:@"FC6074"]];
+                }
+                
+                if ([_segmentTitleArray[i] isEqualToString:@"unionpay"]) {
+                    [dataArray addObject:model.unionpay == nil ? @"0.00" : model.unionpay];
+                    [titleArray addObject:@"银联二维码"];
+                    [colorArray addObject:[UIColor colorWithHexString:@"FDD55A"]];
+                }
+                
+            }
+            weakSelf.pieView.segmentDataArray = dataArray;
+            weakSelf.pieView.segmentTitleArray = titleArray;
+            weakSelf.pieView.segmentColorArray = colorArray;
         } else {
             //  一码付商户
-            weakSelf.pieView.segmentDataArray = @[model.wxqrcode, model.apqrcode].mutableCopy;
+            weakSelf.pieView.segmentDataArray = @[model.wxqrcode == nil ? @"0.00" : model.wxqrcode, model.apqrcode == nil ? @"0.00" : model.apqrcode].mutableCopy;
             weakSelf.pieView.segmentTitleArray = @[@"微信", @"支付宝"].mutableCopy;
             weakSelf.pieView.segmentColorArray = @[[UIColor colorWithHexString:@"0ddddd"], [UIColor colorWithHexString:@"7a93f5"]].mutableCopy;
         }
+   
         
         NSInteger todayTotal = [model.todayTotal doubleValue] * 100;
         weakSelf.pieView.ammountLab.text = [NSString stringWithFormat:@"%.2f", todayTotal / 100.0];
@@ -307,11 +485,34 @@
     }];
 }
 
+- (void)rightClick
+{
+    JPNewsViewController * newsvc = [[JPNewsViewController alloc] init];
+    newsvc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:newsvc animated:YES];
+}
+
 #pragma mark - SDCycleScrollViewDelegate
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
+//    IBAdvertisementModel *model = self.adertisementList[index];
+//    JPWebViewController *webVC = [JPWebViewController new];
+//    webVC.urlString = model.detailUrl;
+//    webVC.naviTitle = model.title;
+//    webVC.hidesBottomBarWhenPushed = YES;
+    // !!!: 1.2.2 环球黑卡
     IBAdvertisementModel *model = self.adertisementList[index];
     JPWebViewController *webVC = [JPWebViewController new];
-    webVC.urlString = model.detailUrl;
+    NSString * url = model.detailUrl;
+    NSArray * array = [url componentsSeparatedByString:@"imagePath="];
+    NSLog(@"%@", array);
+    if (array.count >= 2) {
+        if ([array[1] hasPrefix:@"https"]) {
+            webVC.urlString = array[1];
+        } else {
+            webVC.urlString = model.detailUrl;
+        }
+    }
+    
     webVC.naviTitle = model.title;
     webVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:webVC animated:YES];
@@ -417,6 +618,14 @@
         _adertisementList = @[].mutableCopy;
     }
     return _adertisementList;
+}
+
+- (NSArray *)segmentTitleArray
+{
+    if (!_segmentTitleArray) {
+        _segmentTitleArray = [NSArray array];
+    }
+    return _segmentTitleArray;
 }
 
 #pragma mark - Subviews
@@ -527,7 +736,7 @@
     
     if ([JPUserEntity sharedUserEntity].applyType == 2) {
         _leftBtn = [[UIButton alloc] init];
-        _leftBtn.frame = CGRectMake(kScreenWidth - 50, 20, 40, 40);
+        _leftBtn.frame = CGRectMake(10, 20, 40, 40);
         [_leftBtn addTarget:self action:@selector(leftClick) forControlEvents:UIControlEventTouchUpInside];
         _backImg = [[UIImageView alloc] init];
         _backImg.frame = CGRectMake(10, 7, 25, 25);
@@ -540,6 +749,30 @@
         _backImgs.alpha = 0;
         [self.view addSubview:_leftBtn];
     }
+    _rightBtn = [[UIButton alloc] init];
+    _rightBtn.frame = CGRectMake(kScreenWidth - 50, 20, 40, 40);
+    [_rightBtn addTarget:self action:@selector(rightClick) forControlEvents:UIControlEventTouchUpInside];
+    _backImg2 = [[UIImageView alloc] init];
+    _backImg2.frame = CGRectMake(10, 7, 25, 25);
+    _backImg2.image = [UIImage imageNamed:@"jp_home_news"];
+    [_rightBtn addSubview:_backImg2];
+    _backImgs2 = [[UIImageView alloc] init];
+    _backImgs2.frame = CGRectMake(10, 7, 25, 25);
+    _backImgs2.image = [UIImage imageNamed:@"jp_home_news1"];
+    [_rightBtn addSubview:_backImgs2];
+    _backImgs2.alpha = 0;
+    [self.view addSubview:_rightBtn];
+    if ([JPPushHelper badgeNumber] > 0) {
+        _redLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 0, 15, 15)];
+        _redLabel.backgroundColor = [UIColor redColor];
+        _redLabel.textColor = [UIColor whiteColor];
+        _redLabel.textAlignment = NSTextAlignmentCenter;
+        _redLabel.font = [UIFont systemFontOfSize:12];
+        _redLabel.layer.masksToBounds = YES;
+        _redLabel.layer.cornerRadius = 7.5;
+        _redLabel.text = [NSString stringWithFormat:@"%ld", (long)[JPPushHelper badgeNumber]];
+        [_rightBtn addSubview:_redLabel];
+    }
 }
 
 #pragma mark - 导航栏渐变效果
@@ -548,15 +781,19 @@
         _navImageView.alpha = scrollView.contentOffset.y / 180.0;
         _titleLb.alpha = scrollView.contentOffset.y / 180.0;
         _backImg.alpha = 1 - scrollView.contentOffset.y / 180.0;
+        _backImg2.alpha = 1 - scrollView.contentOffset.y / 180.0;
 //        _shareImg.alpha = 1 - scrollView.contentOffset.y / 180.0;
         _backImgs.alpha = scrollView.contentOffset.y / 180.0;
+        _backImgs2.alpha = scrollView.contentOffset.y / 180.0;
 //        _shareImgs.alpha = scrollView.contentOffset.y / 180.0;
     } else if (scrollView.contentOffset.y >= 180.0) {
         _navImageView.alpha = 1.0;
         _titleLb.alpha = 1.0;
         _backImg.alpha = 0;
+        _backImg2.alpha = 0;
 //        _shareImg.alpha = 0;
         _backImgs.alpha = 1;
+        _backImgs2.alpha = 1;
 //        _shareImgs.alpha = 1;
     }
 }

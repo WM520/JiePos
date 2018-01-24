@@ -16,6 +16,7 @@
 #define ActionSheetH [[UIScreen mainScreen] bounds].size.height
 
 @interface ActionSheetView ()
+
 @property (nonatomic,assign) CGFloat LXActionSheetHeight;
 @property (nonatomic,strong) NSArray *shareBtnTitleArray;
 @property (nonatomic,strong) NSArray *shareBtnImgArray;
@@ -23,12 +24,9 @@
 @property (nonatomic,strong) UIView *backGroundView;
 @property (nonatomic,strong) UIView *topsheetView;
 @property (nonatomic,strong) UIButton *cancelBtn;
-
 //头部提示文字Label
 @property (nonatomic,strong) UILabel *proL;
-
 @property (nonatomic,copy) NSString *protext;
-
 @property (nonatomic,assign) ShowType showtype;
 
 @end
@@ -52,12 +50,9 @@
         
         if (type == ShowTypeIsShareStyle) {
             [self loadUiConfig];
-        }
-        else
-        {
+        } else {
             [self loadActionSheetUi];
         }
-        
     }
     return self;
 }
@@ -66,6 +61,7 @@
 {
     [_cancelBtn setTitleColor:cancelBtnColor forState:UIControlStateNormal];
 }
+
 - (void)setProStr:(NSString *)proStr
 {
     _proL.text = proStr;
@@ -131,9 +127,7 @@
     [UIView animateWithDuration:ANIMATE_DURATION animations:^{
         _backGroundView.frame = CGRectMake(0, ActionSheetH-(_shareBtnTitleArray.count*50+50)-7-(_protext.length==0?0:45), ActionSheetW, _shareBtnTitleArray.count*50+50+7+(_protext.length==0?0:45));
     }];
-    
 }
-
 
 - (void)loadUiConfig
 {
@@ -148,9 +142,7 @@
         ActionButton *button = [ActionButton buttonWithType:UIButtonTypeCustom];
         if (_shareBtnImgArray.count%3 == 0) {
             button.frame = CGRectMake(_backGroundView.bounds.size.width/3*(i%3), _LXActionSheetHeight+(i/3)*76, _backGroundView.bounds.size.width/3, 70);
-        }
-        else
-        {
+        } else {
             button.frame = CGRectMake(_backGroundView.bounds.size.width/4*(i%4), _LXActionSheetHeight+(i/4)*76, _backGroundView.bounds.size.width/4, 70);
         }
         
@@ -161,11 +153,9 @@
         [self.topsheetView addSubview:button];
     }
     
-    
     [UIView animateWithDuration:ANIMATE_DURATION animations:^{
         _backGroundView.frame = CGRectMake(7, ActionSheetH-CGRectGetHeight(_backGroundView.frame), ActionSheetW-14, CGRectGetHeight(_backGroundView.frame));
     }];
-    
 }
 
 - (void)BtnClick:(UIButton *)btn
@@ -173,9 +163,7 @@
     [self tappedCancel];
     if (btn.tag<200) {
         _btnClick(btn.tag-100);
-    }
-    else
-    {
+    } else {
         _btnClick(btn.tag-200);
     }
 }
@@ -204,21 +192,16 @@
         if (_showtype == ShowTypeIsShareStyle) {
             if (_shareBtnImgArray.count<5) {
                 _backGroundView.frame = CGRectMake(7, ActionSheetH, ActionSheetW-14, 64+(_protext.length==0?0:45)+76+14);
-            }else
-            {
+            } else {
                 NSInteger index;
                 if (_shareBtnTitleArray.count%4 ==0) {
                     index =_shareBtnTitleArray.count/4;
-                }
-                else
-                {
+                } else {
                     index = _shareBtnTitleArray.count/4 + 1;
                 }
                 _backGroundView.frame = CGRectMake(7, ActionSheetH, ActionSheetW-14, 64+(_protext.length==0?0:45)+76*index+14);
             }
-        }
-        else
-        {
+        } else {
             _backGroundView.frame = CGRectMake(0, ActionSheetH, ActionSheetW, _shareBtnTitleArray.count*50+50+7+(_protext.length==0?0:45));
             _backGroundView.backgroundColor = [UIColor colorWithRed:0.89f green:0.89f blue:0.89f alpha:1.00f];
         }
@@ -228,7 +211,6 @@
     }
     return _backGroundView;
 }
-
 
 - (UIView *)topsheetView
 {
@@ -264,9 +246,7 @@
             _cancelBtn.frame = CGRectMake(0, CGRectGetHeight(_backGroundView.frame)-57, CGRectGetWidth(_backGroundView.frame), 50);
             _cancelBtn.layer.cornerRadius = 4;
             _cancelBtn.clipsToBounds = YES;
-        }
-        else
-        {
+        } else {
             _cancelBtn.frame = CGRectMake(0, CGRectGetHeight(_backGroundView.frame)-50, CGRectGetWidth(_backGroundView.frame), 50);
         }
         
@@ -278,18 +258,5 @@
     return _cancelBtn;
 }
 
-
 @end
-
-
-
-
-
-
-
-
-
-
-
-
 

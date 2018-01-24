@@ -10,4 +10,6 @@
 
 @interface JPBindingSuccessViewController : JPViewController
 
+@property (nonatomic, copy) NSString * numberPhone;
+
 @end

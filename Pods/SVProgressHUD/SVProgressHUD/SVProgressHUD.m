@@ -311,9 +311,9 @@ static const CGFloat SVProgressHUDLabelSpacing = 8.0f;
         [[self sharedView] dismiss];
     }
 }
-
+#warning 延迟消失
 + (void)dismiss {
-    [self dismissWithDelay:0.0 completion:nil];
+    [self dismissWithDelay:1.5 completion:nil];
 }
 
 + (void)dismissWithCompletion:(SVProgressHUDDismissCompletion)completion {

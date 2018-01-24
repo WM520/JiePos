@@ -17,4 +17,5 @@
 
 //直接通过NSLog输出getObjectData方法返回的NSDictionary
 + (void)print:(id)obj;
+
 @end

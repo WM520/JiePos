@@ -66,7 +66,7 @@
                       couponAmt:(NSString *)couponAmt
                        totalAmt:(NSString *)totalAmt
                          unread:(BOOL)unread {
-    
+    NSLog(@"%@", [JPUserEntity sharedUserEntity].merchantNo);
     if (![tenantsNumber isEqualToString:[JPUserEntity sharedUserEntity].merchantNo]) {
         //  如果登陆的账号商户号和推送消息携带的商户号不一致，不执行插入操作
         return;

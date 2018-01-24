@@ -74,13 +74,20 @@
     }];
 }
 
-+ (void)uploadImage:(UIImage *)image isUpdate:(BOOL)isUpdate checkContent:(NSString *)checkContent tagStr:(NSString *)tagStr progress:(ZJNetProgress)progress callback:(JPNetCallback)callback {
++ (void)uploadImage:(UIImage *)image
+           isUpdate:(BOOL)isUpdate
+       checkContent:(NSString *)checkContent
+         qrcodeFlag:(NSString *)qrcodeFlag
+             tagStr:(NSString *)tagStr
+           progress:(ZJNetProgress)progress
+           callback:(JPNetCallback)callback {
     
     NSMutableDictionary *params = @{}.mutableCopy;
     
     //  data里面需要存放string类型的字符串
     NSString *update = isUpdate ? @"true" : @"false";
-    NSString *dataString = [NSString stringWithFormat:@"{\"checkContent\":\"%@\",\"isUpdate\":%@}",checkContent , update];
+//      NSString *dataString = [NSString stringWithFormat:@"{\"checkContent\":\"%@\",\"isUpdate\":%@}",checkContent , update];
+    NSString *dataString = [NSString stringWithFormat:@"{\"checkContent\":\"%@\",\"isUpdate\":%@,\"qrcodeFlag\":\"%@\"}",checkContent , update, qrcodeFlag];
     
     [params setObject:@"JBB11" forKey:@"serviceCode"];
     [params setObject:dataString forKey:@"data"];
@@ -118,6 +125,58 @@
         }
     }];
 }
+
++ (void)uploadImageold:(UIImage *)image
+              isUpdate:(BOOL)isUpdate
+          checkContent:(NSString *)checkContent
+                tagStr:(NSString *)tagStr
+              progress:(ZJNetProgress)progress
+              callback:(JPNetCallback)callback
+{
+    NSMutableDictionary *params = @{}.mutableCopy;
+    
+    //  data里面需要存放string类型的字符串
+    NSString *update = isUpdate ? @"true" : @"false";
+    //      NSString *dataString = [NSString stringWithFormat:@"{\"checkContent\":\"%@\",\"isUpdate\":%@}",checkContent , update];
+    NSString *dataString = [NSString stringWithFormat:@"{\"checkContent\":\"%@\",\"isUpdate\":%@}",checkContent , update];
+    
+    [params setObject:@"JBB11" forKey:@"serviceCode"];
+    [params setObject:dataString forKey:@"data"];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.requestSerializer.timeoutInterval = 20;
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/plain", @"text/html", @"text/json", @"text/javascript,multipart/form-data", @"image/jpeg", @"application/octet-stream", nil];
+    
+    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+    //上传图片/文字，只能同POST
+    [manager POST:JPImgServerUrl parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        NSData *imageData = UIImageJPEGRepresentation(image,1);
+        NSString *str = [NSDate stringFromDate:[NSDate date] withFormat:@"yyyyMMddHHmmssFFF"];
+        NSString *fileName = [NSString stringWithFormat:@"%@.jpg", str];
+        // 注意：这个name一定要和后台的参数字段一样 否则不成功
+        [formData appendPartWithFileData:imageData
+                                    name:@"imgFile"
+                                fileName:fileName
+                                mimeType:@"image/jpg"];
+        
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        if (progress) {
+            progress(1.f * uploadProgress.completedUnitCount / uploadProgress.totalUnitCount);
+        }
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        //上传成功
+        if (callback) {
+            callback(responseObject[@"resultCode"], tagStr, responseObject[@"data"]);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        //上传失败
+        if (callback) {
+            callback (@"-1", @"网络异常，请稍后再试", @{});
+        }
+    }];
+}
+
 
 /** 证件资料列表信息获取*/
 + (void)getInfoListWithType:(NSString *)type callback:(JPNetCallback)callback {
@@ -169,7 +228,11 @@
 }
 
 /** 注册省市区县*/
-+ (void)getRegisterAddressWithParent:(NSString *)parent level:(NSString *)level qrcodeId:(NSString *)qrcodeId callback:(JPNetCallback)callback {
++ (void)getRegisterAddressWithParent:(NSString *)parent
+                               level:(NSString *)level
+                            qrcodeId:(NSString *)qrcodeId
+                          qrcodeFlag:(NSString *)qrcodeFlag
+                            callback:(JPNetCallback)callback {
     
     NSMutableDictionary *params = @{}.mutableCopy;
     NSMutableDictionary *data = @{}.mutableCopy;
@@ -177,8 +240,9 @@
     [data setObject:parent forKey:@"parent"];
     [data setObject:level forKey:@"level"];
     [data setObject:qrcodeId forKey:@"qrcodeId"];
-    
-    [params setObject:@"JBB01" forKey:@"serviceCode"];
+    [data setObject:qrcodeFlag forKey:@"qrcodeFlag"];
+//    [params setObject:@"JBB01" forKey:@"serviceCode"];
+    [params setObject:@"JBB45" forKey:@"serviceCode"];
     [params setObject:data forKey:@"data"];
     
     JPLog(@"params - %@", params);
@@ -209,12 +273,19 @@
 }
 
 /** 商户名称和用户名存在校验*/
-+ (void)vaildBusinessInfoWithCheckCode:(NSString *)checkCode content:(NSString *)content callback:(JPNetCallback)callback {
++ (void)vaildBusinessInfoWithCheckCode:(NSString *)checkCode
+                               content:(NSString *)content
+                            qrcodeFlag:(NSString *)qrcodeFlag
+                              qrCodeId:(NSString *)qrCodeId
+                              callback:(JPNetCallback)callback {
     NSMutableDictionary *params = @{}.mutableCopy;
     NSMutableDictionary *data = @{}.mutableCopy;
     
     [data setObject:checkCode forKey:@"checkCode"];
     [data setObject:content forKey:@"content"];
+    [data setObject:qrcodeFlag forKey:@"qrcodeFlag"];
+    [data setObject:qrCodeId forKey:@"qrCodeId"];
+
     
     [params setObject:@"JBB06" forKey:@"serviceCode"];
     [params setObject:data forKey:@"data"];
@@ -346,5 +417,56 @@
         }
     }];
 }
+
+// 无码商户进件的手机唯一性验证
++ (void)checkIsOnlyPhone:(NSString *)phoneNumber
+                callback:(JPNetCallback)callback
+{
+    NSMutableDictionary *params = @{}.mutableCopy;
+    NSMutableDictionary *data = @{}.mutableCopy;
+    [data setObject:phoneNumber forKey:@"appPhone"];
+    [params setObject:@"JBB41" forKey:@"serviceCode"];
+    [params setObject:data forKey:@"data"];
+    [JPNetworking postUrl_V1_0_2:JPNewServerUrl params:params callback:^(NSString *resultCode, NSString *msg, id resp) {
+        if (callback) {
+            callback (resultCode, msg, resp);
+        }
+    }];
+}
+
+// 无码商户进件的获取手机验证码
++ (void)sendSmsPhoneCode:(NSString *)phoneNumber
+                callback:(JPNetCallback)callback
+{
+    NSMutableDictionary *params = @{}.mutableCopy;
+    NSMutableDictionary *data = @{}.mutableCopy;
+    [data setObject:phoneNumber forKey:@"appPhone"];
+    [params setObject:@"JBB43" forKey:@"serviceCode"];
+    [params setObject:data forKey:@"data"];
+    [JPNetworking postUrl_V1_0_2:JPNewServerUrl params:params callback:^(NSString *resultCode, NSString *msg, id resp) {
+        if (callback) {
+            callback (resultCode, msg, resp);
+        }
+    }];
+}
+
+// 检测验证码是否正确
++ (void)checkCodeIsOK:(NSString *)phoneNumber
+                 code:(NSString *)code
+             callback:(JPNetCallback)callback
+{
+    NSMutableDictionary *params = @{}.mutableCopy;
+    NSMutableDictionary *data = @{}.mutableCopy;
+    [data setObject:phoneNumber forKey:@"appPhone"];
+    [data setObject:code forKey:@"code"];
+    [params setObject:@"JBB44" forKey:@"serviceCode"];
+    [params setObject:data forKey:@"data"];
+    [JPNetworking postUrl_V1_0_2:JPNewServerUrl params:params callback:^(NSString *resultCode, NSString *msg, id resp) {
+        if (callback) {
+            callback (resultCode, msg, resp);
+        }
+    }];
+}
+
 
 @end

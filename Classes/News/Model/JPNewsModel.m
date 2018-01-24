@@ -9,6 +9,7 @@
 #import "JPNewsModel.h"
 
 @implementation JPNewsModel
+
 - (NSInteger)dealID {
     if (!_dealID) {
         _dealID = 0;
@@ -131,4 +132,5 @@
 //    }
 //    _totalAmt = totalAmt;
 //}
+
 @end

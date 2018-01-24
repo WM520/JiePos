@@ -15,4 +15,5 @@
 + (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString;
 + (BOOL)canOpenWeixin;
 + (void)openWeixin;
+
 @end

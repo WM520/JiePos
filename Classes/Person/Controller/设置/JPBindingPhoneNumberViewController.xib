@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="JPBindingPhoneNumberViewController">
             <connections>
+                <outlet property="nextButton" destination="m1U-RS-9Xr" id="nmL-mA-8da"/>
                 <outlet property="numberTextField" destination="d3K-GW-weV" id="Ejd-RK-E6G"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -37,9 +38,9 @@
                     </constraints>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                 </textField>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m1U-RS-9Xr">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m1U-RS-9Xr">
                     <rect key="frame" x="30" y="116" width="315" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="kG7-Mi-F2q"/>
@@ -47,6 +48,7 @@
                     <state key="normal" title="下一步" backgroundImage="jp_merchants_through_bg1">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <state key="highlighted" backgroundImage="jp_button_highlighted"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                             <integer key="value" value="10"/>
@@ -59,7 +61,7 @@
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PBT-us-Mte">
                     <rect key="frame" x="10" y="85" width="355" height="1"/>
-                    <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="Q21-w9-h8d"/>
                     </constraints>
@@ -94,10 +96,11 @@
                 <constraint firstItem="m1U-RS-9Xr" firstAttribute="top" secondItem="PBT-us-Mte" secondAttribute="bottom" constant="30" id="vj7-yv-Ffi"/>
                 <constraint firstItem="m1U-RS-9Xr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="xcQ-ks-UgC"/>
             </constraints>
-            <point key="canvasLocation" x="-79.5" y="27.5"/>
+            <point key="canvasLocation" x="-341" y="-184"/>
         </view>
     </objects>
     <resources>
+        <image name="jp_button_highlighted" width="310" height="45"/>
         <image name="jp_merchants_through_bg1" width="375" height="228"/>
     </resources>
 </document>
