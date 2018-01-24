@@ -539,6 +539,8 @@
                 self.view.hidden = NO;
             }
             return;
+        } else {
+            self.view.hidden = NO;
         }
         [IBProgressHUD showInfoWithStatus:msg];
     }];
