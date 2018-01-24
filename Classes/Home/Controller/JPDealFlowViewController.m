@@ -224,10 +224,10 @@ static NSString *const extentionCellReuseIdentifier = @"extentionCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    JPDealFlowExtentionCell *cell = [tableView dequeueReusableCellWithIdentifier:extentionCellReuseIdentifier];
+    NSString *CellIdentifier = [NSString stringWithFormat:@"Cell%ld%ld", (long)[indexPath section], (long)[indexPath row]];
+    JPDealFlowExtentionCell *cell =  [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
-        cell = [[JPDealFlowExtentionCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:extentionCellReuseIdentifier];
+        cell = [[JPDealFlowExtentionCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     cell.colorType = self.isRed;
     cell.dealModel = self.dataSource[indexPath.section];

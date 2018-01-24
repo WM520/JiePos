@@ -288,19 +288,21 @@
             [self.currentView addSubview:self.note];
         }
         self.note.attributedText = [self getAttributeStringWithKeyStr:@"备注:  " valueStr:dealModel.body originColor:orignColor finalColor:finalColor];
-        if ([JPUserEntity sharedUserEntity].applyType == 1) {
-            [self.note mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(weakSelf.businessID.mas_left);
-                make.top.equalTo(weakSelf.parameter1.mas_bottom).offset(10);
-                make.size.mas_equalTo(CGSizeMake((kScreenWidth - JPRealValue(70)) / 2.0, JPRealValue(24)));
-            }];
-        } else {
-            [self.note mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(weakSelf.businessID.mas_left);
-                make.top.equalTo(weakSelf.platfromNo.mas_bottom).offset(10);
-                make.size.mas_equalTo(CGSizeMake((kScreenWidth - JPRealValue(70)) / 2.0, JPRealValue(24)));
-            }];
-        }
+//        if ([JPUserEntity sharedUserEntity].applyType == 1) {
+//            [self.note mas_makeConstraints:^(MASConstraintMaker *make) {
+//                make.left.equalTo(weakSelf.businessID.mas_left);
+//                make.top.equalTo(weakSelf.parameter1.mas_bottom).offset(10);
+//                make.size.mas_equalTo(CGSizeMake((kScreenWidth - JPRealValue(70)) / 2.0, JPRealValue(24)));
+//            }];
+//        } else {
+        [self.note mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(weakSelf.businessID.mas_left);
+            make.top.equalTo(weakSelf.platfromNo.mas_bottom).offset(10);
+            make.size.mas_equalTo(CGSizeMake((kScreenWidth - JPRealValue(70)) / 2.0, JPRealValue(24)));
+        }];
+//        }
+    } else {
+        [self.note removeFromSuperview];
     }
     
     if ([JPUserEntity sharedUserEntity].applyType == 1) {
