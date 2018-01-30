@@ -2415,7 +2415,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Jiepos.www.JiePos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "45dbd1d8-bb1e-4de1-b3ae-8bdb7cb32df9";
+				PROVISIONING_PROFILE = "bf5ad9e0-a90e-4f52-871a-9c131b7805dd";
 				PROVISIONING_PROFILE_SPECIFIER = "jie baobao dev";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -2518,8 +2518,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Jiepos.www.JiePos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "cb09f433-a5d5-47ec-887d-cf44e3678b3c";
-				PROVISIONING_PROFILE_SPECIFIER = "JieBaoBao Ad Hoc";
+				PROVISIONING_PROFILE = "22df2e46-2603-41af-9ef0-46ce20bfb612";
+				PROVISIONING_PROFILE_SPECIFIER = "JieBaoBao Distribution";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
